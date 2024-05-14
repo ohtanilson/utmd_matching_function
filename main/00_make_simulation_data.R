@@ -75,3 +75,11 @@ generate_data <-
       )
     return(data)
   }
+
+
+
+# save data ----
+# saveRDS(
+#   match_effect_monte_carlo_data, 
+#   file = "output/match_effect_monte_carlo_data.rds"
+# )
