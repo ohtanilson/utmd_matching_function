@@ -1,0 +1,152 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+%\usepackage[top=15truemm]{geometry}
+%\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\setlength{\textwidth}{\paperwidth}     % ひとまず紙面を本文領域に
+\setlength{\oddsidemargin}{-5.4truemm}  % 左の余白を20mm(=1inch-5.4mm)に
+\setlength{\evensidemargin}{-5.4truemm} % 
+\addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
+\renewcommand{\baselinestretch}{0.3}
+\newtheorem{proposition}{Proposition}
+
+\setcounter{MaxMatrixCols}{20}
+
+\usepackage{setspace}
+\setstretch{1.2}
+\begin{document}
+\title{A Note on Finite Sample Performance of \cite{lange2020beyond}}
+\author{Suguru Otani\thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo}}
+\maketitle
+
+\begin{abstract}
+\noindent
+%150 words:
+XXX
+
+%100 words AER
+\textbf{Keywords}: XXX \\
+\textbf{JEL code}: XXX
+\end{abstract}
+
+\section{Introduction}
+
+\begin{itemize}
+    \item 
+\end{itemize}
+
+\section{Model}
+We consider the matching function $m_t(\cdot)$ that maps period-$t$ unemployed $U_t$, per-capita search efficacy/matching efficiency of the unemployed $A_t$, and vacancies $V_t$ into hires $H_t$.
+We assume that the underlying data generating process is stationary and that we observe a long enough time-series so that we can treat the joint distribution $G: \mathbb{R}_{+}^3 \rightarrow[0,1]$ of $\left(H_t, U_t, V_t\right)$ as observed. 
+Also, denote by $F(A, U)$ the joint distribution of $A$ and $U$.
+
+We identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
+First, we assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
+Second, we assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
+Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$. Their proof is an application of \cite{matzkin2003nonparametric}.
+
+
+
+\section{Monte Carlo Simulation}
+Parameters setting is summarized in Table \ref{tb:parameter_setting}.
+For time $t=0,\cdots, T$, we generate the observable and unobservable components as follows.
+\begin{itemize}
+    \item Generate data on $(U_t,V_t,A_t)$ as the following stationary AR(1) process.
+    \begin{align*}
+        U_t &= \exp(u_t)\kappa,\quad u_t= \rho^{U} u_{t-1} + \varepsilon_{t}^{U}\\
+        V_t &= \exp(v_t)\kappa,\quad v_t= \rho^{V} v_{t-1} + \varepsilon_{t}^{V} \\
+        A_t &= \exp(a_t),\quad a_{t}=\rho^{A} a_{t-1} + \varepsilon_{t}^{A}.
+    \end{align*}
+    \item Generate data on $H_t$ from  $m(A_t U_t,V_t)$ satisfying constant return to scale as follows.
+    \begin{align*}
+        H_t&= m(A_t U_t,V_t)\\
+        &=\gamma A_t U_t + \gamma V_t .
+    \end{align*}
+    \item Determine $(U_0,V_0,A_0)$ at the time $t$ in which $U_t=Median(U)$. 
+\end{itemize}
+
+
+\begin{table}[!htbp]
+    \caption{True parameters and distributions}
+    \label{tb:parameter_setting}
+    \begin{center}
+    \subfloat[Parameters]{
+    \begin{tabular}{cr}
+            \hline
+            $\rho^{U},\rho^{V},\rho^{A}$ & $\{0.1,0.2\}$ \\
+            $\kappa$ & $1000$ \\
+            $\gamma$ & $0.001$ \\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Distributions]{
+    \begin{tabular}{crr}
+            \hline
+            error on observables&  \\
+            $\varepsilon_{t}^{U},\varepsilon_{t}^{V},\varepsilon_{t}^{A}$ & $N(0,1)$  \\
+            \hline
+            Kernel issue&  \\
+            $K(\cdot,\cdot)$ & $Gaussian$  \\
+            $h$ & 0.1\\
+            \hline
+        \end{tabular}
+    }
+    \subfloat[Specification ]{
+    \begin{tabular}{crr}
+            \hline
+            $m(A_t U_t,V_t)=$ &  \\
+            (1) Cobb-Douglas & $(A_t U_t)^{\gamma} V_t^{1-\gamma}$\\
+            (2) Perfect substitutes & $\gamma A_t U_t + \gamma V_t$\\
+            (3) Fixed proportions & $\min\{\gamma A_t U_t, \gamma V_t\}$ \\
+            \hline
+        \end{tabular}
+    }
+    \end{center}
+    \footnotesize
+    Note: $N:$ Normal distribution. $U:$ Uniform distribution.
+\end{table}
+
+
+\section{Conclusion}
+
+
+\paragraph{Acknowledgments}
+
+
+
+\bibliographystyle{ecca}
+\bibliography{matching_function}
+
+\end{document}
+
+
+
+
+
+
+
+
+
