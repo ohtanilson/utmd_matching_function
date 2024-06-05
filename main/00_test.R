@@ -231,4 +231,26 @@ legend(
   lty=1,
   col=1:2
   )
+data <-
+  cbind(
+    data,
+    A
+    )%>% 
+  dplyr::mutate(
+    efficiency_unemployed =
+      unemployed*A
+  )
+
+res <-
+  lm(hire ~ vacancy + efficiency_unemployed,
+   data = data)
+elasticity_vacancy <-
+  res$coefficients["efficiency_unemployed"] *
+  (data$efficiency_unemployed/data$hire)
+plot(ts(elasticity_vacancy))
+elasticity_unemployed <-
+  res$coefficients["vacancy"] *
+  (data$vacancy/data$hire)
+plot(ts(elasticity_unemployed))
+
 
