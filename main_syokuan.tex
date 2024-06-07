@@ -38,7 +38,7 @@
 \usepackage{setspace}
 \setstretch{1.2}
 \begin{document}
-\title{Matching Efficiency in the labor markets in Japan, 1966-2024}
+\title{Matching Efficiency in the labor markets in Japan, 1966-2024: Nonparametric Approach}
 \author{Suguru Otani\thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo}}
 \maketitle
 
@@ -93,51 +93,63 @@ Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifie
 
 \subsection{Year-level trends in 1966-2023}
 
-\begin{table}[!htbp]
+Figure \ref{fg:year_level_results}
+
+\begin{figure}[!ht]
   \begin{center}
-      \caption{Year-level results}
-      \subfloat[Unemployed: Labor supply]{
-      %\input{figuretable/demand_estimate_results_after_1973_before_1990}
-      }
-      \subfloat[Vacancies: Labor demand]{
-      %\input{figuretable/cost_estimate_results_after_1973_before_1990.tex}
-      }
-      \subfloat[Matching Efficiency]{
-      %\input{figuretable/cost_estimate_results_after_1973_before_1990.tex}
-      } \\
-      \subfloat[Beveridge Curve；X=U,Y=V]{
-      %\input{figuretable/cost_estimate_results_after_1973_before_1990.tex}
-      } 
-      \subfloat[Elasticity plot]{
-      %\input{figuretable/cost_estimate_results_after_1973_before_1990.tex}
-      }
-      \subfloat[ The (logarithm of) job finding rate ($H/U$), Efficiency ($A$), and labor market tightness ($V/U$)]{
-      %\input{figuretable/cost_estimate_results_after_1973_before_1990.tex}
-      }
-      \label{tb:year_level_results} 
+  \subfloat[$U_{t}$ and $V_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/unemployed_year.png}}
+  \subfloat[$H_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/hire_year.png}}
+  \subfloat[Bevaledge Curve]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/matching_efficiency_year.png}}\\
+  \subfloat[$A_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/matching_efficiency_year.png}}
+  \subfloat[$dM/dU,dM/dV$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/elasticity_year.png}}
+  \subfloat[$A$ vs TIghtness $V/U$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/elasticity_year.png}}
+  \caption{Year-level results}
+  \label{fg:year_level_results} 
   \end{center}
   \footnotesize
-  Note: Sample size is 108, i.e., six routes in 1973-1990. 
-\end{table} 
+  %Note: 
+\end{figure} 
+
+
 
 \begin{itemize}
-    \item unemployed workers and vacancies plot like Figure 1 and 2 of \cite{lange2020beyond}
-    \item Beveridge Curve like Figure 3 of \cite{lange2020beyond}
-    %\item Fitted and actual hires plot like Figure 4 of \cite{lange2020beyond}
-    \item Matching Efficiency plot like Figure 7 of \cite{lange2020beyond}
-    \item Elasticity plot like Figure 6 of \cite{lange2020beyond}
+    \item 
     \item The (logarithm of) job finding rate ($H/U$) and labor market tightness ($V/U$) like Figure 1 of \cite{borowczyk2013accounting}
     
 \end{itemize}
 
 \subsection{Month-level trends in 1966-2023}
 
+Figure \ref{fg:month_level_results}
+
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[$U_{t}$ and $V_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/unemployed_month.png}}
+  \subfloat[$H_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/hire_month.png}}
+  \subfloat[Bevaledge Curve]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/matching_efficiency_month.png}}\\
+  \subfloat[$A_{t}$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/matching_efficiency_month.png}}
+  \subfloat[$dM/dU,dM/dV$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/elasticity_month.png}}
+  \subfloat[$A$ vs TIghtness $V/U$]{\includegraphics[width = 0.3\textwidth]
+  {figuretable/elasticity_month.png}}
+  \caption{Month-level results}
+  \label{fg:month_level_results} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+
 \begin{itemize}
-    \item unemployed workers and vacancies plot like Figure 1 and 2 of \cite{lange2020beyond}
-    \item Beveridge Curve like Figure 3 of \cite{lange2020beyond}
-    %\item Fitted and actual hires plot like Figure 4 of \cite{lange2020beyond}
-    \item Matching Efficiency plot like Figure 7 of \cite{lange2020beyond}
-    \item Elasticity plot like Figure 6 of \cite{lange2020beyond}
     \item The (logarithm of) job finding rate ($H/U$) and labor market tightness ($V/U$) like Figure 1 of \cite{borowczyk2013accounting}
     
 \end{itemize}
