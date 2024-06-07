@@ -55,21 +55,21 @@ XXX
 \section{Introduction}
 
 \begin{itemize}
-    \item Research question: How has the matching efficiency in the labor market for the unemployed and the scouting platform for the employed changed?
+    \item Research question: How has the matching efficiency in the labor market for the unemployed workers changed in Japan in 1966-2024?
 \end{itemize}
 
 \begin{itemize}
-    \item Japan studies? \cite{kawata2021first}, \cite{fukai2021describing}
+    \item Japan studies? \cite{fukai2021describing}
 \end{itemize}
 
 \section{Data}
 
 I separately use year-level aggregate data in 1966-2023 and month-level aggregate data in 2002 (January)-2024 (April) of the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes annual reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
 Hello Work is a government-operated institution in Japan that provides job seekers with employment counseling, job placement services, and vocational training and plays a critical role in Japan's labor market.
+For example, \cite{kawata2021first} construct a simple framework to measure the impacts of an economic shock on unemployed workers’ welfare quantitatively and apply their method to Hello Work data in their companion project.\footnote{\url{https://www.crepe.e.u-tokyo.ac.jp/material/crepecl12.html}: Accessed 2024 June 6.}
 The period for each dataset is selected to ensure the longest consistent timeframe available at the time of writing this paper.
 
-For reference, \cite{petrongolo2001looking} summarize the early aggregate studies based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. 
-In short, the hire elasticity with respect to unemployment is in the range 0.5–0.7.
+
 
 
 \section{Model}
@@ -93,21 +93,29 @@ Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifie
 
 \subsection{Year-level trends in 1966-2023}
 
+For reference, \cite{petrongolo2001looking} summarize the early aggregate studies based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. 
+In short, the hire elasticity with respect to unemployment is in the range 0.5–0.7.
+
 Figure \ref{fg:year_level_results}
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[$U_{t}$ and $V_{t}$]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/unemployed_vacancy_year.png}}
-  \subfloat[$H_{t}$]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/hire_year.png}}\\
-  \subfloat[Bevaledge Curve]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Bevaledge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/unemployed_vacancies_berveridge_year.png}}
-  \subfloat[$A_{t}$]{\includegraphics[width = 0.45\textwidth]
-  {figuretable/matching_efficiency_year.png}}\\
-  \subfloat[$dM/dU,dM/dV$]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Log job finding rate and tightness]{\includegraphics[width = 0.38\textwidth]
   {figuretable/elasticity_year.png}}
-  \subfloat[$A$ and Tightness $V/U$]{\includegraphics[width = 0.45\textwidth]
+  \\
+  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/matching_efficiency_year.png}}
+  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/elasticity_year.png}}\\
+  \subfloat[Efficiency ($A$) and Tightness ($V/U$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/efficiency_tightness_plot_year.png}}
+  \subfloat[Efficiency ($A$) and job finding rate ($M/U$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/efficiency_tightness_plot_year.png}}
   \caption{Year-level results}
   \label{fg:year_level_results} 
@@ -130,18 +138,23 @@ Figure \ref{fg:month_level_results}
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[$U_{t}$ and $V_{t}$]{\includegraphics[width = 0.45\textwidth]
+ \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/unemployed_vacancy_month.png}}
-  \subfloat[$H_{t}$]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/hire_month.png}}\\
-  \subfloat[Bevaledge Curve]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Bevaledge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.38\textwidth]
   {figuretable/unemployed_vacancies_berveridge_month.png}}
-  \subfloat[$A_{t}$]{\includegraphics[width = 0.45\textwidth]
-  {figuretable/matching_efficiency_month.png}}\\
-  \subfloat[$dM/dU,dM/dV$]{\includegraphics[width = 0.45\textwidth]
+  \subfloat[Log job finding rate and tightness]{\includegraphics[width = 0.38\textwidth]
   {figuretable/elasticity_month.png}}
-  \subfloat[$A$ and Tightness $V/U$]{\includegraphics[width = 0.45\textwidth]
-  {figuretable//efficiency_tightness_plot_month.png}}
+  \\
+  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/matching_efficiency_month.png}}
+  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/elasticity_month.png}}\\
+  \subfloat[Efficiency ($A$) and Tightness ($V/U$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/efficiency_tightness_plot_month.png}}
+  \subfloat[Efficiency ($A$) and job finding rate ($M/U$)]{\includegraphics[width = 0.38\textwidth]
+  {figuretable/efficiency_tightness_plot_month.png}}
   \caption{Month-level results}
   \label{fg:month_level_results} 
   \end{center}
