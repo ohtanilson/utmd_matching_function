@@ -237,7 +237,7 @@ x <-
   ggplot(
     utmd_output_hello_work_data_yearly,
     aes(
-      x = as.numeric(time),
+      x = time,
       y = efficiency_implied,
       group = 1
       )
@@ -469,7 +469,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
@@ -605,7 +605,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("") +
   #ylab("Count (0.01 million)") +
@@ -649,7 +649,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8))+
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("A (normalized to 2002 Jan)") +
   #geom_vline(xintercept = 2002, linetype = "longdash") +
