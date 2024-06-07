@@ -18,93 +18,65 @@ library(ggplot2)
 library(modelsummary) # for N in datasummary
 
 utmd_output_hello_work_data <-
-  readRDS(file = here::here("output/utmd_output_hello_work_data.rds"))
+  readRDS(file = here::here("output/utmd_output_hello_work_data.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count
+  )
 utmd_output_hello_work_data_yearly <-
-  readRDS(file = here::here("output/utmd_output_hello_work_data_yearly.rds"))
+  readRDS(file = here::here("output/utmd_output_hello_work_data_yearly.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count
+  )
 ```
 
 ## Figure 1: Year-level trends in 1966-2023 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### U
+### U and V
 
 ```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data_yearly %>% 
+  dplyr::select(
+    `unemployed`,
+    `vacancies`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
 x <- 
   ggplot(
-    utmd_output_hello_work_data_yearly,
+    temp,
     aes(
       x = time,
-      y = candidate_count/10000,
-      color = industry_group_name, 
-      group = industry_group_name
+      y = count/10000,
+      color = type, 
+      group = type
       )
     ) +
   geom_line(
     alpha = 0.9, 
     size = 0.5
     ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
   theme_classic() + 
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
-  xlab("")  +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  xlab("") +
+  ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_year.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-
-```
-
-### V
-
-```{r,echo=FALSE,results = "asis"}
-x <- 
-  ggplot(
-    utmd_output_hello_work_data_yearly,
-    aes(
-      x = time,
-      y = position_count/10000,
-      color = industry_group_name, 
-      group = industry_group_name
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
-  xlab("")+
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/vacancy_year.png"
+  "../figuretable/unemployed_vacancy_year.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -141,7 +113,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
@@ -157,7 +129,42 @@ ggsave(filename = figure_name,
 
 ```
 
+### Beveridge Curve；X=U,Y=V
 
+```{r,echo=FALSE,results = "asis"}
+x <- 
+  ggplot(
+    utmd_output_hello_work_data_yearly,
+     aes(
+       x = unemployed/10000,
+       y = vacancies/10000
+       )
+     ) +
+  geom_line(size = 0.5) +
+  geom_point() +
+  geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    title = "Beveridge Curve",
+    x = "U",
+    y = "V"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/unemployed_vacancies_berveridge_year.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
 
 ### Matching Efficiency A
 
@@ -187,7 +194,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8))+
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("Matching Efficiency (normalized to initial date)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
@@ -203,7 +210,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Elasticity dM/dU,dM/dV
+### Elasticity dlogM/dlogU,dlogM/dlogV
 
 ```{r,echo=FALSE,results = "asis"}
 x <- 
@@ -231,7 +238,7 @@ x <-
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8))+
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("Matching elasticity w.r.t. num workers") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
@@ -247,7 +254,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Beveridge Curve；X=U,Y=V
+
 
 
 ### The (logarithm of) job finding rate ($H/U$), Efficiency ($A$), and labor market tightness ($V/U$)
@@ -257,41 +264,48 @@ ggsave(filename = figure_name,
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### candidate_count
+### U and V
 
 ```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data %>% 
+  dplyr::select(
+    `unemployed`,
+    `vacancies`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
 x <- 
   ggplot(
-    utmd_output_hello_work_data,
+    temp,
     aes(
       x = time,
-      y = candidate_count/10000,
-      color = industry_group_name, 
-      group = industry_group_name
+      y = count/10000,
+      color = type, 
+      group = type
       )
     ) +
   geom_line(
     alpha = 0.9, 
     size = 0.5
     ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
   theme_classic() + 
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=0.1)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
+  ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_month.png"
+  "../figuretable/unemployed_vacancy_month.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -301,51 +315,8 @@ ggsave(filename = figure_name,
 
 ```
 
-### position_count
 
-```{r,echo=FALSE,results = "asis"}
-x <- 
-  ggplot(
-    utmd_output_hello_work_data,
-    aes(
-      x = time,
-      y = position_count/10000,
-      color = industry_group_name, 
-      group = industry_group_name
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  xlab("") +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/vacancy_month.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-
-x
-```
-
-
-### hire_count
+### H
 
 ```{r,echo=FALSE,results = "asis"}
 x <- 
@@ -387,9 +358,44 @@ ggsave(filename = figure_name,
 
 ```
 
+### Beveridge Curve；X=U,Y=V
 
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_hello_work_data,
+     aes(
+       x = unemployed/10000,
+       y = vacancies/10000
+       )
+     ) +
+  geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    title = "Beveridge Curve",
+    x = "U",
+    y = "V"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/unemployed_vacancies_berveridge_month.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
 
-### matching_efficiency
+### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
 x <- 
@@ -432,7 +438,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### elasticity of matching w.r.t candidate_count
+### Elasticity dlogM/dlogU,dlogM/dlogV
 
 ```{r,echo=FALSE,results = "asis"}
 x <- 
@@ -477,7 +483,7 @@ x
 ```
 
 
-### Beveridge Curve；X=U,Y=V
+
 
 
 ### The (logarithm of) job finding rate ($H/U$), Efficiency ($A$), and labor market tightness ($V/U$)
