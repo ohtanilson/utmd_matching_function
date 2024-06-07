@@ -260,7 +260,7 @@ x <-
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("A (normalized to 2002)") +
-  geom_vline(xintercept = 2002, linetype = "longdash") +
+  geom_vline(xintercept = "2002", linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
