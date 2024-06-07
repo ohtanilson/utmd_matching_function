@@ -38,7 +38,7 @@
 \usepackage{setspace}
 \setstretch{1.2}
 \begin{document}
-\title{Matching Efficiency in the labor markets in Japan, 1966-2024: Nonparametric Approach}
+\title{Matching Efficiency in Labor Markets via Public Employment Security Offices in Japan, 1966-2024: A Nonparametric Approach}
 \author{Suguru Otani\thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo}}
 \maketitle
 
@@ -60,32 +60,41 @@ XXX
 
 \begin{itemize}
     \item Japan studies? \cite{fukai2021describing}
+    \item Matching function and Geographical heterogeneity \cite{higashi2018spatial,kano2005estimating}
+    \item Mismatch \cite{kawata2019,csahin2014mismatch,kawata2016multi}
+    \item Matching function \cite{kambayashi2006vacancy}
 \end{itemize}
 
 \section{Data}
 
-I separately use year-level aggregate data in 1966-2023 and month-level aggregate data in 2002 (January)-2024 (April) of the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes annual reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
+I separately use the Report on Employment Service (\textit{Shokugyo Antei Gyomu Tokei}) for year-level aggregate data in 1966-2023 and month-level aggregate data in 2002 (January)-2024 (April) of the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes annual reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
 Hello Work is a government-operated institution in Japan that provides job seekers with employment counseling, job placement services, and vocational training and plays a critical role in Japan's labor market.
-For example, \cite{kawata2021first} construct a simple framework to measure the impacts of an economic shock on unemployed workers’ welfare quantitatively and apply their method to Hello Work data in their companion project.\footnote{\url{https://www.crepe.e.u-tokyo.ac.jp/material/crepecl12.html}: Accessed 2024 June 6.}
+For example, \cite{kawata2021first} construct a simple framework to measure the impacts of an economic shock on unemployed workers’ welfare quantitatively and apply their method to Hello Work data in their companion project.\footnote{\url{https://www.crepe.e.u-tokyo.ac.jp/material/crepecl12.html}: Accessed 2024 June 6.} 
 The period for each dataset is selected to ensure the longest consistent timeframe available at the time of writing this paper.
+
+Note that \cite{kawata2019} and \cite{higashi2018spatial} focus on worker-job mismatch across regions and occupation categories after 2012, but I do not consider these submarkets because of the revision of job classifications before and after 2012, which makes it difficult to accurately connect the data.
 
 
 
 
 \section{Model}
-Our main interest is in matching efficiency and matching elasticity with respect to the number of unemployed workers and vacancies in the labor market in Japan.
-This matching function matters and depends on random search from both sides of the market, that is, individuals seeking jobs represent the supply of labor and recruiters represent the demand for labor.
-To estimate the matching function and recover matching efficiency, I follow the novel nonparametric approach proposed by \cite{lange2020beyond}.\footnote{\cite{lange2020beyond} additionally incorporate search effort \citep{mukoyama2018job} and recruitment index \citep{davis2013establishment}. Unfortunately, our Hello Work data does not report the information.}
+Our main interest is in matching efficiency and matching elasticity with respect to the number of unemployed workers and vacancies in the labor market via Public Employment Security Offices in Japan.
+A matching function based on search models plays a central role in labor economics.\footnote{See \cite{pissarides2000equilibrium,petrongolo2001looking}, and \cite{rogerson2005search} for reference.} 
+The matching function relies on random search from both sides of the market, that is, individuals seeking jobs represent the supply of labor and recruiters represent the demand for labor.
+To estimate the matching function and recover matching efficiency, I follow the novel approach proposed by \cite{lange2020beyond}.\footnote{\cite{lange2020beyond} additionally incorporate search effort \citep{mukoyama2018job} and recruitment index \citep{davis2013establishment}. Unfortunately, our Hello Work data does not report the information.}
+The paper points out the endogeneity problem of matching efficiency \citep{borowczyk2013accounting} and proposes nonparametric identification and estimation of matching efficiency under standard conditions introduced later.
 
 Let unscripted capital letters $(A, U, V)$ denote random variables while realizations are subscripted by time $t$. 
-We consider the matching function $m_t(\cdot,\cdot)$ that maps period-$t$ unemployed workers $U_t$, per-capita search efficacy/matching efficiency of the unemployed workers $A_t$, and vacancies $V_t$ into hires $H_t$.
-We assume that the underlying data generating process is stationary and that we observe a long enough time-series so that we can treat the joint distribution $G: \mathbb{R}_{+}^3 \rightarrow[0,1]$ of $\left(H_t, U_t, V_t\right)$ as observed. 
+I consider the matching function $m_t(\cdot,\cdot)$ that maps period-$t$ unemployed workers $U_t$, per-capita search efficacy/matching efficiency of the unemployed workers $A_t$, and vacancies $V_t$ into hires $H_t$.
+I assume that the underlying data generating process is stationary and that I observe a long enough time-series so that I can treat the joint distribution $G: \mathbb{R}_{+}^3 \rightarrow[0,1]$ of $\left(H_t, U_t, V_t\right)$ as observed. 
 Also, denote by $F(A, U)$ the joint distribution of $A$ and $U$.
 
-We identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
-First, we assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
-Second, we assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
+I identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
+First, I assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
+Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
 Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$. Their proof is an application of \cite{matzkin2003nonparametric}.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details. The paper investigates finite sample performance and methodological extension with Monte Carlo simulation. The code is available on the author's Github.}}
+
+Estimation XXX.
 
 
 
@@ -96,27 +105,29 @@ Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifie
 For reference, \cite{petrongolo2001looking} summarize the early aggregate studies based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. 
 In short, the hire elasticity with respect to unemployment is in the range 0.5–0.7.
 
-Figure \ref{fg:year_level_results}
+Figures \ref{fg:year_level_results} (a)-(d) provide year-level date patterns of unemployed, vacancies, hires, Beveridge curve, job finding rate ($M/U$), and labor market tightness ($V/U$). 
+Figures \ref{fg:year_level_results} (e) and (f) show estimation results of the matching function along with matching efficiency and elasticities ($\frac{dM}{dU}$ and $\frac{dM}{dV}$).
+Figures \ref{fg:year_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure such as labor market tightness, job filling rate, and job finding rate.
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/unemployed_vacancy_year.png}}
-  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/hire_year.png}}\\
-  \subfloat[Bevaledge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Beveridge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/unemployed_vacancies_berveridge_year.png}}
-  \subfloat[Log job finding rate and tightness]{\includegraphics[width = 0.38\textwidth]
-  {figuretable/elasticity_year.png}}
+  \subfloat[Job finding rate ($\frac{M}{U}$) and Tightness  ($\frac{V}{U}$)]{\includegraphics[width = 0.375\textwidth]
+  {figuretable/job_finding_rate_tightness_year.png}}
   \\
-  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/matching_efficiency_year.png}}
-  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/elasticity_year.png}}\\
-  \subfloat[Efficiency ($A$) and Tightness ($V/U$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Efficiency ($A$) and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/efficiency_tightness_plot_year.png}}
-  \subfloat[Efficiency ($A$) and job finding rate ($M/U$)]{\includegraphics[width = 0.38\textwidth]
-  {figuretable/efficiency_tightness_plot_year.png}}
+  \subfloat[Efficiency ($A$) and ($\frac{M}{U}$, $\frac{M}{V}$)]{\includegraphics[width = 0.375\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_year.png}}
   \caption{Year-level results}
   \label{fg:year_level_results} 
   \end{center}
@@ -125,36 +136,32 @@ Figure \ref{fg:year_level_results}
 \end{figure} 
 
 
-
-\begin{itemize}
-    \item 
-    \item The (logarithm of) job finding rate ($H/U$) and labor market tightness ($V/U$) like Figure 1 of \cite{borowczyk2013accounting}
-    
-\end{itemize}
-
 \subsection{Month-level trends in 1966-2023}
 
-Figure \ref{fg:month_level_results}
+Figures \ref{fg:month_level_results} provide a month-level counterpart of Figure \ref{fg:year_level_results}. 
+Note that I normalize matching efficiency at 2002 January to 100 for comparison across Figure \ref{fg:month_level_results} and Figure \ref{fg:year_level_results}.
+Figures \ref{fg:month_level_results} (e) and (f) show estimation results of the matching function along with matching efficiency and elasticities.
+Figures \ref{fg:month_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure such as labor market tightness, job filling rate, and job finding rate.
 
 \begin{figure}[!ht]
   \begin{center}
- \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.38\textwidth]
+ \subfloat[Unemployed ($U_{t}$) and Vacancy ($V_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/unemployed_vacancy_month.png}}
-  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Hire ($H_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/hire_month.png}}\\
-  \subfloat[Bevaledge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Beveridge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/unemployed_vacancies_berveridge_month.png}}
-  \subfloat[Log job finding rate and tightness]{\includegraphics[width = 0.38\textwidth]
-  {figuretable/elasticity_month.png}}
+  \subfloat[Job finding rate ($\frac{M}{U}$) and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.375\textwidth]
+  {figuretable/job_finding_rate_tightness_month.png}}
   \\
-  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/matching_efficiency_month.png}}
-  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Matching Elasticity ($\frac{dM}{dU}$ and $\frac{dM}{dV}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/elasticity_month.png}}\\
-  \subfloat[Efficiency ($A$) and Tightness ($V/U$)]{\includegraphics[width = 0.38\textwidth]
+  \subfloat[Efficiency ($A$) and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.375\textwidth]
   {figuretable/efficiency_tightness_plot_month.png}}
-  \subfloat[Efficiency ($A$) and job finding rate ($M/U$)]{\includegraphics[width = 0.38\textwidth]
-  {figuretable/efficiency_tightness_plot_month.png}}
+  \subfloat[Efficiency ($A$) and ($\frac{M}{U}$, $\frac{M}{V}$)]{\includegraphics[width = 0.375\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_month.png}}
   \caption{Month-level results}
   \label{fg:month_level_results} 
   \end{center}
@@ -162,15 +169,14 @@ Figure \ref{fg:month_level_results}
   %Note: 
 \end{figure} 
 
-\begin{itemize}
-    \item The (logarithm of) job finding rate ($H/U$) and labor market tightness ($V/U$) like Figure 1 of \cite{borowczyk2013accounting}
-    
-\end{itemize}
 
 \section{Conclusion}
 
+aa
+
 
 \paragraph{Acknowledgments}
+I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto for his valuable advice. \textcolor{blue}{This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.[KAKENHI number]}
 
 
 
