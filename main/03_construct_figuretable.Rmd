@@ -172,6 +172,64 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
+### Job finding rate and market tightness
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data_yearly %>% 
+  dplyr::mutate(
+    `log(V/U)` =
+      log(`vacancies`/`unemployed`),
+    `log(M/U)` =
+      log(`hire`/`unemployed`)
+  ) %>% 
+  dplyr::select(
+    `log(V/U)`,
+    `log(M/U)`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+x <- 
+  ggplot(
+    temp,
+    aes(
+      x = time,
+      y = count,
+      color = type, 
+      group = type
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  xlab("") +
+  ylab("") +
+  #ylab("Count (0.01 million)") +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/job_finding_rate_tightness_year.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+
+
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
@@ -274,7 +332,7 @@ ggsave(filename = figure_name,
 
 
 
-### The (logarithm of) job finding rate ($H/U$), Efficiency ($A$), and labor market tightness ($V/U$)
+### The labor market tightness ($V/U$) and Efficiency ($A$)
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -310,6 +368,68 @@ ggsave(filename = figure_name,
        width = 4,
        height = 3)
 ```
+
+### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$)
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data_yearly %>% 
+  dplyr::mutate(
+    `log(M/U)` =
+      log(`hire`/`unemployed`),
+    `log(M/V)` =
+      log(`hire`/`vacancies`)
+  ) %>% 
+  dplyr::select(
+    `log(M/U)`,
+    `log(M/V)`,
+    efficiency_implied
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - efficiency_implied
+  )
+
+x <-
+  ggplot(
+    temp,
+    aes(
+      x = count,
+      y = efficiency_implied,
+      color = type, 
+      group = type
+      )
+    ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "log(M/U), log(M/V)",
+    y = "A"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/job_finding_rate_efficiency_plot_year.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+
 
 
 ## Figure 2: Month-level trends in 2002-2024 {.tabset}
@@ -446,6 +566,63 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
+### Job finding rate and market tightness
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data %>% 
+  dplyr::mutate(
+    `log(V/U)` =
+      log(`vacancies`/`unemployed`),
+    `log(M/U)` =
+      log(`hire`/`unemployed`)
+  ) %>% 
+  dplyr::select(
+    `log(V/U)`,
+    `log(M/U)`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+x <- 
+  ggplot(
+    temp,
+    aes(
+      x = time,
+      y = count,
+      color = type, 
+      group = type
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  xlab("") +
+  ylab("") +
+  #ylab("Count (0.01 million)") +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/job_finding_rate_tightness_month.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
@@ -548,7 +725,7 @@ x
 
 
 
-### The (logarithm of) job finding rate ($H/U$), Efficiency ($A$), and labor market tightness ($V/U$)
+### The labor market tightness ($V/U$) and Efficiency ($A$)
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -572,12 +749,74 @@ x <-
     plot.title = element_text(hjust = 0.5),
     plot.caption = element_text(hjust = 0, size = 8)
   ) +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
 figure_name <-
   "../figuretable/efficiency_tightness_plot_month.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$)
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_hello_work_data %>% 
+  dplyr::mutate(
+    `log(M/U)` =
+      log(`hire`/`unemployed`),
+    `log(M/V)` =
+      log(`hire`/`vacancies`)
+  ) %>% 
+  dplyr::select(
+    `log(M/U)`,
+    `log(M/V)`,
+    efficiency_implied
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - efficiency_implied
+  )
+
+x <-
+  ggplot(
+    temp,
+    aes(
+      x = count,
+      y = efficiency_implied,
+      color = type, 
+      group = type
+      )
+    ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "log(M/U), log(M/V)",
+    y = "A"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/job_finding_rate_efficiency_plot_month.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
