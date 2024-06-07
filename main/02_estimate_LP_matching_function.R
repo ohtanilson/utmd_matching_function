@@ -7,6 +7,7 @@ hello_work_data <-
   readRDS(file = here::here("cleaned/hello_work_data.rds"))
 hello_work_data_yearly <-
   readRDS(file = here::here("cleaned/hello_work_data_yearly.rds"))
+
 # set constant ----
 maxA <-
   1000  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
@@ -119,8 +120,8 @@ estimate_efficiency <-
       #   data$vacancy, 
       #   probs = 0.50
       # )
-      data$vacancy[1] # initial date
-    
+      #data$vacancy[1] # initial date
+      as.numeric(data[data$year == "2002","vacancy"][1,]) # 2002 Jan
     # Find the index of the closest value to vstar in v
     point_vstar <- 
       which.min(abs(data$vacancy - vstar))
