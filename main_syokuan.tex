@@ -92,9 +92,10 @@ Also, denote by $F(A, U)$ the joint distribution of $A$ and $U$.
 I identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
 First, I assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
 Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
-Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$. Their proof is an application of \cite{matzkin2003nonparametric}.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details. The paper investigates finite sample performance and methodological extension with Monte Carlo simulation. The code is available on the author's Github.}}
+Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$. Their proof is an application of \cite{matzkin2003nonparametric}.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details.} The paper reports finite sample performance and methodological extension with Monte Carlo simulation. Based on simulation results with sample size $T=50$, I believe that the sample size in this paper is enough to recover matching efficiency well. The code is available on the author's Github.}
 
-Estimation XXX.
+\textcolor{blue}{Estimation XXX.}
+
 
 
 
@@ -111,7 +112,7 @@ Remarkably, matching efficiency (normalized to 2002) shows a declining trend wit
 Implied match elasticity with respect to unemployment is 0.1-0.3, which is lower than previous findings \citep{petrongolo2001looking}.\footnote{For reference, \cite{petrongolo2001looking} summarize the early aggregate studies based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. In short, match elasticity with respect to unemployment is in the range 0.5–0.7.} 
 On the other hand, Implied match elasticity with respect to vacancies is 0.2-0.5, which is slightly higher than \cite{lange2020beyond}.
 \textcolor{blue}{These elasticities imply that XXX.}
-Figures \ref{fg:year_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure such as labor market tightness, job filling rate, and job finding rate.
+Figures \ref{fg:year_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure such as labor market tightness, worker finding rate, and job finding rate.
 Consistent with \cite{lange2020beyond}, these highlight positive correlations between efficiency and market structure such as tightness and so on, which induces a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in traditional estimators.
 
 \begin{figure}[!ht]
@@ -122,7 +123,7 @@ Consistent with \cite{lange2020beyond}, these highlight positive correlations be
   {figuretable/hire_year.png}}\\
   \subfloat[Beveridge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/unemployed_vacancies_berveridge_year.png}}
-  \subfloat[Job finding rate ($\frac{M}{U}$) and Tightness  ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Job finding rate ($\frac{M}{U}$), Worker finding rate ($\frac{M}{V}$), and Tightness  ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/job_finding_rate_tightness_year.png}}
   \\
   \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.37\textwidth]
@@ -160,7 +161,7 @@ Figures \ref{fg:month_level_results} (g) and (h) illustrate positive correlation
   {figuretable/hire_month.png}}\\
   \subfloat[Beveridge Curve ($U_{t}$ and $V_{t}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/unemployed_vacancies_berveridge_month.png}}
-  \subfloat[Job finding rate ($\frac{M}{U}$) and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Job finding rate ($\frac{M}{U}$), Worker finding rate ($\frac{M}{V}$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/job_finding_rate_tightness_month.png}}
   \\
   \subfloat[Matching Efficiency ($A_{t}$)]{\includegraphics[width = 0.37\textwidth]
