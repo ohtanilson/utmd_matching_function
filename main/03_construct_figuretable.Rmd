@@ -146,8 +146,8 @@ x <-
        y = vacancies/10000
        )
      ) +
-  geom_line(size = 0.5) +
-  geom_point() +
+  geom_line(size = 0.2) +
+  geom_point(size = 0.2, alpha = 0.3) +
   geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 1.5) +
   theme_classic() +
   labs(
@@ -537,15 +537,22 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_hello_work_data,
+    utmd_output_hello_work_data %>% 
+      dplyr::mutate(
+        time = ifelse(
+          month == "01-01",
+          year,
+          NA
+        )
+      ),
      aes(
        x = unemployed/10000,
        y = vacancies/10000
        )
      ) +
-  geom_line(size = 0.5) +
-  geom_point() +
-  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  geom_line(size = 0.2) +
+  geom_point(size = 0.2, alpha = 0.3) +
+  geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 2) +
   theme_classic() +
   labs(
     #title = "Beveridge Curve",
