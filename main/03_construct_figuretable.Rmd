@@ -172,7 +172,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Job finding rate and market tightness
+### Job finding rate, worker finding rate, and market tightness
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -181,11 +181,14 @@ temp <-
     `V/U` =
       `vacancies`/`unemployed`,
     `M/U` =
-      `hire`/`unemployed`
+      `hire`/`unemployed`,
+    `M/V` =
+      `hire`/`vacancies`
   ) %>% 
   dplyr::select(
     `V/U`,
     `M/U`,
+    `M/V`,
     time
   ) %>% 
   tidyr::gather(
@@ -566,7 +569,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Job finding rate and market tightness
+### Job finding rate, worker finding rate, and market tightness
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -575,11 +578,14 @@ temp <-
     `V/U` =
       `vacancies`/`unemployed`,
     `M/U` =
-      `hire`/`unemployed`
+      `hire`/`unemployed`,
+    `M/V` =
+      `hire`/`vacancies`
   ) %>% 
   dplyr::select(
     `V/U`,
     `M/U`,
+    `M/V`,
     time
   ) %>% 
   tidyr::gather(
