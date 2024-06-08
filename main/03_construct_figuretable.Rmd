@@ -178,14 +178,14 @@ ggsave(filename = figure_name,
 temp <-
   utmd_output_hello_work_data_yearly %>% 
   dplyr::mutate(
-    `log(V/U)` =
-      log(`vacancies`/`unemployed`),
-    `log(M/U)` =
-      log(`hire`/`unemployed`)
+    `V/U` =
+      `vacancies`/`unemployed`,
+    `M/U` =
+      `hire`/`unemployed`
   ) %>% 
   dplyr::select(
-    `log(V/U)`,
-    `log(M/U)`,
+    `V/U`,
+    `M/U`,
     time
   ) %>% 
   tidyr::gather(
@@ -572,14 +572,14 @@ ggsave(filename = figure_name,
 temp <-
   utmd_output_hello_work_data %>% 
   dplyr::mutate(
-    `log(V/U)` =
-      log(`vacancies`/`unemployed`),
-    `log(M/U)` =
-      log(`hire`/`unemployed`)
+    `V/U` =
+      `vacancies`/`unemployed`,
+    `M/U` =
+      `hire`/`unemployed`
   ) %>% 
   dplyr::select(
-    `log(V/U)`,
-    `log(M/U)`,
+    `V/U`,
+    `M/U`,
     time
   ) %>% 
   tidyr::gather(
