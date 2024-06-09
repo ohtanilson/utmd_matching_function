@@ -70,8 +70,8 @@ Second, \textcolor{blue}{[TBA] Mismatch \cite{csahin2014mismatch,kawata2016multi
 The main findings of this paper are threefold.
 First, matching efficiency (normalized to 2002) in the labor market via  Hello Work shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
 This might be because matching opportunity out of the government-operated platform has increased. 
-Implied match elasticity with respect to unemployment is 0.1-0.3, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies.
-On the other hand, implied match elasticity with respect to vacancies is 0.2-0.5, which is slightly higher than \cite{lange2020beyond} and Japanese studies.
+Implied match elasticity with respect to unemployment interacted with match efficiency is 0.2-0.5, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies.
+On the other hand, implied match elasticity with respect to vacancies is 0.1-0.3, which is comparable to \cite{lange2020beyond} and Japanese studies.
 
 Second, \textcolor{blue}{[TBA] Mismatch \cite{csahin2014mismatch,kawata2016multi,kawata2019}}.
 
@@ -79,7 +79,7 @@ Third, I point out technical issues about scale normalization of matching effici
 
 \section{Data}
 
-I separately use the Report on Employment Service (\textit{Shokugyo Antei Gyomu Tokei}) for year-level aggregate data in 1966-2023 and month-level aggregate data in 2002 (January)-2024 (April) of the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes annual reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
+I separately use the Report on Employment Service (\textit{Shokugyo Antei Gyomu Tokei}) for the annual aggregate data in 1966-2023 and month-level aggregate data in 2002 (January)-2024 (April) of the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes annual reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
 Hello Work is a government-operated institution in Japan that provides job seekers with employment counseling, job placement services, and vocational training and plays a critical role in Japan's labor market.
 For example, \cite{kawata2021first} construct a simple framework to measure the impacts of an economic shock on unemployed workers’ welfare quantitatively and apply their method to Hello Work data in their companion project.\footnote{\url{https://www.crepe.e.u-tokyo.ac.jp/material/crepecl12.html}: Accessed 2024 June 6.} 
 The period for each dataset is selected to ensure the longest consistent timeframe available at the time of writing this paper.
@@ -111,8 +111,9 @@ Following \cite{lange2020beyond}, I begin by estimating $F(A_0|U)$ across the su
 Specifically, we have
 \begin{align*}
     F(A_0|\psi U_0) &= G_{H|U,V}(\psi H_0|\psi U_0, \psi V_0) \quad \text{for any arbitrary scalar } \psi.\\
-    F(\psi A_0|\lambda U_0) &= G_{H|U,V}(\psi H_0|\lambda U_0, \psi V_0) \quad \text{where } \lambda > 0 \text{ is a scaling factor}.
+    F(\psi A_0|\lambda U_0) &= G_{H|U,V}(\psi H_0|\lambda U_0, \psi V_0) \quad \text{where } \lambda > 0 \text{ is a scaling factor}
 \end{align*}
+where $F(A_0|\psi U_0)$ and $ G_{H|U,V}$ are conditional distributions.
 By varying $(\psi, \lambda)$, we can therefore trace out $F(A|U)$ across the entire support of $(A, U)$.
 
 Given our finite data, we rely on an estimate of $G_{H|U,V}$ for our constructive estimator. Consider an arbitrary point $(H_\tau, U_\tau, V_\tau)$. To obtain $G(H_\tau|U_\tau, V_\tau)$, we compute the proportion of observations with less than $H_\tau$ observed hires among observations proximate to $(U_\tau, V_\tau)$ in $(U, V)$-space. Practically, this is achieved by averaging across all observations in the data, penalizing those with values $(U_t, V_t)$ using a kernel that weighs down observations distant from $(U_\tau, V_\tau)$. Consequently, our estimate is given by
@@ -143,18 +144,34 @@ the elasticity of the matching function.
 
 \section{Results}
 
-\subsection{Year-level trends in 1966-2023}
+Before presenting the results, I test the assumption that vacancies are independent of matching efficiency, conditional on overall labor supply, i.e., \( V \perp A \mid U \). Specifically, we use the residuals from a regression of vacancies \( V \) on the unemployed \( U \), and similarly, the residuals of implied matching efficiency \( A \) on \( S \).
+For the annual data, the correlation between these two residuals is close to zero (-0.06), indicating no systematic relationship between them.
+Conversely, for the monthly data with seasonality control, the correlation between the residuals is 0.3, which appears to be influenced by a few outliers as in Figure \ref{fg:residual_plots}. 
+Therefore, caution is required when interpreting the results at the monthly level.
 
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[Year-level]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/residual_plot_year.png}}
+  \subfloat[Month-level]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/residual_plot_month.png}}
+  \caption{Residual plot}
+  \label{fg:residual_plots} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
 
+\subsection{the annual trends in 1966-2023}
 
-Figures \ref{fg:year_level_results} (a)-(d) provide year-level date patterns of unemployed, vacancies, labor market tightness ($V/U$), hires, Beveridge curve, and job and worker finding rate ($M/U$ and $M/V$). 
+Figures \ref{fg:year_level_results} (a)-(d) provide annual data patterns of unemployed, vacancies, labor market tightness ($V/U$), hires, Beveridge curve, and job and worker finding rate ($M/U$ and $M/V$). 
 In short, the numbers of unemployed workers and vacancies increase with fluctuation, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards the most recent years.
 
 Figures \ref{fg:year_level_results} (e) and (f) show estimation results of the matching function along with matching efficiency and elasticities ($\frac{d\ln M}{d\ln U}$ and $\frac{d\ln M}{d\ln V}$).
 Remarkably, matching efficiency (normalized to 2002) shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
 This might be because matching opportunity out of the government-operated platform has increased.
-Implied match elasticity with respect to unemployment is 0.1-0.3, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies such as \cite{higashi2018spatial} (0.38 in 2000-2014 monthly), \cite{kawata2019} (0.48 in 2012-2017 prefecture-month level), \cite{kano2005estimating} (0.56 in 1972-1999 prefecture-year-level),  \cite{sasaki2007measuring} (about 0.6 in 1998-2007 prefecture-quarter-level) and \cite{kambayashi2006vacancy} (about 0.8 in 1996-2001 prefecture-month level), although I discuss some needs for careful interpretation of the estimates due to scale normalization of matching efficiency in Section \ref{sec:month_level}.\footnote{For reference, \cite{petrongolo2001looking} summarize the early aggregate studies in many countries based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. In short, match elasticity with respect to unemployment is in the range 0.5–0.7.} 
-On the other hand, implied match elasticity with respect to vacancies is 0.2-0.5, which is slightly higher than \cite{lange2020beyond} and Japanese studies \textcolor{blue}{XXX}.
+Implied match elasticity with respect to unemployment is 0.2-0.5, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies such as \cite{higashi2018spatial} (0.38 in 2000-2014 monthly), \cite{kawata2019} (0.48 in 2012-2017 prefecture-month-level), \cite{kano2005estimating} (0.56 in 1972-1999 prefecture-year-level),  \cite{sasaki2007measuring} (about 0.6 in 1998-2007 prefecture-quarter-level) and \cite{kambayashi2006vacancy} (about 0.8 in 1996-2001 prefecture-month-level), although I discuss some needs for careful interpretation of the estimates due to scale normalization of matching efficiency in Section \ref{sec:month_level}.\footnote{For reference, \cite{petrongolo2001looking} summarize the early aggregate studies in many countries based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand. In short, match elasticity with respect to unemployment is in the range 0.5–0.7.} 
+On the other hand, implied match elasticity with respect to vacancies is 0.1-0.3, which is comparable to \cite{lange2020beyond} and Japanese studies \textcolor{blue}{XXX}.
 
 Figures \ref{fg:year_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure such as labor market tightness, worker finding rate, and job finding rate.
 Consistent with \cite{lange2020beyond}, these highlight positive correlations between efficiency and market structure such as tightness and so on, which induces a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in traditional estimators.
@@ -190,9 +207,9 @@ Consistent with \cite{lange2020beyond}, these highlight positive correlations be
 
 Figures \ref{fg:month_level_results} provide a month-level counterpart of Figure \ref{fg:year_level_results}. 
 Note that I normalize the location of matching efficiency in 2002 January to 100 for comparison to Figure \ref{fg:year_level_results} normalized to 2002. 
-Also, note that month-level data is not a complete subset of year-level data, so both estimates are different.
-Month-level data patterns are almost consistent with year-level ones except for seasonal fluctuations.
-Only the remarkable difference from year-level results is that implied match elasticity with respect to unemployment is 0.6-1.2 relative to 0.1-0.3 of month-level one because the estimated coefficient and the scale of matching efficiency are different for different datasets. 
+Also, note that the monthly data is not a complete subset of annual data, so both estimates are different.
+the monthly data patterns are almost consistent with year-level ones except for seasonal fluctuations.
+Only the remarkable difference from year-level results is that implied match elasticity with respect to vacancies is 0.6-1.2 relative to 0.1-0.3 of month-level one because the estimated coefficient and the scale of matching efficiency are different for different datasets. 
 Although \cite{lange2020beyond} do not mention the scale normalization issue explicitly, this highlights the hardship of comparing the level of matching efficiency across different datasets and we can only compares the efficiency trends.
 
 
@@ -227,14 +244,16 @@ Although \cite{lange2020beyond} do not mention the scale normalization issue exp
 \begin{itemize}
     \item \textcolor{blue}{[TBA] Data collection (RA)}
     \item \textcolor{blue}{[TBA] List of elasticity results in the previous Japanese studies. (RA)}
+    \item \textcolor{blue}{[TBA] Lasso? (RA)}
     \item \textcolor{blue}{[TBA] Mismatch}
-    \item \textcolor{blue}{[TBA] Residual checks for testing independence.}
 \end{itemize}
+
+
 
 \section{Conclusion}
 
 I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for the unemployed workers changed in Japan in 1966-2024. 
-Applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to year-level and month-level data, I find that matching efficiency (normalized to 2002) shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
+Applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to the annual and the monthly data, I find that matching efficiency (normalized to 2002) shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
 Finally, I point out that comparison of matching elasticity with respect to the number of unemployed workers is difficult across different data sets due to a scale normalization difference.
 
 
