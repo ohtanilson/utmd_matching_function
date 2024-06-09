@@ -24,7 +24,7 @@ utmd_output_hello_work_data <-
     `vacancies` = position_count,
     `hire` = hire_count,
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
-    `dlog(M)/ dlog(U)` = hire_elasticity_unemployed
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
 utmd_output_hello_work_data_yearly <-
   readRDS(file = here::here("output/utmd_output_hello_work_data_yearly.rds")) %>% 
@@ -33,7 +33,7 @@ utmd_output_hello_work_data_yearly <-
     `vacancies` = position_count,
     `hire` = hire_count,
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
-    `dlog(M)/ dlog(U)` = hire_elasticity_unemployed
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
 ```
 
@@ -76,7 +76,7 @@ x <-
     temp,
     aes(
       x = time,
-      y = count/10000,
+      y = count/1000000,
       color = type, 
       group = type
       )
@@ -90,17 +90,17 @@ x <-
     data = temp2,
     aes(
       x = time, 
-      y = count *100
+      y = count
       ), 
     alpha = 0.9, 
     size = 0.5,
-    linetype = "dashed"
+    linetype = "dotted"
       ) + 
   scale_y_continuous(
-    name = "Count (0.01 million) (solid)",
+    name = "Count (million) (solid)",
     sec.axis = sec_axis(
-      ~.*0.01, 
-      name = "V/U (dashed)"
+      ~.*1, 
+      name = "V/U (dotted)"
       )
     ) +
   #scale_color_viridis_d() +
@@ -109,7 +109,7 @@ x <-
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   labs(colour = "") +
-  #ylab("Count (0.01 million)") +
+  #ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -133,7 +133,7 @@ x <-
     utmd_output_hello_work_data_yearly,
     aes(
       x = time,
-      y = `hire`/10000,
+      y = `hire`/1000000,
       group = 1
       )
     ) +
@@ -153,7 +153,7 @@ x <-
         legend.text = element_text(size=8)) +
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
-  ylab("Count (0.01 million)") +
+  ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -175,8 +175,8 @@ x <-
   ggplot(
     utmd_output_hello_work_data_yearly,
      aes(
-       x = unemployed/10000,
-       y = vacancies/10000
+       x = unemployed/1000000,
+       y = vacancies/1000000
        )
      ) +
   geom_line(size = 0.2) +
@@ -185,8 +185,8 @@ x <-
   theme_classic() +
   labs(
     # title = "Beveridge Curve",
-    x = "U (0.01 mil)",
-    y = "V (0.01 mil)"
+    x = "U (mil)",
+    y = "V (mil)"
   ) +
   theme(
     plot.title = element_text(hjust = 0.5),
@@ -248,7 +248,7 @@ x <-
   xlab("") +
   ylab("") +
   labs(colour = "") +
-  #ylab("Count (0.01 million)") +
+  #ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -307,14 +307,14 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Elasticity dlogM/dlogU,dlogM/dlogV
+### Elasticity dlogM/dlogAU,dlogM/dlogV
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
   utmd_output_hello_work_data_yearly %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
-    `dlog(M)/ dlog(U)`,
+    `dlog(M)/ dlog(AU)`,
     time
   ) %>% 
   tidyr::gather(
@@ -349,7 +349,7 @@ x <-
         legend.text = element_text(size=8))+
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
-  ylab("log(M) w.r.t. log(U) and log(V)") +
+  ylab("log(M) w.r.t. log(AU) and log(V)") +
   labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
@@ -507,7 +507,7 @@ x <-
     temp,
     aes(
       x = time,
-      y = count/10000,
+      y = count/1000000,
       color = type, 
       group = type
       )
@@ -521,17 +521,17 @@ x <-
     data = temp2,
     aes(
       x = time, 
-      y = count *100
+      y = count
       ), 
     alpha = 0.9, 
     size = 0.5,
-    linetype = "dashed"
+    linetype = "dotted"
       ) + 
   scale_y_continuous(
-    name = "Count (0.01 million) (solid)",
+    name = "Count (million) (solid)",
     sec.axis = sec_axis(
-      ~.*0.01, 
-      name = "V/U (dashed)"
+      ~.*1, 
+      name = "V/U (dotted)"
       )
     ) +
   #scale_color_viridis_d() +
@@ -540,7 +540,7 @@ x <-
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   labs(colour = "") +
-  #ylab("Count (0.01 million)") +
+  #ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -565,7 +565,7 @@ x <-
     utmd_output_hello_work_data,
     aes(
       x = time,
-      y = `hire`/10000
+      y = `hire`/1000000
       )
     ) +
   geom_line(
@@ -583,7 +583,7 @@ x <-
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
   xlab("") +
-  ylab("Count (0.01 million)") +
+  ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -612,8 +612,8 @@ x <-
         )
       ),
      aes(
-       x = unemployed/10000,
-       y = vacancies/10000
+       x = unemployed/1000000,
+       y = vacancies/1000000
        )
      ) +
   geom_line(size = 0.2) +
@@ -622,8 +622,8 @@ x <-
   theme_classic() +
   labs(
     #title = "Beveridge Curve",
-    x = "U (0.01 mil)",
-    y = "V (0.01 mil)"
+    x = "U (mil)",
+    y = "V (mil)"
   ) +
   theme(
     plot.title = element_text(hjust = 0.5),
@@ -685,7 +685,7 @@ x <-
   xlab("") +
   ylab("") +
   labs(colour = "") +
-  #ylab("Count (0.01 million)") +
+  #ylab("Count (million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -749,7 +749,7 @@ temp <-
   utmd_output_hello_work_data %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
-    `dlog(M)/ dlog(U)`,
+    `dlog(M)/ dlog(AU)`,
     time
   ) %>% 
   tidyr::gather(
@@ -783,7 +783,7 @@ x <-
   theme(legend.position = 'top',
         legend.text = element_text(size=8))+
   xlab("") +
-  ylab("log(M) w.r.t. log(U) and log(V)") +
+  ylab("log(M) w.r.t. log(AU) and log(V)") +
   labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +

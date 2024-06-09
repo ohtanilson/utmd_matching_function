@@ -232,17 +232,22 @@ estimate_efficiency_all_industry <-
       res <-
         lm(hire ~ vacancy + efficiency_unemployed,
            data = target_data)
-      hire_elasticity_vacancy <-
+      hire_elasticity_efficiency_unemployed <-
         res$coefficients["efficiency_unemployed"] *
         (target_data$efficiency_unemployed/target_data$hire)
       hire_elasticity_unemployed <-
+        res$coefficients["efficiency_unemployed"] *
+        target_data$efficiency_implied *
+        (target_data$efficiency_unemployed/target_data$hire)
+      hire_elasticity_vacancy <-
         res$coefficients["vacancy"] *
         (target_data$vacancy/target_data$hire)
       target_data <-
         cbind(
           target_data,
           hire_elasticity_vacancy,
-          hire_elasticity_unemployed
+          hire_elasticity_unemployed,
+          hire_elasticity_efficiency_unemployed
         )
       
       if(nn == 1){
