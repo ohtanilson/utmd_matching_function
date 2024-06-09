@@ -41,7 +41,7 @@ utmd_output_hello_work_data_yearly <-
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### U and V
+### U, V, and V/U
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -49,6 +49,21 @@ temp <-
   dplyr::select(
     `unemployed`,
     `vacancies`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp2 <-
+  utmd_output_hello_work_data_yearly %>% 
+  dplyr::mutate(
+    `V/U` =
+      `vacancies`/`unemployed`
+  ) %>% 
+  dplyr::select(
+    `V/U`,
     time
   ) %>% 
   tidyr::gather(
@@ -71,12 +86,30 @@ x <-
     size = 0.5
     ) + 
   theme_classic() + 
+  geom_line(
+    data = temp2,
+    aes(
+      x = time, 
+      y = count *100
+      ), 
+    alpha = 0.9, 
+    size = 0.5,
+    linetype = "dashed"
+      ) + 
+  scale_y_continuous(
+    name = "Count (0.01 million) (solid)",
+    sec.axis = sec_axis(
+      ~.*0.01, 
+      name = "V/U (dashed)"
+      )
+    ) +
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
-  ylab("Count (0.01 million)") +
+  labs(colour = "") +
+  #ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -172,21 +205,18 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Job finding rate, worker finding rate, and market tightness
+### Job finding rate, worker finding rate
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
   utmd_output_hello_work_data_yearly %>% 
   dplyr::mutate(
-    `V/U` =
-      `vacancies`/`unemployed`,
     `M/U` =
       `hire`/`unemployed`,
     `M/V` =
       `hire`/`vacancies`
   ) %>% 
   dplyr::select(
-    `V/U`,
     `M/U`,
     `M/V`,
     time
@@ -217,13 +247,14 @@ x <-
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("") +
+  labs(colour = "") +
   #ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/job_finding_rate_tightness_year.png"
+  "../figuretable/job_finding_rate_worker_finding_rate_year.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -319,6 +350,7 @@ x <-
   theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("log(M) w.r.t. log(U) and log(V)") +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -419,6 +451,7 @@ x <-
   ) +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -439,7 +472,7 @@ ggsave(filename = figure_name,
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### U and V
+### U, V, and V/U
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -447,6 +480,21 @@ temp <-
   dplyr::select(
     `unemployed`,
     `vacancies`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp2 <-
+  utmd_output_hello_work_data %>% 
+  dplyr::mutate(
+    `V/U` =
+      `vacancies`/`unemployed`
+  ) %>% 
+  dplyr::select(
+    `V/U`,
     time
   ) %>% 
   tidyr::gather(
@@ -469,12 +517,30 @@ x <-
     size = 0.5
     ) + 
   theme_classic() + 
+  geom_line(
+    data = temp2,
+    aes(
+      x = time, 
+      y = count *100
+      ), 
+    alpha = 0.9, 
+    size = 0.5,
+    linetype = "dashed"
+      ) + 
+  scale_y_continuous(
+    name = "Count (0.01 million) (solid)",
+    sec.axis = sec_axis(
+      ~.*0.01, 
+      name = "V/U (dashed)"
+      )
+    ) +
   #scale_color_viridis_d() +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
-  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
-  ylab("Count (0.01 million)") +
+  labs(colour = "") +
+  #ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -576,21 +642,18 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Job finding rate, worker finding rate, and market tightness
+### Job finding rate and worker finding rate
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
   utmd_output_hello_work_data %>% 
   dplyr::mutate(
-    `V/U` =
-      `vacancies`/`unemployed`,
     `M/U` =
       `hire`/`unemployed`,
     `M/V` =
       `hire`/`vacancies`
   ) %>% 
   dplyr::select(
-    `V/U`,
     `M/U`,
     `M/V`,
     time
@@ -621,13 +684,14 @@ x <-
   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("") +
+  labs(colour = "") +
   #ylab("Count (0.01 million)") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/job_finding_rate_tightness_month.png"
+  "../figuretable/job_finding_rate_worker_finding_rate_month.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -720,6 +784,7 @@ x <-
         legend.text = element_text(size=8))+
   xlab("") +
   ylab("log(M) w.r.t. log(U) and log(V)") +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -824,6 +889,7 @@ x <-
   ) +
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
