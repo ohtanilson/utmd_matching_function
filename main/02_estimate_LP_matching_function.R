@@ -235,10 +235,6 @@ estimate_efficiency_all_industry <-
       hire_elasticity_efficiency_unemployed <-
         res$coefficients["efficiency_unemployed"] *
         (target_data$efficiency_unemployed/target_data$hire)
-      hire_elasticity_unemployed <-
-        res$coefficients["efficiency_unemployed"] *
-        target_data$efficiency_implied *
-        (target_data$efficiency_unemployed/target_data$hire)
       hire_elasticity_vacancy <-
         res$coefficients["vacancy"] *
         (target_data$vacancy/target_data$hire)
@@ -246,7 +242,6 @@ estimate_efficiency_all_industry <-
         cbind(
           target_data,
           hire_elasticity_vacancy,
-          hire_elasticity_unemployed,
           hire_elasticity_efficiency_unemployed
         )
       
@@ -311,12 +306,44 @@ utmd_output_hello_work_data_yearly <-
     hire_count = hire
   )
 
-
+# test independence of AV conditional on U ----
+residual_v_on_u <-
+  lm(position_count ~ candidate_count + month,
+     data = utmd_output_hello_work_data)$residual
+residual_a_on_u <-
+  lm(efficiency_implied ~ candidate_count + month,
+     data = utmd_output_hello_work_data)$residual
+cor(residual_v_on_u, residual_a_on_u)
+plot(residual_v_on_u, residual_a_on_u)
+residual_v_on_u_year <-
+  lm(position_count ~ candidate_count,
+     data = utmd_output_hello_work_data_yearly)$residual
+residual_a_on_u_year <-
+  lm(efficiency_implied ~ candidate_count,
+     data = utmd_output_hello_work_data_yearly)$residual
+cor(residual_v_on_u_year, residual_a_on_u_year)
+plot(residual_v_on_u_year, residual_a_on_u_year)
+utmd_output_hello_work_data <-
+  cbind(
+    utmd_output_hello_work_data,
+    residual_v_on_u,
+    residual_a_on_u
+  )
+utmd_output_hello_work_data_yearly <-
+  cbind(
+    utmd_output_hello_work_data_yearly,
+    residual_v_on_u_year, 
+    residual_a_on_u_year
+  )
 # save ----
 
 saveRDS(
   utmd_output_hello_work_data,
   file = here::here("output/utmd_output_hello_work_data.rds")
+)
+saveRDS(
+  utmd_output_hello_work_data_yearly,
+  file = here::here("output/utmd_output_hello_work_data_yearly.rds")
 )
 saveRDS(
   utmd_output_hello_work_data_yearly,

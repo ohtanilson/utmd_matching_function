@@ -37,7 +37,83 @@ utmd_output_hello_work_data_yearly <-
   )
 ```
 
-## Figure 1: Year-level trends in 1966-2023 {.tabset}
+## Figure 1: Residual plot {.tabset}
+
+### Year-level
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_hello_work_data_yearly,
+     aes(
+       x = residual_v_on_u_year,
+       y = residual_a_on_u_year
+       )
+     ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_year.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### Month-level
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_hello_work_data,
+     aes(
+       x = residual_v_on_u,
+       y = residual_a_on_u
+       )
+     ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_month.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+## Figure 2: Year-level trends in 1966-2023 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -468,7 +544,7 @@ ggsave(filename = figure_name,
 
 
 
-## Figure 2: Month-level trends in 2002-2024 {.tabset}
+## Figure 3: Month-level trends in 2002-2024 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
