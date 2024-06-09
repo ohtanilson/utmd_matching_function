@@ -92,7 +92,7 @@ Also, denote by $F(A, U)$ the joint distribution of $A$ and $U$.
 I identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
 First, I assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
 Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
-Then, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$. Their proof is an application of \cite{matzkin2003nonparametric}.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details.} The paper reports finite sample performance and methodological extension with Monte Carlo simulation. Based on simulation results with sample size $T=50$, I believe that the sample size in this paper is enough to recover matching efficiency well. The code is available on the author's Github.}
+Then, by applying nonparametric identification results of \cite{matzkin2003nonparametric}, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point of the support of $(A, U, V)$.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details.} The paper reports finite sample performance and methodological extension with Monte Carlo simulation. Based on simulation results with sample size $T=50$, I believe that the sample size in this paper is enough to recover matching efficiency well. The code is available on the author's Github. Also, the approach is used to estimate a matching function in a trade model \citep{brancaccio2020geography}.}
 
 \textcolor{blue}{Estimation XXX.}
 
@@ -150,7 +150,7 @@ Also, note that month-level data is not a complete subset of year-level data, so
 General data patterns are consistent with year-level ones except for seasonal fluctuations.
 Figures \ref{fg:month_level_results} (e) and (f) show estimation results of the matching function along with matching efficiency and elasticities.
 \textcolor{blue}{
-Remarkably, elasticities are higher}
+Remarkably, elasticities are higher XXX}
 Figures \ref{fg:month_level_results} (g) and (h) illustrate positive correlation patterns consistent with month-level results.
 
 \begin{figure}[!ht]
@@ -179,6 +179,9 @@ Figures \ref{fg:month_level_results} (g) and (h) illustrate positive correlation
   %Note: 
 \end{figure} 
 
+\subsection{Occupation category and prefecture level results}
+
+\textcolor{blue}{[TBA]}
 
 \section{Conclusion}
 
