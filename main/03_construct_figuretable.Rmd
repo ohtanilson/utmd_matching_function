@@ -60,7 +60,7 @@ utmd_output_helloworker_data_part_and_full_time_monthly <-
 
 
 
-### Month-level
+### Year-level part-time and full-time
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -90,6 +90,81 @@ x <-
 x
 figure_name <-
   "../figuretable/residual_plot_month_part_and_full_time.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+
+### Year-level full-time
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+     aes(
+       x = residual_v_on_u_full_time_monthly,
+       y = residual_a_on_u_full_time_monthly
+       )
+     ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_month_full_time.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### Year-level part-time
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+     aes(
+       x = residual_v_on_u_part_time_monthly,
+       y = residual_a_on_u_part_time_monthly
+       )
+     ) +
+  #geom_line(size = 0.5) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_month_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -135,7 +210,7 @@ ggsave(filename = figure_name,
 ```
 
 
-## Figure 2: Month-level trends in 1972-2024 {.tabset}
+## Figure 2: Year-level results 1973-2024 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
