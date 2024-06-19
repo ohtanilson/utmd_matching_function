@@ -7,6 +7,12 @@ hello_work_data <-
   readRDS(file = here::here("cleaned/hello_work_data.rds"))
 hello_work_data_yearly <-
   readRDS(file = here::here("cleaned/hello_work_data_yearly.rds"))
+helloworker_data_full_time_monthly <-
+  readRDS(file = here::here("cleaned/helloworker_data_full_time_monthly.rds"))
+helloworker_data_part_time_monthly <-
+  readRDS(file = here::here("cleaned/helloworker_data_part_time_monthly.rds"))
+helloworker_data_part_and_full_time_monthly <-
+  readRDS(file = here::here("cleaned/helloworker_data_part_and_full_time_monthly.rds"))
 
 # set constant ----
 maxA <-
@@ -121,7 +127,7 @@ estimate_efficiency <-
       #   probs = 0.50
       # )
       #data$vacancy[1] # initial date
-      as.numeric(data[data$year == "2002","vacancy"][1,]) # 2002 Jan
+      as.numeric(data[data$year == "1972","vacancy"][1,]) # 1972 Jan
     # Find the index of the closest value to vstar in v
     point_vstar <- 
       which.min(abs(data$vacancy - vstar))
@@ -265,26 +271,27 @@ estimate_efficiency_all_industry <-
 # estimate ----
 
 ## government data ----
-
-utmd_output_hello_work_data <-
-  estimate_efficiency_all_industry(
-    list_industry_group_name = 
-      unique(
-        hello_work_data$industry_group_name
+if(0 == 1){
+  # for BizReach
+  utmd_output_hello_work_data <-
+    estimate_efficiency_all_industry(
+      list_industry_group_name =
+        unique(
+          hello_work_data$industry_group_name
         ),
-    data = hello_work_data,
-    Astar,
-    maxA,
-    minA,
-    supportsize_theta,
-    kernel_sd
-  ) %>% 
-  dplyr::rename(
-    candidate_count = unemployed,  
-    position_count = vacancy,   
-    hire_count = hire
-  )
-
+      data = hello_work_data,
+      Astar,
+      maxA,
+      minA,
+      supportsize_theta,
+      kernel_sd
+    ) %>%
+    dplyr::rename(
+      candidate_count = unemployed,
+      position_count = vacancy,
+      hire_count = hire
+    )
+}
 
 
 utmd_output_hello_work_data_yearly <-
@@ -306,15 +313,75 @@ utmd_output_hello_work_data_yearly <-
     hire_count = hire
   )
 
+## monthly data ----
+
+utmd_output_helloworker_data_full_time_monthly <-
+  estimate_efficiency_all_industry(
+    list_industry_group_name = 
+      unique(
+        helloworker_data_full_time_monthly$industry_group_name
+      ),
+    data = helloworker_data_full_time_monthly,
+    Astar,
+    maxA,
+    minA,
+    supportsize_theta,
+    kernel_sd
+  ) %>% 
+  dplyr::rename(
+    candidate_count = unemployed,  
+    position_count = vacancy,   
+    hire_count = hire
+  )
+
+utmd_output_helloworker_data_part_time_monthly <-
+  estimate_efficiency_all_industry(
+    list_industry_group_name = 
+      unique(
+        helloworker_data_part_time_monthly$industry_group_name
+      ),
+    data = helloworker_data_part_time_monthly,
+    Astar,
+    maxA,
+    minA,
+    supportsize_theta,
+    kernel_sd
+  ) %>% 
+  dplyr::rename(
+    candidate_count = unemployed,  
+    position_count = vacancy,   
+    hire_count = hire
+  )
+utmd_output_helloworker_data_part_and_full_time_monthly <-
+  estimate_efficiency_all_industry(
+    list_industry_group_name = 
+      unique(
+        helloworker_data_part_and_full_time_monthly$industry_group_name
+      ),
+    data = helloworker_data_part_and_full_time_monthly,
+    Astar,
+    maxA,
+    minA,
+    supportsize_theta,
+    kernel_sd
+  ) %>% 
+  dplyr::rename(
+    candidate_count = unemployed,  
+    position_count = vacancy,   
+    hire_count = hire
+  )
+
+
 # test independence of AV conditional on U ----
-residual_v_on_u <-
-  lm(position_count ~ candidate_count + month,
-     data = utmd_output_hello_work_data)$residual
-residual_a_on_u <-
-  lm(efficiency_implied ~ candidate_count + month,
-     data = utmd_output_hello_work_data)$residual
-cor(residual_v_on_u, residual_a_on_u)
-plot(residual_v_on_u, residual_a_on_u)
+# residual_v_on_u <-
+#   lm(position_count ~ candidate_count + month,
+#      data = utmd_output_hello_work_data)$residual
+# residual_a_on_u <-
+#   lm(efficiency_implied ~ candidate_count + month,
+#      data = utmd_output_hello_work_data)$residual
+# cor(residual_v_on_u, residual_a_on_u)
+# plot(residual_v_on_u, residual_a_on_u)
+
 residual_v_on_u_year <-
   lm(position_count ~ candidate_count,
      data = utmd_output_hello_work_data_yearly)$residual
@@ -323,29 +390,108 @@ residual_a_on_u_year <-
      data = utmd_output_hello_work_data_yearly)$residual
 cor(residual_v_on_u_year, residual_a_on_u_year)
 plot(residual_v_on_u_year, residual_a_on_u_year)
-utmd_output_hello_work_data <-
-  cbind(
-    utmd_output_hello_work_data,
-    residual_v_on_u,
-    residual_a_on_u
+
+## monthly ----
+residual_v_on_u_full_time_monthly <-
+  lm(position_count ~ candidate_count + month,
+     data = utmd_output_helloworker_data_full_time_monthly)$residual
+residual_a_on_u_full_time_monthly <-
+  lm(efficiency_implied ~ candidate_count + month,
+     data = utmd_output_helloworker_data_full_time_monthly)$residual
+cor(
+  residual_v_on_u_full_time_monthly, 
+  residual_a_on_u_full_time_monthly
   )
+plot(
+  residual_v_on_u_full_time_monthly, 
+  residual_a_on_u_full_time_monthly
+  )
+
+residual_v_on_u_part_time_monthly <-
+  lm(position_count ~ candidate_count + month,
+     data = utmd_output_helloworker_data_part_time_monthly)$residual
+residual_a_on_u_part_time_monthly <-
+  lm(efficiency_implied ~ candidate_count + month,
+     data = utmd_output_helloworker_data_part_time_monthly)$residual
+cor(
+  residual_v_on_u_part_time_monthly,
+  residual_a_on_u_part_time_monthly
+  )
+plot(
+  residual_v_on_u_part_time_monthly,
+  residual_a_on_u_part_time_monthly
+  )
+
+residual_v_on_u_part_and_full_time_monthly <-
+  lm(position_count ~ candidate_count + month,
+     data = utmd_output_helloworker_data_part_and_full_time_monthly)$residual
+residual_a_on_u_part_and_full_time_monthly <-
+  lm(efficiency_implied ~ candidate_count + month,
+     data = utmd_output_helloworker_data_part_and_full_time_monthly)$residual
+cor(
+  residual_v_on_u_part_and_full_time_monthly,
+  residual_a_on_u_part_and_full_time_monthly
+)
+plot(
+  residual_v_on_u_part_and_full_time_monthly,
+  residual_a_on_u_part_and_full_time_monthly
+)
+
+
+
+
+
+
+
+# utmd_output_hello_work_data <-
+#   cbind(
+#     utmd_output_hello_work_data,
+#     residual_v_on_u,
+#     residual_a_on_u
+#   )
 utmd_output_hello_work_data_yearly <-
   cbind(
     utmd_output_hello_work_data_yearly,
     residual_v_on_u_year, 
     residual_a_on_u_year
   )
+utmd_output_helloworker_data_full_time_monthly <-
+  cbind(
+    utmd_output_helloworker_data_full_time_monthly,
+    residual_v_on_u_full_time_monthly,
+    residual_a_on_u_full_time_monthly
+  )
+utmd_output_helloworker_data_part_time_monthly <-
+  cbind(
+    utmd_output_helloworker_data_part_time_monthly,
+    residual_v_on_u_part_time_monthly, 
+    residual_a_on_u_part_time_monthly
+  )
+utmd_output_helloworker_data_part_and_full_time_monthly <-
+  cbind(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    residual_v_on_u_part_and_full_time_monthly, 
+    residual_a_on_u_part_and_full_time_monthly
+  )
 # save ----
 
-saveRDS(
-  utmd_output_hello_work_data,
-  file = here::here("output/utmd_output_hello_work_data.rds")
-)
-saveRDS(
-  utmd_output_hello_work_data_yearly,
-  file = here::here("output/utmd_output_hello_work_data_yearly.rds")
-)
+# saveRDS(
+#   utmd_output_hello_work_data,
+#   file = here::here("output/utmd_output_hello_work_data.rds")
+# )
 saveRDS(
   utmd_output_hello_work_data_yearly,
   file = here::here("output/utmd_output_hello_work_data_yearly.rds")
+)
+saveRDS(
+  utmd_output_helloworker_data_full_time_monthly,
+  file = here::here("output/utmd_output_helloworker_data_full_time_monthly.rds")
+)
+saveRDS(
+  utmd_output_helloworker_data_part_time_monthly,
+  file = here::here("output/utmd_output_helloworker_data_part_time_monthly.rds")
+)
+saveRDS(
+  utmd_output_helloworker_data_part_and_full_time_monthly,
+  file = here::here("output/utmd_output_helloworker_data_part_and_full_time_monthly.rds")
 )

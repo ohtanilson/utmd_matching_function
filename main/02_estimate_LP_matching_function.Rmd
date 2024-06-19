@@ -21,6 +21,12 @@ utmd_output_hello_work_data <-
   readRDS(file = here::here("output/utmd_output_hello_work_data.rds"))
 utmd_output_hello_work_data_yearly <-
   readRDS(file = here::here("output/utmd_output_hello_work_data_yearly.rds"))
+utmd_output_helloworker_data_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_helloworker_data_full_time_monthly.rds"))
+utmd_output_helloworker_data_part_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_helloworker_data_part_time_monthly.rds"))
+utmd_output_helloworker_data_part_and_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_helloworker_data_part_and_full_time_monthly.rds"))
 ```
 
 ## utmd_output_hello_work_data_yearly {.tabset}
@@ -171,7 +177,7 @@ target_plot <-
     utmd_output_hello_work_data_yearly,
     aes(
       x = time,
-      y = hire_elasticity_unemployed,
+      y = hire_elasticity_efficiency_unemployed,
       color = industry_group_name, 
       group = industry_group_name
       )
@@ -378,7 +384,7 @@ target_plot <-
     utmd_output_hello_work_data,
     aes(
       x = time,
-      y = hire_elasticity_unemployed,
+      y = hire_elasticity_efficiency_unemployed,
       color = industry_group_name, 
       group = industry_group_name
       )
@@ -436,3 +442,616 @@ target_plot <-
 target_plot
 ```
 
+
+
+
+## utmd_output_helloworker_data_full_time_monthly {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = candidate_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=0.1)) +
+  xlab("")
+target_plot
+
+
+```
+
+### position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = position_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+```
+
+
+### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+
+```
+
+
+
+### matching_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching Efficiency (normalized to initial date)")  
+target_plot
+```
+
+### elasticity of matching w.r.t candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_efficiency_unemployed,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num workers")  
+target_plot
+```
+
+### elasticity of matching w.r.t position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_vacancy,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num position")  
+target_plot
+```
+
+
+## utmd_output_helloworker_data_part_time_monthly {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = candidate_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=0.1)) +
+  xlab("")
+target_plot
+
+
+```
+
+### position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = position_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+```
+
+
+### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = hire_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+
+```
+
+
+
+### matching_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching Efficiency (normalized to initial date)")  
+target_plot
+```
+
+### elasticity of matching w.r.t candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_efficiency_unemployed,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num workers")  
+target_plot
+```
+
+### elasticity of matching w.r.t position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_vacancy,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num position")  
+target_plot
+```
+
+
+## utmd_output_helloworker_data_part_and_full_time_monthly {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = candidate_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=0.1)) +
+  xlab("")
+target_plot
+
+
+```
+
+### position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = position_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+```
+
+
+### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_count/10000,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("")
+target_plot
+
+```
+
+
+
+### matching_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching Efficiency (normalized to initial date)")  
+target_plot
+```
+
+### elasticity of matching w.r.t candidate_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_efficiency_unemployed,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num workers")  
+target_plot
+```
+
+### elasticity of matching w.r.t position_count
+
+```{r,echo=FALSE,results = "asis"}
+target_plot <- 
+  ggplot(
+    utmd_output_helloworker_data_part_and_full_time_monthly,
+    aes(
+      x = time,
+      y = hire_elasticity_vacancy,
+      color = industry_group_name, 
+      group = industry_group_name
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  #geom_hline(yintercept = 100, linetype = "longdash") +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8))+
+  xlab("") +
+  ylab("Matching elasticity w.r.t. num position")  
+target_plot
+```
