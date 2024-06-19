@@ -38,14 +38,14 @@
 \usepackage{setspace}
 \setstretch{1.2}
 \begin{document}
-\title{Nonparametric Estimation of Matching Efficiency in Labor Markets via Public Employment Security Offices in Japan, 1966-2024}
+\title{Nonparametric Estimation of Matching Efficiency in Labor Markets via Public Employment Security Offices in Japan, 1972-2024}
 \author{Suguru Otani\thanks{\href{mailto:}{suguru.otani@e.u-tokyo.ac.jp}, Market Design Center, University of Tokyo}}
 \maketitle
 
 \begin{abstract}
 \noindent
 %150 words:
-I examine changes in matching efficiency in Japan's labor market via Hello Work for unemployed workers from 1966 January 1966 to April 2024. Using a nonparametric identification approach by \cite{lange2020beyond} on annual and monthly data, I find a declining trend in matching efficiency (normalized to 2002), consistent with decreasing job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
+I examine changes in matching efficiency in Japan's labor market via Hello Work for unemployed workers from 1966 January 1966 to April 2024. Using a nonparametric identification approach by \cite{lange2020beyond} on monthly data, I find a declining trend in matching efficiency (normalized to 1972), consistent with decreasing job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
 
 %100 words AER
 \textbf{Keywords}: XXX \\
@@ -55,7 +55,7 @@ I examine changes in matching efficiency in Japan's labor market via Hello Work 
 \section{Introduction}
 
 \begin{itemize}
-    \item Research question: How has the matching efficiency in the labor market for the unemployed workers changed in Japan in 1966-2024?
+    \item Research question: How has the matching efficiency in the labor market for the unemployed workers changed in Japan in 1972-2024?
     \item Nice introduction.
 \end{itemize}
 
@@ -149,10 +149,12 @@ Therefore, caution is required when interpreting the results at the monthly leve
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[Year-level]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Year-level part-time and full-time]{\includegraphics[width = 0.37\textwidth]
   {figuretable/residual_plot_year.png}}
-  \subfloat[Month-level]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/residual_plot_month_part_and_full_time.png}}
+  \subfloat[Year-level full-time]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/residual_plot_month_full_time.png}}
+  \subfloat[Year-level part-time]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/residual_plot_month_part_time.png}}
   \caption{Residual plot}
   \label{fg:residual_plots} 
   \end{center}
@@ -160,80 +162,107 @@ Therefore, caution is required when interpreting the results at the monthly leve
   %Note: 
 \end{figure} 
 
-\subsection{Year-level trends in 1966-2023}
 
-Figures \ref{fg:year_level_results} (a)-(d) provide annual data patterns of unemployed individuals, vacancies, labor market tightness (\(V/U\)), hires, the  ($U$,$V$) relationship, and job and worker finding rates (\(M/U\) and \(M/V\)). In summary, the numbers of unemployed individuals and vacancies increase with fluctuations, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards recent years.
-Although the ($U$,$V$) relationship does not corresponds with Beveridge curve because these numbers are not divided by the corresponding number of labor force, the prominent rightward shifts are consistent with the previous studies \citep{elsby2015beveridge}.
+\subsection{Month-level trends in 1972-2023}\label{sec:month_level}
 
-Figures \ref{fg:year_level_results} (e) and (f) present the estimation results of the matching function along with matching efficiency and elasticities (\(\frac{d\ln M}{d\ln U}\) and \(\frac{d\ln M}{d\ln V}\)). Notably, matching efficiency (normalized to 2002) shows a declining trend with notable fluctuations, which is consistent with the downward trends of job and worker finding rates. This might be due to an increase in matching opportunities outside of the government-operated platform.
-
-The implied match elasticity with respect to unemployment is 0.2-0.5, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (range: 0.5-0.7) and Japanese studies such as \cite{higashi2018spatial} (0.38 for 2000-2014 monthly), \cite{kawata2019} (0.48 for 2012-2017 prefecture-month-level), \cite{kano2005estimating} (0.56 for 1972-1999 prefecture-year-level), \cite{sasaki2007measuring} (about 0.6 for 1998-2007 prefecture-quarter-level), and \cite{kambayashi2006vacancy} (about 0.8 for 1996-2001 prefecture-month-level). However, I discuss the need for careful interpretation of the estimates due to scale normalization of matching efficiency in Section \ref{sec:month_level}.\footnote{For reference, \cite{petrongolo2001looking} summarize early aggregate studies in many countries based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand side. In short, match elasticity with respect to unemployment is in the range of 0.5–0.7.}
-On the other hand, the implied match elasticity with respect to vacancies is 0.1-0.3, which is comparable to \cite{lange2020beyond} (range: 0.3-0.5) and Japanese studies such as \cite{higashi2018spatial} (0.24 for 2000-2014 monthly), \cite{kawata2019} (0.52 for 2012-2017 prefecture-month-level), \cite{kano2005estimating} (0.3 for 1972-1999 prefecture-year-level), \cite{sasaki2007measuring} (about 0.2 for 1998-2007 prefecture-quarter-level), and \cite{kambayashi2006vacancy} (about 0.3 for 1996-2001 prefecture-month-level).
-
-Figures \ref{fg:year_level_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure variables such as labor market tightness, worker finding rate, and job finding rate. Consistent with \cite{lange2020beyond}, these highlight positive correlations between efficiency and market structure, such as tightness, which induce a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in traditional estimators.
+Figure \ref{fg:month_part_and_full_time_results}
 
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancy_year.png}}
-  \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/hire_year.png}}\\
-  \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancies_berveridge_year.png}}
-  \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_worker_finding_rate_year.png}}
-  \\
-  \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/matching_efficiency_year.png}}
-  \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/elasticity_year.png}}\\
-  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/efficiency_tightness_plot_year.png}}
-  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_efficiency_plot_year.png}}
-  \caption{Year-level results}
-  \label{fg:year_level_results} 
-  \end{center}
-  \footnotesize
-  %Note: 
-\end{figure} 
-
-
-\subsection{Month-level trends in 2002-2023}\label{sec:month_level}
-
-Figures \ref{fg:month_level_results} provide a month-level counterpart to Figure \ref{fg:year_level_results}. Note that I normalize the location of matching efficiency in January 2002 to 100 for comparison with Figure \ref{fg:year_level_results}, which is normalized to 2002. Also, note that the monthly data is not a complete subset of the annual data, so both estimates differ. 
-
-The monthly data patterns are almost consistent with the year-level ones, except for seasonal fluctuations. The only remarkable difference from the year-level results is that the implied match elasticity with respect to vacancies is 0.6-1.2, relative to 0.1-0.3 at the month level. This discrepancy arises because the estimated coefficient and the scale of matching efficiency differ across datasets. 
-For example, the monthly matching efficiency around 2010 is 210, whereas the yearly one is 120 because the observed maximum of each efficiency is in 1966 for yearly analysis and exists in 2010 for monthly analysis.
-Although \cite{lange2020beyond} do not explicitly mention the issue of scale normalization, this highlights the difficulty of comparing the level of matching efficiency across different datasets. Therefore, we can only compare the efficiency trends.
-
-\begin{figure}[!ht]
-  \begin{center}
- \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/unemployed_vacancy_month_part_and_full_time.png}}
   \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/hire_month_part_and_full_time.png}}\\
   \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
   {figuretable/unemployed_vacancies_berveridge_month_part_and_full_time.png}}
-  \subfloat[Job Worker finding rate ($\frac{M}{U}$, $\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/job_finding_rate_worker_finding_rate_month_part_and_full_time.png}}
   \\
   \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/matching_efficiency_month_part_and_full_time.png}}
-  \subfloat[Matching Elasticity ($\frac{d\ln M}{d\ln U}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/elasticity_month_part_and_full_time.png}}\\
   \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/efficiency_tightness_plot_month_part_and_full_time.png}}
-  \subfloat[Efficiency ($A$) and ($\ln \frac{M}{U}$, $\ln \frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
   {figuretable/job_finding_rate_efficiency_plot_month_part_and_full_time.png}}
-  \caption{Month-level results}
-  \label{fg:month_level_results} 
+  \caption{Year-level results 1972-2024}
+  \label{fg:month_part_and_full_time_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 
-\subsection{Occupation category and prefecture level results}
+
+
+
+
+
+Figures \ref{fg:year_results} provide a month-level counterpart to Figure \ref{fg:month_part_and_full_time_results}. Note that I normalize the location of matching efficiency in January 2002 to 100 for comparison with Figure \ref{fg:month_part_and_full_time_results}, which is normalized to 2002. Also, note that the monthly data is not a complete subset of the annual data, so both estimates differ. 
+
+The monthly data patterns are almost consistent with the year-level ones, except for seasonal fluctuations. The only remarkable difference from the year-level results is that the implied match elasticity with respect to vacancies is 0.6-1.2, relative to 0.1-0.3 at the month level. This discrepancy arises because the estimated coefficient and the scale of matching efficiency differ across datasets. 
+For example, the monthly matching efficiency around 2010 is 210, whereas the yearly one is 120 because the observed maximum of each efficiency is in 1966 for yearly analysis and exists in 2010 for monthly analysis.
+Although \cite{lange2020beyond} do not explicitly mention the issue of scale normalization, this highlights the difficulty of comparing the level of matching efficiency across different datasets. Therefore, we can only compare the efficiency trends.
+
+\subsection{Decomposition of part-time and full time trends in 1972-2023}
+
+Figure \ref{fg:month_full_time_results}
+
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancy_month_full_time.png}}
+  \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/hire_month_full_time.png}}\\
+  \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancies_berveridge_month_full_time.png}}
+  \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_worker_finding_rate_month_full_time.png}}
+  \\
+  \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/matching_efficiency_month_full_time.png}}
+  \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/elasticity_month_full_time.png}}\\
+  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_month_full_time.png}}
+  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_month_full_time.png}}
+  \caption{Year-level full-time results 1972-2024}
+  \label{fg:month_full_time_results} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+
+Figure \ref{fg:month_part_time_results}
+
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancy_month_part_time.png}}
+  \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/hire_month_part_time.png}}\\
+  \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancies_berveridge_month_part_time.png}}
+  \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_worker_finding_rate_month_part_time.png}}
+  \\
+  \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/matching_efficiency_month_part_time.png}}
+  \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/elasticity_month_part_time.png}}\\
+  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_month_part_time.png}}
+  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_month_part_time.png}}
+  \caption{Year-level part-time results 1972-2024}
+  \label{fg:month_part_time_results} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+
+\subsection{Occupation category and prefecture level results in 2012-2024}
 
 \begin{itemize}
     \item \textcolor{blue}{[TBA] Data collection of prefecture-level and category-level data (RA)}
@@ -241,7 +270,6 @@ Although \cite{lange2020beyond} do not explicitly mention the issue of scale nor
     \item \textcolor{blue}{[TBA] Lasso for deriving elasticities like \cite{lange2020beyond}? (RA)}
     \item \textcolor{blue}{[TBA] Labor force $L$ data for plotting Beveridge Curve divided by $L$ for comparison of \cite{elsby2015beveridge} (RA)}
     \item \textcolor{blue}{[TBA] Geographical Mismatch}
-    \item Change results into monthly 1966-2024
 \end{itemize}
 
 
@@ -259,6 +287,46 @@ I investigate how matching efficiency in the labor market via Public Employment 
 
 \bibliographystyle{ecca}
 \bibliography{matching_function}
+
+\appendix
+\section{Additional results}
+\subsection{Year-level trends in 1966-2023}
+
+\begin{figure}[!ht]
+  \begin{center}
+ \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancy_year.png}}
+  \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/hire_year.png}}\\
+  \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancies_berveridge_year.png}}
+  \subfloat[Job Worker finding rate ($\frac{M}{U}$, $\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_worker_finding_rate_year.png}}
+  \\
+  \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/matching_efficiency_year.png}}
+  \subfloat[Matching Elasticity ($\frac{d\ln M}{d\ln U}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/elasticity_year.png}}\\
+  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_year.png}}
+  \subfloat[Efficiency ($A$) and ($\ln \frac{M}{U}$, $\ln \frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_year.png}}
+  \caption{Year-level results 1966-2024}
+  \label{fg:year_results} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+
+Figures \ref{fg:year_results} (a)-(d) provide annual data patterns of unemployed individuals, vacancies, labor market tightness (\(V/U\)), hires, the  ($U$,$V$) relationship, and job and worker finding rates (\(M/U\) and \(M/V\)). In summary, the numbers of unemployed individuals and vacancies increase with fluctuations, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards recent years.
+Although the ($U$,$V$) relationship does not corresponds with Beveridge curve because these numbers are not divided by the corresponding number of labor force, the prominent rightward shifts are consistent with the previous studies \citep{elsby2015beveridge}.
+
+Figures \ref{fg:year_results} (e) and (f) present the estimation results of the matching function along with matching efficiency and elasticities (\(\frac{d\ln M}{d\ln U}\) and \(\frac{d\ln M}{d\ln V}\)). Notably, matching efficiency (normalized to 2002) shows a declining trend with notable fluctuations, which is consistent with the downward trends of job and worker finding rates. This might be due to an increase in matching opportunities outside of the government-operated platform.
+
+The implied match elasticity with respect to unemployment is 0.2-0.5, which is lower than previous worldwide findings such as \cite{petrongolo2001looking} (range: 0.5-0.7) and Japanese studies such as \cite{higashi2018spatial} (0.38 for 2000-2014 monthly), \cite{kawata2019} (0.48 for 2012-2017 prefecture-month-level), \cite{kano2005estimating} (0.56 for 1972-1999 prefecture-year-level), \cite{sasaki2007measuring} (about 0.6 for 1998-2007 prefecture-quarter-level), and \cite{kambayashi2006vacancy} (about 0.8 for 1996-2001 prefecture-month-level). However, I discuss the need for careful interpretation of the estimates due to scale normalization of matching efficiency in Section \ref{sec:month_level}.\footnote{For reference, \cite{petrongolo2001looking} summarize early aggregate studies in many countries based on a Cobb-Douglas matching function with the flow of hires on the left-hand side and the stock of unemployment and job vacancies on the right-hand side. In short, match elasticity with respect to unemployment is in the range of 0.5–0.7.}
+On the other hand, the implied match elasticity with respect to vacancies is 0.1-0.3, which is comparable to \cite{lange2020beyond} (range: 0.3-0.5) and Japanese studies such as \cite{higashi2018spatial} (0.24 for 2000-2014 monthly), \cite{kawata2019} (0.52 for 2012-2017 prefecture-month-level), \cite{kano2005estimating} (0.3 for 1972-1999 prefecture-year-level), \cite{sasaki2007measuring} (about 0.2 for 1998-2007 prefecture-quarter-level), and \cite{kambayashi2006vacancy} (about 0.3 for 1996-2001 prefecture-month-level).
+
+Figures \ref{fg:year_results} (g) and (h) illustrate some correlation patterns between matching efficiency and market structure variables such as labor market tightness, worker finding rate, and job finding rate. Consistent with \cite{lange2020beyond}, these highlight positive correlations between efficiency and market structure, such as tightness, which induce a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in traditional estimators.
 
 \end{document}
 
