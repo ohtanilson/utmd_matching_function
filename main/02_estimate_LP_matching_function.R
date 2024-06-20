@@ -392,6 +392,7 @@ cor(residual_v_on_u_year, residual_a_on_u_year)
 plot(residual_v_on_u_year, residual_a_on_u_year)
 
 ## monthly ----
+### aggregate ----
 residual_v_on_u_full_time_monthly <-
   lm(position_count ~ candidate_count + month,
      data = utmd_output_helloworker_data_full_time_monthly)$residual
@@ -406,7 +407,7 @@ plot(
   residual_v_on_u_full_time_monthly, 
   residual_a_on_u_full_time_monthly
   )
-
+### part-time ----
 residual_v_on_u_part_time_monthly <-
   lm(position_count ~ candidate_count + month,
      data = utmd_output_helloworker_data_part_time_monthly)$residual
@@ -421,7 +422,7 @@ plot(
   residual_v_on_u_part_time_monthly,
   residual_a_on_u_part_time_monthly
   )
-
+### full-time ----
 residual_v_on_u_part_and_full_time_monthly <-
   lm(position_count ~ candidate_count + month,
      data = utmd_output_helloworker_data_part_and_full_time_monthly)$residual

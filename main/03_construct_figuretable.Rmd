@@ -60,7 +60,7 @@ utmd_output_helloworker_data_part_and_full_time_monthly <-
 
 
 
-### Year-level part-time and full-time
+### Month-level part-time and full-time
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -71,7 +71,7 @@ x <-
        y = residual_a_on_u_part_and_full_time_monthly
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -98,7 +98,7 @@ ggsave(filename = figure_name,
 ```
 
 
-### Year-level full-time
+### Month-level full-time
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -109,7 +109,7 @@ x <-
        y = residual_a_on_u_full_time_monthly
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -135,7 +135,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Year-level part-time
+### Month-level part-time
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -146,7 +146,7 @@ x <-
        y = residual_a_on_u_part_time_monthly
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -183,7 +183,7 @@ x <-
        y = residual_a_on_u_year
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -210,7 +210,7 @@ ggsave(filename = figure_name,
 ```
 
 
-## Figure 2: Year-level results 1973-2024 {.tabset}
+## Figure 2: Month-level aggregate results 1973-2024 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -255,8 +255,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   geom_line(
@@ -265,8 +265,8 @@ x <-
       x = time, 
       y = count
       ), 
-    alpha = 0.9, 
-    size = 0.5,
+    alpha = 0.8, 
+    size = 0.2,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -311,8 +311,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -340,7 +340,7 @@ ggsave(filename = figure_name,
 
 ```
 
-### Beveridge Curve
+### U and V relationship
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -405,6 +405,30 @@ temp <-
     count,
     - time
   )
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::mutate(
+    `M/U (part)` =
+      `hire`/`unemployed`,
+    `M/V (part)` =
+      `hire`/`vacancies`
+  ) %>% 
+  dplyr::select(
+    `M/U (part)`,
+    `M/V (part)`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+  )
+
 x <- 
   ggplot(
     temp,
@@ -416,8 +440,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -454,8 +478,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -510,8 +534,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -556,7 +580,7 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -616,7 +640,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -647,7 +671,7 @@ ggsave(filename = figure_name,
 
 
 
-## Figure 3: Month-level full-time trends in 1972-2024 {.tabset}
+## Figure 3: Month-level full-time and part-time trends in 1972-2024 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -681,6 +705,52 @@ temp2 <-
     count,
     - time
   )
+temp3 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::select(
+    `unemployed`,
+    `vacancies`,
+    time
+  ) %>% 
+  dplyr::rename(
+   `unemployed (part)` = `unemployed`,
+   `vacancies (part)` =`vacancies`
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp <-
+  rbind(
+    temp,
+    temp3
+  )
+
+
+temp4 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::mutate(
+    `V/U` =
+      `vacancies`/`unemployed`
+  ) %>% 
+  dplyr::select(
+    `V/U`,
+    time
+  ) %>% 
+  dplyr::rename(
+   `V/U (part)` = `V/U`
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp2 <-
+  rbind(
+    temp2,
+    temp4
+  )
 x <- 
   ggplot(
     temp,
@@ -692,8 +762,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   geom_line(
@@ -702,8 +772,8 @@ x <-
       x = time, 
       y = count
       ), 
-    alpha = 0.9, 
-    size = 0.5,
+    alpha = 0.8, 
+    size = 0.2,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -725,7 +795,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_vacancy_month_full_time.png"
+  "../figuretable/unemployed_vacancy_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -739,17 +809,49 @@ ggsave(filename = figure_name,
 ### H
 
 ```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_helloworker_data_full_time_monthly %>% 
+  dplyr::select(
+    `hire`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::select(
+    `hire`,
+    time
+  )  %>% 
+  dplyr::rename(
+   `hire (part)` = `hire`
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+  )
 x <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    temp,
     aes(
       x = time,
-      y = `hire`/1000000
+      y = count/1000000,
+      color = type, 
+      group = type
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -768,7 +870,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/hire_month_full_time.png"
+  "../figuretable/hire_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -777,12 +879,41 @@ ggsave(filename = figure_name,
 
 ```
 
-### Beveridge Curve
+### U and V relationship
 
 ```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_helloworker_data_full_time_monthly %>% 
+  dplyr::select(
+    month,
+    year,
+    unemployed,
+    vacancies
+  ) %>% 
+  dplyr::mutate(
+    type = "full"
+  )
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+    dplyr::select(
+    month,
+    year,
+    unemployed,
+    vacancies
+  ) %>% 
+  dplyr::mutate(
+    type = "part"
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+    )
+
+
 x <-
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly %>% 
+    temp %>% 
       dplyr::mutate(
         time = ifelse(
           month == "01-01",
@@ -792,7 +923,9 @@ x <-
       ),
      aes(
        x = unemployed/1000000,
-       y = vacancies/1000000
+       y = vacancies/1000000,
+      color = type, 
+      group = type
        )
      ) +
   geom_line(size = 0.2) +
@@ -813,7 +946,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_vacancies_berveridge_month_full_time.png"
+  "../figuretable/unemployed_vacancies_berveridge_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -842,6 +975,31 @@ temp <-
     count,
     - time
   )
+
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::mutate(
+    `M/U (part)` =
+      `hire`/`unemployed`,
+    `M/V (part)` =
+      `hire`/`vacancies`
+  ) %>% 
+  dplyr::select(
+    `M/U (part)`,
+    `M/V (part)`,
+    time
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+  )
+
 x <- 
   ggplot(
     temp,
@@ -853,8 +1011,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -870,7 +1028,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/job_finding_rate_worker_finding_rate_month_full_time.png"
+  "../figuretable/job_finding_rate_worker_finding_rate_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -878,21 +1036,48 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
+## Figure 4: (Continued) Month-level full-time and part-time trends in 1972-2024 {.tabset}
 
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
+temp <-
+  utmd_output_helloworker_data_full_time_monthly %>% 
+  dplyr::select(
+    time,
+    efficiency_implied
+  ) %>% 
+  dplyr::mutate(
+    type = "full"
+  )
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::select(
+    time,
+    efficiency_implied
+  ) %>% 
+  dplyr::mutate(
+    type = "part"
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+  )
+
 x <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    temp,
     aes(
       x = time,
-      y = efficiency_implied
+      y = efficiency_implied,
+      color = type, 
+      group = type
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -913,13 +1098,15 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/matching_efficiency_month_full_time.png"
+  "../figuretable/matching_efficiency_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
        width = 4,
        height = 3)
 ```
+
+
 
 ### Elasticity dlogM/dlogU,dlogM/dlogV
 
@@ -936,6 +1123,28 @@ temp <-
     count,
     - time
   )
+temp2 <-
+  utmd_output_helloworker_data_part_time_monthly %>% 
+  dplyr::select(
+    `dlog(M)/ dlog(V)`,
+    `dlog(M)/ dlog(AU)`,
+    time
+  ) %>% 
+  dplyr::rename(
+    `dlog(M)/ dlog(V) (part)` = `dlog(M)/ dlog(V)`,
+    `dlog(M)/ dlog(AU) (part)` = `dlog(M)/ dlog(AU)`
+  ) %>% 
+  tidyr::gather(
+    type,
+    count,
+    - time
+  )
+temp <-
+  rbind(
+    temp,
+    temp2
+  )
+
 x <- 
   ggplot(
     temp,
@@ -947,8 +1156,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -969,7 +1178,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/elasticity_month_full_time.png"
+  "../figuretable/elasticity_month_full_time_part_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -979,10 +1188,7 @@ x
 ```
 
 
-
-
-
-### The labor market tightness ($V/U$) and Efficiency ($A$)
+### The labor market tightness ($V/U$) and Efficiency ($A$) (full-time)
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
@@ -993,7 +1199,7 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1021,7 +1227,49 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$)
+
+
+
+### The labor market tightness ($V/U$) and Efficiency ($A$) (part-time)
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_helloworker_data_part_time_monthly,
+     aes(
+       x = log(vacancies/unemployed),
+       y = efficiency_implied
+       )
+     ) +
+  #geom_line(size = 0.2) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "log(V/U)",
+    y = "A"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/efficiency_tightness_plot_month_part_time.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$) (full-time)
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -1053,7 +1301,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1083,381 +1331,19 @@ ggsave(filename = figure_name,
 ```
 
 
-## Figure 4: Month-level part-time trends in 1972-2024 {.tabset}
+
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### U, V, and V/U
-
-```{r,echo=FALSE,results = "asis"}
-temp <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
-  dplyr::select(
-    `unemployed`,
-    `vacancies`,
-    time
-  ) %>% 
-  tidyr::gather(
-    type,
-    count,
-    - time
-  )
-temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
-  dplyr::mutate(
-    `V/U` =
-      `vacancies`/`unemployed`
-  ) %>% 
-  dplyr::select(
-    `V/U`,
-    time
-  ) %>% 
-  tidyr::gather(
-    type,
-    count,
-    - time
-  )
-x <- 
-  ggplot(
-    temp,
-    aes(
-      x = time,
-      y = count/1000000,
-      color = type, 
-      group = type
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  theme_classic() + 
-  geom_line(
-    data = temp2,
-    aes(
-      x = time, 
-      y = count
-      ), 
-    alpha = 0.9, 
-    size = 0.5,
-    linetype = "dotted"
-      ) + 
-  scale_y_continuous(
-    name = "Count (million) (solid)",
-    sec.axis = sec_axis(
-      ~.*1, 
-      name = "V/U (dotted)"
-      )
-    ) +
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
-  xlab("") +
-  labs(colour = "") +
-  #ylab("Count (million)") +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/unemployed_vacancy_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-
-
-```
-
-
-### H
-
-```{r,echo=FALSE,results = "asis"}
-x <- 
-  ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
-    aes(
-      x = time,
-      y = `hire`/1000000
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  xlab("") +
-  ylab("Count (million)") +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/hire_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-
-```
-
-### Beveridge Curve
-
-```{r,echo=FALSE,results = "asis"}
-x <-
-  ggplot(
-    utmd_output_helloworker_data_part_time_monthly %>% 
-      dplyr::mutate(
-        time = ifelse(
-          month == "01-01",
-          year,
-          NA
-        )
-      ),
-     aes(
-       x = unemployed/1000000,
-       y = vacancies/1000000
-       )
-     ) +
-  geom_line(size = 0.2) +
-  geom_point(size = 0.2, alpha = 0.3) +
-  geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 2) +
-  theme_classic() +
-  labs(
-    #title = "Beveridge Curve",
-    x = "U (mil)",
-    y = "V (mil)"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5),
-    plot.caption = element_text(hjust = 0, size = 8)
-  ) +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/unemployed_vacancies_berveridge_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-```
-
-### Job finding rate and worker finding rate
-
-```{r,echo=FALSE,results = "asis"}
-temp <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
-  dplyr::mutate(
-    `M/U` =
-      `hire`/`unemployed`,
-    `M/V` =
-      `hire`/`vacancies`
-  ) %>% 
-  dplyr::select(
-    `M/U`,
-    `M/V`,
-    time
-  ) %>% 
-  tidyr::gather(
-    type,
-    count,
-    - time
-  )
-x <- 
-  ggplot(
-    temp,
-    aes(
-      x = time,
-      y = count,
-      color = type, 
-      group = type
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
-  xlab("") +
-  ylab("") +
-  labs(colour = "") +
-  #ylab("Count (million)") +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/job_finding_rate_worker_finding_rate_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-```
-
-
-### Matching Efficiency A
-
-```{r,echo=FALSE,results = "asis"}
-x <- 
-  ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
-    aes(
-      x = time,
-      y = efficiency_implied
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
-  geom_hline(yintercept = 100, linetype = "longdash") +
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8))+
-  #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
-  xlab("") +
-  ylab("A (normalized to 1972 Jan)") +
-  #geom_vline(xintercept = 2002, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/matching_efficiency_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-```
-
-### Elasticity dlogM/dlogU,dlogM/dlogV
-
-```{r,echo=FALSE,results = "asis"}
-temp <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
-  dplyr::select(
-    `dlog(M)/ dlog(V)`,
-    `dlog(M)/ dlog(AU)`,
-    time
-  ) %>% 
-  tidyr::gather(
-    type,
-    count,
-    - time
-  )
-x <- 
-  ggplot(
-    temp,
-    aes(
-      x = time,
-      y = count,
-      color = type, 
-      group = type
-      )
-    ) +
-  geom_line(
-    alpha = 0.9, 
-    size = 0.5
-    ) + 
-  # geom_point(
-  #   aes(
-  #     shape = industry_group_name,
-  #     color = industry_group_name
-  #     )
-  #   ) +
-  #geom_hline(yintercept = 100, linetype = "longdash") +
-  theme_classic() + 
-  #scale_color_viridis_d() +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8))+
-  xlab("") +
-  ylab("log(M) w.r.t. log(AU) and log(V)") +
-  labs(colour = "") +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/elasticity_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-x
-```
 
 
 
 
 
-### The labor market tightness ($V/U$) and Efficiency ($A$)
 
-```{r,echo=FALSE,results = "asis"}
-x <-
-  ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
-     aes(
-       x = log(vacancies/unemployed),
-       y = efficiency_implied
-       )
-     ) +
-  #geom_line(size = 0.5) +
-  geom_point() +
-  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
-  theme_classic() +
-  labs(
-    #title = "Beveridge Curve",
-    x = "log(V/U)",
-    y = "A"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5),
-    plot.caption = element_text(hjust = 0, size = 8)
-  ) +
-  theme(legend.position = 'top',
-        legend.text = element_text(size=8)) +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/efficiency_tightness_plot_month_part_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-```
 
-### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$)
+
+### The job finding rate ($H/U$) , filling rate ($H/V$) and Efficiency ($A$)  (part-time)
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
@@ -1489,7 +1375,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1565,8 +1451,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   geom_line(
@@ -1575,8 +1461,8 @@ x <-
       x = time, 
       y = count
       ), 
-    alpha = 0.9, 
-    size = 0.5,
+    alpha = 0.8, 
+    size = 0.2,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -1621,8 +1507,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -1720,8 +1606,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -1760,8 +1646,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -1816,8 +1702,8 @@ x <-
       )
     ) +
   geom_line(
-    alpha = 0.9, 
-    size = 0.5
+    alpha = 0.8, 
+    size = 0.2
     ) + 
   # geom_point(
   #   aes(
@@ -1861,7 +1747,7 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1919,7 +1805,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.5) +
+  #geom_line(size = 0.2) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
