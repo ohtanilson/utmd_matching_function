@@ -326,6 +326,7 @@ x <-
         legend.text = element_text(size=8)) +
   xlab("") +
   ylab("Count (million)") +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -371,6 +372,7 @@ x <-
     plot.title = element_text(hjust = 0.5),
     plot.caption = element_text(hjust = 0, size = 8)
   ) +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -495,6 +497,7 @@ x <-
   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("A (normalized to 1972 Jan)") +
+  labs(colour = "") +
   #geom_vline(xintercept = 2002, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -691,6 +694,10 @@ temp <-
     `vacancies`,
     time
   ) %>% 
+  dplyr::rename(
+   `unemployed (full)` = `unemployed`,
+   `vacancies (full)` =`vacancies`
+  ) %>% 
   tidyr::gather(
     type,
     count,
@@ -705,6 +712,9 @@ temp2 <-
   dplyr::select(
     `V/U`,
     time
+  ) %>% 
+  dplyr::rename(
+   `V/U (full)` = `V/U`
   ) %>% 
   tidyr::gather(
     type,
@@ -874,6 +884,7 @@ x <-
         legend.text = element_text(size=8)) +
   xlab("") +
   ylab("Count (million)") +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -952,6 +963,7 @@ x <-
     plot.title = element_text(hjust = 0.5),
     plot.caption = element_text(hjust = 0, size = 8)
   ) +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -1104,6 +1116,7 @@ x <-
   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
   ylab("A (normalized to 1972 Jan)") +
+  labs(colour = "") +
   #geom_vline(xintercept = 2002, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
@@ -1128,6 +1141,10 @@ temp <-
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
     time
+  ) %>% 
+  dplyr::rename(
+    `dlog(M)/ dlog(V) (full)` = `dlog(M)/ dlog(V)`,
+    `dlog(M)/ dlog(AU) (full)` = `dlog(M)/ dlog(AU)`
   ) %>% 
   tidyr::gather(
     type,
@@ -1184,6 +1201,7 @@ x <-
   xlab("") +
   ylab("log(M) w.r.t. log(AU) and log(V)") +
   labs(colour = "") +
+  guides(color = guide_legend(nrow = 2)) +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()
