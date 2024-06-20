@@ -71,7 +71,7 @@ x <-
        y = residual_a_on_u_part_and_full_time_monthly
        )
      ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -89,7 +89,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/residual_plot_month_part_and_full_time.png"
+  "../figuretable/residual_plot_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -109,7 +109,7 @@ x <-
        y = residual_a_on_u_full_time_monthly
        )
      ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -146,7 +146,7 @@ x <-
        y = residual_a_on_u_part_time_monthly
        )
      ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -183,7 +183,7 @@ x <-
        y = residual_a_on_u_year
        )
      ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -256,7 +256,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   geom_line(
@@ -266,7 +266,7 @@ x <-
       y = count
       ), 
     alpha = 0.8, 
-    size = 0.2,
+    size = 0.5,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -288,7 +288,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_vacancy_month_part_and_full_time.png"
+  "../figuretable/unemployed_vacancy_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -312,7 +312,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -331,7 +331,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/hire_month_part_and_full_time.png"
+  "../figuretable/hire_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -358,8 +358,8 @@ x <-
        y = vacancies/1000000
        )
      ) +
-  geom_line(size = 0.2) +
-  geom_point(size = 0.2, alpha = 0.3) +
+  geom_line(size = 0.5) +
+  geom_point(size = 0.5, alpha = 0.3) +
   geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 2) +
   theme_classic() +
   labs(
@@ -376,7 +376,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/unemployed_vacancies_berveridge_month_part_and_full_time.png"
+  "../figuretable/unemployed_vacancies_berveridge_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -441,7 +441,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -457,7 +457,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/job_finding_rate_worker_finding_rate_month_part_and_full_time.png"
+  "../figuretable/job_finding_rate_worker_finding_rate_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -479,7 +479,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -500,7 +500,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/matching_efficiency_month_part_and_full_time.png"
+  "../figuretable/matching_efficiency_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -535,7 +535,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -556,7 +556,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/elasticity_month_part_and_full_time.png"
+  "../figuretable/elasticity_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -580,8 +580,11 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -600,7 +603,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/efficiency_tightness_plot_month_part_and_full_time.png"
+  "../figuretable/efficiency_tightness_plot_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -640,8 +643,11 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -661,7 +667,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/job_finding_rate_efficiency_plot_month_part_and_full_time.png"
+  "../figuretable/job_finding_rate_efficiency_plot_month_aggregate.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -763,7 +769,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   geom_line(
@@ -773,7 +779,7 @@ x <-
       y = count
       ), 
     alpha = 0.8, 
-    size = 0.2,
+    size = 0.5,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -851,7 +857,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -928,10 +934,12 @@ x <-
       group = type
        )
      ) +
-  geom_line(size = 0.2) +
-  geom_point(size = 0.2, alpha = 0.3) +
+  geom_line(size = 0.5, alpha = 0.8) +
+  geom_point(size = 0.5, alpha = 0.3) +
   geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 2) +
   theme_classic() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
   labs(
     #title = "Beveridge Curve",
     x = "U (mil)",
@@ -1012,7 +1020,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -1077,7 +1085,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -1157,7 +1165,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -1199,8 +1207,11 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -1241,8 +1252,11 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -1301,8 +1315,11 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -1375,8 +1392,11 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.2) +
-  geom_point() +
+  #geom_line(size = 0.5) +
+  geom_point(
+    alpha = 0.8, 
+    size = 0.5
+  ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
   labs(
@@ -1452,7 +1472,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   geom_line(
@@ -1462,7 +1482,7 @@ x <-
       y = count
       ), 
     alpha = 0.8, 
-    size = 0.2,
+    size = 0.5,
     linetype = "dotted"
       ) + 
   scale_y_continuous(
@@ -1508,7 +1528,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -1548,8 +1568,8 @@ x <-
        y = vacancies/1000000
        )
      ) +
-  geom_line(size = 0.2) +
-  geom_point(size = 0.2, alpha = 0.3) +
+  geom_line(size = 0.5) +
+  geom_point(size = 0.5, alpha = 0.3) +
   geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 1.5) +
   theme_classic() +
   labs(
@@ -1607,7 +1627,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   theme_classic() + 
   #scale_color_viridis_d() +
@@ -1647,7 +1667,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -1703,7 +1723,7 @@ x <-
     ) +
   geom_line(
     alpha = 0.8, 
-    size = 0.2
+    size = 0.5
     ) + 
   # geom_point(
   #   aes(
@@ -1747,7 +1767,7 @@ x <-
        y = efficiency_implied
        )
      ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1805,7 +1825,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.2) +
+  #geom_line(size = 0.5) +
   geom_point() +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
