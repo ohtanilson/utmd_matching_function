@@ -45,7 +45,7 @@
 \begin{abstract}
 \noindent
 %150 words:
-I examine changes in matching efficiency in Japan's labor market via Hello Work for unemployed workers from 1966 January 1966 to April 2024. Using a nonparametric identification approach by \cite{lange2020beyond} on monthly data, I find a declining trend in matching efficiency (normalized to 1972), consistent with decreasing job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
+I examine changes in matching efficiency in Japan's labor market via Hello Work for unemployed workers from January 1972 to April 2024. Using a nonparametric identification approach by \cite{lange2020beyond} on monthly data, I find a declining trend in matching efficiency (normalized to 1972), consistent with decreasing job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
 
 %100 words AER
 \textbf{Keywords}: XXX \\
@@ -57,6 +57,7 @@ I examine changes in matching efficiency in Japan's labor market via Hello Work 
 \begin{itemize}
     \item Research question: How has the matching efficiency in the labor market for the unemployed workers changed in Japan in 1972-2024?
     \item Nice introduction.
+    \item One more contribution.
 \end{itemize}
 
 This paper contributes to the two strands of literature.
@@ -163,13 +164,13 @@ Because the patterns appear to be influenced by some outliers as in Figure \ref{
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[Month-level part-time and full-time]{\includegraphics[width = 0.33\textwidth]
-  {figuretable/residual_plot_month_part_and_full_time.png}}
+  \subfloat[Aggregate]{\includegraphics[width = 0.33\textwidth]
+  {figuretable/residual_plot_month_aggregate.png}}
   % \subfloat[Year-level part-time and full-time]{\includegraphics[width = 0.33\textwidth]
   % {figuretable/residual_plot_year.png}}
-  \subfloat[Month-level full-time]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Full-time]{\includegraphics[width = 0.37\textwidth]
   {figuretable/residual_plot_month_full_time.png}}
-  \subfloat[Month-level part-time]{\includegraphics[width = 0.33\textwidth]
+  \subfloat[Part-time]{\includegraphics[width = 0.33\textwidth]
   {figuretable/residual_plot_month_part_time.png}}
   \caption{Residual plot}
   \label{fg:residual_plots} 
@@ -198,23 +199,23 @@ Figures \ref{fg:month_part_and_full_time_results} (g) and (h) illustrate some co
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancy_month_part_and_full_time.png}}
+  {figuretable/unemployed_vacancy_month_aggregate.png}}
   \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/hire_month_part_and_full_time.png}}\\
+  {figuretable/hire_month_aggregate.png}}\\
   \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancies_berveridge_month_part_and_full_time.png}}
+  {figuretable/unemployed_vacancies_berveridge_month_aggregate.png}}
   \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_worker_finding_rate_month_part_and_full_time.png}}
+  {figuretable/job_finding_rate_worker_finding_rate_month_aggregate.png}}
   \\
   \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/matching_efficiency_month_part_and_full_time.png}}
+  {figuretable/matching_efficiency_month_aggregate.png}}
   \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/elasticity_month_part_and_full_time.png}}\\
+  {figuretable/elasticity_month_aggregate.png}}\\
   \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/efficiency_tightness_plot_month_part_and_full_time.png}}
+  {figuretable/efficiency_tightness_plot_month_aggregate.png}}
   \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_efficiency_plot_month_part_and_full_time.png}}
-  \caption{Month-level results 1972-2024}
+  {figuretable/job_finding_rate_efficiency_plot_month_aggregate.png}}
+  \caption{Month-level aggregate results 1972-2024}
   \label{fg:month_part_and_full_time_results} 
   \end{center}
   \footnotesize
@@ -226,33 +227,34 @@ Figures \ref{fg:month_part_and_full_time_results} (g) and (h) illustrate some co
 
 \subsection{Decomposition of part-time and full time trends in 1972-2023}
 Next we decompose the aggregate trends into full-time and part-time labor markets' trends.
+Figure \ref{fg:month_full_time_part_time_results} provide full-time and part-time labor markets' trends corresponding Figures \ref{fg:month_part_and_full_time_results} (a)-(f).
 
-
-Figures \ref{fg:month_full_time_results} and \ref{fg:month_part_time_results} provide full-time and part-time labor markets' trends corresponding Figures \ref{fg:month_part_and_full_time_results}.
+Figure \ref{fg:month_full_time_part_time_correlation_results} corresponds with Figures \ref{fg:month_part_and_full_time_results} (g)-(h).
 
 
 
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancy_month_full_time.png}}
+  {figuretable/unemployed_vacancy_month_full_time_part_time.png}}
   \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/hire_month_full_time.png}}\\
+  {figuretable/hire_month_full_time_part_time.png}}\\
   \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancies_berveridge_month_full_time.png}}
+  {figuretable/unemployed_vacancies_berveridge_month_full_time_part_time.png}}
   \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_worker_finding_rate_month_full_time.png}}
+  {figuretable/job_finding_rate_worker_finding_rate_month_full_time_part_time.png}}
   \\
   \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/matching_efficiency_month_full_time.png}}
+  {figuretable/matching_efficiency_month_full_time_part_time.png}}
   \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/elasticity_month_full_time.png}}\\
-  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/efficiency_tightness_plot_month_full_time.png}}
-  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_efficiency_plot_month_full_time.png}}
-  \caption{Month-level full-time results 1972-2024}
-  \label{fg:month_full_time_results} 
+  {figuretable/elasticity_month_full_time_part_time.png}}
+  % \\
+  % \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
+  % {figuretable/efficiency_tightness_plot_month_full_time.png}}
+  % \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  % {figuretable/job_finding_rate_efficiency_plot_month_full_time.png}}
+  \caption{Month-level full-time and part-time results 1972-2024}
+  \label{fg:month_full_time_part_time_results} 
   \end{center}
   \footnotesize
   %Note: 
@@ -261,35 +263,25 @@ Figures \ref{fg:month_full_time_results} and \ref{fg:month_part_time_results} pr
 
 \begin{figure}[!ht]
   \begin{center}
-  \subfloat[Unemployed ($U$), Vacancy ($V$), and Tightness ($\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancy_month_part_time.png}}
-  \subfloat[Hire ($H$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/hire_month_part_time.png}}\\
-  \subfloat[ ($U$,$V$) relationship]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancies_berveridge_month_part_time.png}}
-  \subfloat[Job Worker finding rate ($\frac{M}{U}$,$\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/job_finding_rate_worker_finding_rate_month_part_time.png}}
-  \\
-  \subfloat[Matching Efficiency ($A$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/matching_efficiency_month_part_time.png}}
-  \subfloat[Matching Elasticity ($\frac{d\ln M}{d \ln AU}$, $\frac{d\ln M}{d\ln V}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/elasticity_month_part_time.png}}\\
-  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$)]{\includegraphics[width = 0.37\textwidth]
-  {figuretable/efficiency_tightness_plot_month_part_time.png}}
-  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$)]{\includegraphics[width = 0.37\textwidth]
+  \subfloat[Efficiency ($A$) and Tightness ($\ln\frac{V}{U}$), Part-time (left) and Full-time (right)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_month_full_time.png}\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_month_part_time.png}}\\
+  \subfloat[Efficiency ($A$) and ($\ln\frac{M}{U}$, $\ln\frac{M}{V}$), Part-time (left) and Full-time (right)]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_month_full_time.png}\includegraphics[width = 0.37\textwidth]
   {figuretable/job_finding_rate_efficiency_plot_month_part_time.png}}
-  \caption{Month-level part-time results 1972-2024}
-  \label{fg:month_part_time_results} 
+  \caption{Month-level full-time and part-time results 1972-2024}
+  \label{fg:month_full_time_part_time_correlation_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
+
+
+
+
 
 \subsection{Occupation category and prefecture level results in 2012-2024}
 
-\textcolor{blue}{}
-
-XXX
 
 \begin{itemize}
     \item \textcolor{blue}{[TBA] Data collection of prefecture-level and category-level data (RA)}
@@ -303,7 +295,7 @@ XXX
 
 \section{Conclusion}
 
-I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for unemployed workers changed during the period 1966-2024. By applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to both annual and monthly data, I find that matching efficiency (normalized to 1972) exhibits a declining trend with notable fluctuations, consistent with the downward trends in job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight that comparing matching elasticity with respect to the number of unemployed workers across different datasets is challenging due to differences in scale normalization.
+I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for unemployed workers changed during the period 1972-2024. By applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to both annual and monthly data, I find that matching efficiency (normalized to 1972) exhibits a declining trend with notable fluctuations, consistent with the downward trends in job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight that comparing matching elasticity with respect to the number of unemployed workers across different datasets is challenging due to differences in scale normalization.
 
 
 
@@ -314,6 +306,8 @@ I investigate how matching efficiency in the labor market via Public Employment 
 
 \bibliographystyle{ecca}
 \bibliography{matching_function}
+
+\newpage
 
 \appendix
 \section{Additional results}\label{sec:year_data}
@@ -346,7 +340,6 @@ I investigate how matching efficiency in the labor market via Public Employment 
 \end{figure} 
 
 Figures \ref{fg:year_results} provide a year-level counterpart to Figure \ref{fg:month_part_and_full_time_results}. Figures \ref{fg:year_results} (a)-(d) provide annual data patterns of unemployed individuals, vacancies, labor market tightness (\(V/U\)), hires, the  ($U$,$V$) relationship, and job and worker finding rates (\(M/U\) and \(M/V\)). In summary, the numbers of unemployed individuals and vacancies increase with fluctuations, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards recent years.
-Although the ($U$,$V$) relationship does not corresponds with Beveridge curve because these numbers are not divided by the corresponding number of labor force, the prominent rightward shifts are consistent with the previous studies \citep{elsby2015beveridge}.
 
 Figures \ref{fg:year_results} (e) and (f) present the estimation results of the matching function along with matching efficiency and elasticities (\(\frac{d\ln M}{d\ln U}\) and \(\frac{d\ln M}{d\ln V}\)). Notably, matching efficiency (normalized to 1972) shows a declining trend with notable fluctuations, which is consistent with the downward trends of job and worker finding rates. This might be due to an increase in matching opportunities outside of the government-operated platform.
 
