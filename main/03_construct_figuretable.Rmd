@@ -586,7 +586,7 @@ x <-
   #geom_line(size = 0.3) +
   geom_point(
     alpha = 0.8, 
-    size = 0.3
+    size = 0.5
   ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -646,7 +646,7 @@ x <-
       group = type
       )
     ) +
-  #geom_line(size = 0.3) +
+  #geom_line(size = 0.5) +
   geom_point(
     alpha = 0.8, 
     size = 0.3
@@ -1213,7 +1213,6 @@ ggsave(filename = figure_name,
        device = "png",
        width = 4,
        height = 3)
-x
 ```
 
 
@@ -1231,7 +1230,7 @@ x <-
   #geom_line(size = 0.3) +
   geom_point(
     alpha = 0.8, 
-    size = 0.3
+    size = 0.5
   ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1276,7 +1275,7 @@ x <-
   #geom_line(size = 0.3) +
   geom_point(
     alpha = 0.8, 
-    size = 0.3
+    size = 0.5
   ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1339,7 +1338,7 @@ x <-
   #geom_line(size = 0.3) +
   geom_point(
     alpha = 0.8, 
-    size = 0.3
+    size = 0.5
   ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
@@ -1416,7 +1415,7 @@ x <-
   #geom_line(size = 0.3) +
   geom_point(
     alpha = 0.8, 
-    size = 0.3
+    size = 0.5
   ) +
   #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
   theme_classic() +
