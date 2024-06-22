@@ -21,12 +21,12 @@ utmd_output_hello_work_data <-
   readRDS(file = here::here("output/utmd_output_hello_work_data.rds"))
 utmd_output_hello_work_data_yearly <-
   readRDS(file = here::here("output/utmd_output_hello_work_data_yearly.rds"))
-utmd_output_helloworker_data_full_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_full_time_monthly.rds"))
-utmd_output_helloworker_data_part_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_part_time_monthly.rds"))
-utmd_output_helloworker_data_part_and_full_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_part_and_full_time_monthly.rds"))
+utmd_output_hello_work_data_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_full_time_monthly.rds"))
+utmd_output_hello_work_data_part_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_time_monthly.rds"))
+utmd_output_hello_work_data_part_and_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds"))
 ```
 
 ## utmd_output_hello_work_data_yearly {.tabset}
@@ -445,7 +445,7 @@ target_plot
 
 
 
-## utmd_output_helloworker_data_full_time_monthly {.tabset}
+## utmd_output_hello_work_data_full_time_monthly {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -454,7 +454,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = candidate_count/10000,
@@ -488,7 +488,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = position_count/10000,
@@ -520,7 +520,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = hire_count/10000,
@@ -554,7 +554,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = efficiency_implied,
@@ -587,7 +587,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_efficiency_unemployed,
@@ -620,7 +620,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_vacancy,
@@ -649,7 +649,7 @@ target_plot
 ```
 
 
-## utmd_output_helloworker_data_part_time_monthly {.tabset}
+## utmd_output_hello_work_data_part_time_monthly {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -658,7 +658,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = candidate_count/10000,
@@ -692,7 +692,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = position_count/10000,
@@ -724,7 +724,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = hire_count/10000,
@@ -758,7 +758,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = efficiency_implied,
@@ -791,7 +791,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_efficiency_unemployed,
@@ -824,7 +824,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_vacancy,
@@ -853,7 +853,7 @@ target_plot
 ```
 
 
-## utmd_output_helloworker_data_part_and_full_time_monthly {.tabset}
+## utmd_output_hello_work_data_part_and_full_time_monthly {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -862,7 +862,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = candidate_count/10000,
@@ -896,7 +896,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = position_count/10000,
@@ -928,7 +928,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = hire_count/10000,
@@ -962,7 +962,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = efficiency_implied,
@@ -995,7 +995,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_efficiency_unemployed,
@@ -1028,7 +1028,7 @@ target_plot
 ```{r,echo=FALSE,results = "asis"}
 target_plot <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = hire_elasticity_vacancy,

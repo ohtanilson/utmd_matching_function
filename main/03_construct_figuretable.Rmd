@@ -27,8 +27,8 @@ utmd_output_hello_work_data_yearly <-
     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
 
-utmd_output_helloworker_data_full_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_full_time_monthly.rds")) %>% 
+utmd_output_hello_work_data_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_full_time_monthly.rds")) %>% 
   dplyr::rename(
     `unemployed`= candidate_count,
     `vacancies` = position_count,
@@ -36,8 +36,8 @@ utmd_output_helloworker_data_full_time_monthly <-
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
-utmd_output_helloworker_data_part_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_part_time_monthly.rds")) %>% 
+utmd_output_hello_work_data_part_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_time_monthly.rds")) %>% 
   dplyr::rename(
     `unemployed`= candidate_count,
     `vacancies` = position_count,
@@ -45,8 +45,8 @@ utmd_output_helloworker_data_part_time_monthly <-
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
-utmd_output_helloworker_data_part_and_full_time_monthly <-
-  readRDS(file = here::here("output/utmd_output_helloworker_data_part_and_full_time_monthly.rds")) %>% 
+utmd_output_hello_work_data_part_and_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds")) %>% 
   dplyr::rename(
     `unemployed`= candidate_count,
     `vacancies` = position_count,
@@ -65,10 +65,10 @@ utmd_output_helloworker_data_part_and_full_time_monthly <-
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
      aes(
-       x = residual_v_on_u_part_and_full_time_monthly,
-       y = residual_a_on_u_part_and_full_time_monthly
+       x = residual_v_on_u,
+       y = residual_a_on_u
        )
      ) +
   #geom_line(size = 0.3) +
@@ -103,10 +103,10 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
      aes(
-       x = residual_v_on_u_full_time_monthly,
-       y = residual_a_on_u_full_time_monthly
+       x = residual_v_on_u,
+       y = residual_a_on_u
        )
      ) +
   #geom_line(size = 0.3) +
@@ -140,10 +140,10 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
      aes(
-       x = residual_v_on_u_part_time_monthly,
-       y = residual_a_on_u_part_time_monthly
+       x = residual_v_on_u,
+       y = residual_a_on_u
        )
      ) +
   #geom_line(size = 0.3) +
@@ -179,8 +179,8 @@ x <-
   ggplot(
     utmd_output_hello_work_data_yearly,
      aes(
-       x = residual_v_on_u_year,
-       y = residual_a_on_u_year
+       x = residual_v_on_u,
+       y = residual_a_on_u
        )
      ) +
   #geom_line(size = 0.3) +
@@ -218,7 +218,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+  utmd_output_hello_work_data_part_and_full_time_monthly %>% 
   dplyr::select(
     `unemployed`,
     `vacancies`,
@@ -230,7 +230,7 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+  utmd_output_hello_work_data_part_and_full_time_monthly %>% 
   dplyr::mutate(
     `V/U` =
       `vacancies`/`unemployed`
@@ -304,7 +304,7 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = `hire`/1000000
@@ -346,7 +346,7 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+    utmd_output_hello_work_data_part_and_full_time_monthly %>% 
       dplyr::mutate(
         time = ifelse(
           month == "01-01",
@@ -390,7 +390,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+  utmd_output_hello_work_data_part_and_full_time_monthly %>% 
   dplyr::mutate(
     `M/U` =
       `hire`/`unemployed`,
@@ -408,7 +408,7 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::mutate(
     `M/U (part)` =
       `hire`/`unemployed`,
@@ -473,7 +473,7 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <- 
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
     aes(
       x = time,
       y = efficiency_implied
@@ -515,7 +515,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+  utmd_output_hello_work_data_part_and_full_time_monthly %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
@@ -577,7 +577,7 @@ x
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
+    utmd_output_hello_work_data_part_and_full_time_monthly,
      aes(
        x = log(vacancies/unemployed),
        y = efficiency_implied
@@ -618,7 +618,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_part_and_full_time_monthly %>% 
+  utmd_output_hello_work_data_part_and_full_time_monthly %>% 
   dplyr::mutate(
     `log(M/U)` =
       log(`hire`/`unemployed`),
@@ -688,7 +688,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::select(
     `unemployed`,
     `vacancies`,
@@ -704,7 +704,7 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::mutate(
     `V/U` =
       `vacancies`/`unemployed`
@@ -722,7 +722,7 @@ temp2 <-
     - time
   )
 temp3 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::select(
     `unemployed`,
     `vacancies`,
@@ -745,7 +745,7 @@ temp <-
 
 
 temp4 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::mutate(
     `V/U` =
       `vacancies`/`unemployed`
@@ -826,7 +826,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::select(
     `hire`,
     time
@@ -840,7 +840,7 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::select(
     `hire`,
     time
@@ -903,7 +903,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::select(
     month,
     year,
@@ -914,7 +914,7 @@ temp <-
     type = "full"
   )
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
     dplyr::select(
     month,
     year,
@@ -981,7 +981,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::mutate(
     `M/U (full)` =
       `hire`/`unemployed`,
@@ -1000,7 +1000,7 @@ temp <-
   )
 
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::mutate(
     `M/U (part)` =
       `hire`/`unemployed`,
@@ -1065,7 +1065,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::select(
     time,
     efficiency_implied
@@ -1074,7 +1074,7 @@ temp <-
     type = "full"
   )
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::select(
     time,
     efficiency_implied
@@ -1136,7 +1136,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
@@ -1152,7 +1152,7 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
@@ -1221,7 +1221,7 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_full_time_monthly,
+    utmd_output_hello_work_data_full_time_monthly,
      aes(
        x = log(vacancies/unemployed),
        y = efficiency_implied
@@ -1266,7 +1266,7 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_helloworker_data_part_time_monthly,
+    utmd_output_hello_work_data_part_time_monthly,
      aes(
        x = log(vacancies/unemployed),
        y = efficiency_implied
@@ -1307,7 +1307,7 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_full_time_monthly %>% 
   dplyr::mutate(
     `log(M/U)` =
       log(`hire`/`unemployed`),
@@ -1384,7 +1384,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_helloworker_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_part_time_monthly %>% 
   dplyr::mutate(
     `log(M/U)` =
       log(`hire`/`unemployed`),

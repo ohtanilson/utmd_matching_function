@@ -7,12 +7,94 @@ hello_work_data <-
   readRDS(file = here::here("cleaned/hello_work_data.rds"))
 hello_work_data_yearly <-
   readRDS(file = here::here("cleaned/hello_work_data_yearly.rds"))
-helloworker_data_full_time_monthly <-
-  readRDS(file = here::here("cleaned/helloworker_data_full_time_monthly.rds"))
-helloworker_data_part_time_monthly <-
-  readRDS(file = here::here("cleaned/helloworker_data_part_time_monthly.rds"))
-helloworker_data_part_and_full_time_monthly <-
-  readRDS(file = here::here("cleaned/helloworker_data_part_and_full_time_monthly.rds"))
+hello_work_data_full_time_monthly <-
+  readRDS(file = here::here("cleaned/hello_work_data_full_time_monthly.rds"))
+hello_work_data_part_time_monthly <-
+  readRDS(file = here::here("cleaned/hello_work_data_part_time_monthly.rds"))
+hello_work_data_part_and_full_time_monthly <-
+  readRDS(file = here::here("cleaned/hello_work_data_part_and_full_time_monthly.rds"))
+hello_work_data_monthly_prefecture <-
+  readRDS(file = here::here("cleaned/hello_work_data_monthly_prefecture.rds")) %>% 
+  dplyr::filter(
+    prefecture != "全国"
+  ) %>% 
+  dplyr::select(
+    year,
+    month,
+    year_month,
+    type,
+    unemployed_keep,
+    vacancy_keep,
+    hire,
+    prefecture
+  ) %>% 
+  dplyr::rename(
+    time = year_month,
+    vacancy = vacancy_keep,
+    unemployed = unemployed_keep
+  ) %>% 
+  dplyr::mutate(
+    industry_group_name = "prefecture_level"
+  )
+hello_work_data_monthly_job_category <-
+  readRDS(file = here::here("cleaned/hello_work_data_monthly_job_category.rds")) %>% 
+  dplyr::filter(
+    job_kinds != "職業計"
+  ) %>% 
+  dplyr::select(
+    year,
+    month,
+    year_month,
+    type,
+    unemployed_keep,
+    vacancy_keep,
+    hire,
+    job_kinds
+  ) %>% 
+  dplyr::rename(
+    time = year_month,
+    vacancy = vacancy_keep,
+    unemployed = unemployed_keep
+  ) %>% 
+  dplyr::mutate(
+    industry_group_name = "prefecture_level"
+  )
+## decompose ----
+colnames(hello_work_data_part_and_full_time_monthly)
+colnames(hello_work_data_monthly_prefecture)
+colnames(hello_work_data_monthly_job_category)
+### prefecture level ----
+hello_work_data_full_time_monthly_prefecture <-
+  hello_work_data_monthly_prefecture %>% 
+  dplyr::filter(
+    type == "full-time"
+  )
+hello_work_data_part_time_monthly_prefecture <-
+  hello_work_data_monthly_prefecture %>% 
+  dplyr::filter(
+    type == "part-time"
+  )
+hello_work_data_part_and_full_time_monthly_prefecture <-
+  hello_work_data_monthly_prefecture %>% 
+  dplyr::filter(
+    type == "both"
+  )
+### job category level ----
+hello_work_data_full_time_monthly_job_category <-
+  hello_work_data_monthly_job_category %>% 
+  dplyr::filter(
+    type == "full-time"
+  )
+hello_work_data_part_time_monthly_job_category <-
+  hello_work_data_monthly_job_category %>% 
+  dplyr::filter(
+    type == "part-time"
+  )
+hello_work_data_part_and_full_time_monthly_job_category <-
+  hello_work_data_monthly_job_category %>% 
+  dplyr::filter(
+    type == "both"
+  )
 
 # set constant ----
 maxA <-
@@ -113,6 +195,7 @@ predict_efficiency <-
 
 estimate_efficiency <-
   function(
+    cross_sectional_normalization,
     data,
     Astar,
     maxA,
@@ -121,13 +204,32 @@ estimate_efficiency <-
     kernel_sd = kernel_sd
   ){
     # fix normalized point
-    vstar <- 
-      # quantile(
-      #   data$vacancy, 
-      #   probs = 0.50
-      # )
-      #data$vacancy[1] # initial date
-      as.numeric(data[data$year == "1972","vacancy"][1,]) # 1972 Jan
+    if(cross_sectional_normalization == "location"){
+      vstar <- 
+        # quantile(
+        #   data$vacancy, 
+        #   probs = 0.50
+        # )
+        #data$vacancy[1] # initial date
+        as.numeric(data[data$year == "2013"& data$prefecture == "東京都","vacancy"][1,]) # 1972 Jan
+    }else if(cross_sectional_normalization == "job category"){
+      vstar <- 
+        # quantile(
+        #   data$vacancy, 
+        #   probs = 0.50
+        # )
+        #data$vacancy[1] # initial date
+        as.numeric(data[data$year == "2013" & data$job_category == "東京都","vacancy"][1,]) # 1972 Jan
+    }else{
+      vstar <- 
+        # quantile(
+        #   data$vacancy, 
+        #   probs = 0.50
+        # )
+        #data$vacancy[1] # initial date
+        as.numeric(data[data$year == "1972","vacancy"][1,]) # 1972 Jan
+    }
+    
     # Find the index of the closest value to vstar in v
     point_vstar <- 
       which.min(abs(data$vacancy - vstar))
@@ -198,6 +300,7 @@ estimate_efficiency <-
 estimate_efficiency_all_industry <-
   function(
     list_industry_group_name,
+    cross_sectional_normalization,
     data,
     Astar,
     maxA,
@@ -217,6 +320,7 @@ estimate_efficiency_all_industry <-
         ) 
       efficiency_implied <-
         estimate_efficiency(
+          cross_sectional_normalization,
           target_data,
           Astar,
           maxA,
@@ -265,8 +369,56 @@ estimate_efficiency_all_industry <-
     }
     return(utmd_output_month)
   }
-
-
+assign_results <-
+  function(
+    target_data,
+    cross_sectional_normalization
+    ){
+  temp_data <-
+    estimate_efficiency_all_industry(
+      list_industry_group_name = 
+        unique(
+          target_data$industry_group_name
+        ),
+      cross_sectional_normalization = 
+        cross_sectional_normalization,
+      data = target_data,
+      Astar,
+      maxA,
+      minA,
+      supportsize_theta,
+      kernel_sd
+    ) %>% 
+    dplyr::rename(
+      candidate_count = unemployed,  
+      position_count = vacancy,   
+      hire_count = hire
+    )
+  # test independence of AV conditional on U 
+  residual_v_on_u <-
+    lm(position_count ~ candidate_count,
+       data = temp_data)$residual
+  residual_a_on_u <-
+    lm(efficiency_implied ~ candidate_count,
+       data = temp_data)$residual
+  temp_data <-
+    cbind(
+      temp_data,
+      residual_v_on_u, 
+      residual_a_on_u
+    )
+  # filename <-
+  #   paste(
+  #     "utmd_output_",
+  #     deparse(substitute(target_data)),
+  #     sep = "")
+  # cat(filename, "\n")
+  # assign(
+  #   filename,
+  #   temp_data
+  # )
+  return(temp_data)
+}
 
 # estimate ----
 
@@ -293,187 +445,150 @@ if(0 == 1){
     )
 }
 
-
-utmd_output_hello_work_data_yearly <-
-  estimate_efficiency_all_industry(
-    list_industry_group_name = 
-      unique(
-        hello_work_data_yearly$industry_group_name
-      ),
-    data = hello_work_data_yearly,
-    Astar,
-    maxA,
-    minA,
-    supportsize_theta,
-    kernel_sd
-  ) %>% 
-  dplyr::rename(
-    candidate_count = unemployed,  
-    position_count = vacancy,   
-    hire_count = hire
+target_result <-
+  assign_results(
+    target_data = hello_work_data_yearly,
+    cross_sectional_normalization = FALSE
   )
-
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_yearly)),
+    sep = ""),
+  target_result
+)
 ## monthly data ----
-
-utmd_output_helloworker_data_full_time_monthly <-
-  estimate_efficiency_all_industry(
-    list_industry_group_name = 
-      unique(
-        helloworker_data_full_time_monthly$industry_group_name
-      ),
-    data = helloworker_data_full_time_monthly,
-    Astar,
-    maxA,
-    minA,
-    supportsize_theta,
-    kernel_sd
-  ) %>% 
-  dplyr::rename(
-    candidate_count = unemployed,  
-    position_count = vacancy,   
-    hire_count = hire
+### country data ----
+target_result <-
+  assign_results(
+    target_data = hello_work_data_full_time_monthly,
+    cross_sectional_normalization = FALSE
   )
-
-utmd_output_helloworker_data_part_time_monthly <-
-  estimate_efficiency_all_industry(
-    list_industry_group_name = 
-      unique(
-        helloworker_data_part_time_monthly$industry_group_name
-      ),
-    data = helloworker_data_part_time_monthly,
-    Astar,
-    maxA,
-    minA,
-    supportsize_theta,
-    kernel_sd
-  ) %>% 
-  dplyr::rename(
-    candidate_count = unemployed,  
-    position_count = vacancy,   
-    hire_count = hire
-  )
-utmd_output_helloworker_data_part_and_full_time_monthly <-
-  estimate_efficiency_all_industry(
-    list_industry_group_name = 
-      unique(
-        helloworker_data_part_and_full_time_monthly$industry_group_name
-      ),
-    data = helloworker_data_part_and_full_time_monthly,
-    Astar,
-    maxA,
-    minA,
-    supportsize_theta,
-    kernel_sd
-  ) %>% 
-  dplyr::rename(
-    candidate_count = unemployed,  
-    position_count = vacancy,   
-    hire_count = hire
-  )
-
-
-# test independence of AV conditional on U ----
-# residual_v_on_u <-
-#   lm(position_count ~ candidate_count + month,
-#      data = utmd_output_hello_work_data)$residual
-# residual_a_on_u <-
-#   lm(efficiency_implied ~ candidate_count + month,
-#      data = utmd_output_hello_work_data)$residual
-# cor(residual_v_on_u, residual_a_on_u)
-# plot(residual_v_on_u, residual_a_on_u)
-
-residual_v_on_u_year <-
-  lm(position_count ~ candidate_count,
-     data = utmd_output_hello_work_data_yearly)$residual
-residual_a_on_u_year <-
-  lm(efficiency_implied ~ candidate_count,
-     data = utmd_output_hello_work_data_yearly)$residual
-cor(residual_v_on_u_year, residual_a_on_u_year)
-plot(residual_v_on_u_year, residual_a_on_u_year)
-
-## monthly ----
-### aggregate ----
-residual_v_on_u_full_time_monthly <-
-  lm(position_count ~ candidate_count + month,
-     data = utmd_output_helloworker_data_full_time_monthly)$residual
-residual_a_on_u_full_time_monthly <-
-  lm(efficiency_implied ~ candidate_count + month,
-     data = utmd_output_helloworker_data_full_time_monthly)$residual
-cor(
-  residual_v_on_u_full_time_monthly, 
-  residual_a_on_u_full_time_monthly
-  )
-plot(
-  residual_v_on_u_full_time_monthly, 
-  residual_a_on_u_full_time_monthly
-  )
-### part-time ----
-residual_v_on_u_part_time_monthly <-
-  lm(position_count ~ candidate_count + month,
-     data = utmd_output_helloworker_data_part_time_monthly)$residual
-residual_a_on_u_part_time_monthly <-
-  lm(efficiency_implied ~ candidate_count + month,
-     data = utmd_output_helloworker_data_part_time_monthly)$residual
-cor(
-  residual_v_on_u_part_time_monthly,
-  residual_a_on_u_part_time_monthly
-  )
-plot(
-  residual_v_on_u_part_time_monthly,
-  residual_a_on_u_part_time_monthly
-  )
-### full-time ----
-residual_v_on_u_part_and_full_time_monthly <-
-  lm(position_count ~ candidate_count + month,
-     data = utmd_output_helloworker_data_part_and_full_time_monthly)$residual
-residual_a_on_u_part_and_full_time_monthly <-
-  lm(efficiency_implied ~ candidate_count + month,
-     data = utmd_output_helloworker_data_part_and_full_time_monthly)$residual
-cor(
-  residual_v_on_u_part_and_full_time_monthly,
-  residual_a_on_u_part_and_full_time_monthly
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_full_time_monthly)),
+    sep = ""),
+  target_result
 )
-plot(
-  residual_v_on_u_part_and_full_time_monthly,
-  residual_a_on_u_part_and_full_time_monthly
+target_result <-
+  assign_results(
+    target_data = hello_work_data_part_time_monthly,
+    cross_sectional_normalization = FALSE
+  )
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_time_monthly)),
+    sep = ""),
+  target_result
+)
+target_result <-
+  assign_results(
+    target_data = hello_work_data_part_and_full_time_monthly,
+    cross_sectional_normalization = FALSE
+  )
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_and_full_time_monthly)),
+    sep = ""),
+  target_result
+)
+### prefecture data ----
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_full_time_monthly_prefecture,
+      cross_sectional_normalization = "location"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_full_time_monthly_prefecture)),
+    sep = ""),
+  target_result
+)
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_part_time_monthly_prefecture,
+      cross_sectional_normalization = "location"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_time_monthly_prefecture)),
+    sep = ""),
+  target_result
+)
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_part_and_full_time_monthly_prefecture,
+      cross_sectional_normalization = "location"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_and_full_time_monthly_prefecture)),
+    sep = ""),
+  target_result
 )
 
 
 
+ 
+### job category data ----
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_full_time_monthly_job_category,
+      cross_sectional_normalization = "job category"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_full_time_monthly_job_category)),
+    sep = ""),
+  target_result
+)
+
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_part_time_monthly_job_category,
+      cross_sectional_normalization = "job category"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_time_monthly_job_category)),
+    sep = ""),
+  target_result
+)
+
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_part_and_full_time_monthly_job_category,
+      cross_sectional_normalization = "job category"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_and_full_time_monthly_job_category)),
+    sep = ""),
+  target_result
+)
 
 
-
-
-# utmd_output_hello_work_data <-
-#   cbind(
-#     utmd_output_hello_work_data,
-#     residual_v_on_u,
-#     residual_a_on_u
-#   )
-utmd_output_hello_work_data_yearly <-
-  cbind(
-    utmd_output_hello_work_data_yearly,
-    residual_v_on_u_year, 
-    residual_a_on_u_year
-  )
-utmd_output_helloworker_data_full_time_monthly <-
-  cbind(
-    utmd_output_helloworker_data_full_time_monthly,
-    residual_v_on_u_full_time_monthly,
-    residual_a_on_u_full_time_monthly
-  )
-utmd_output_helloworker_data_part_time_monthly <-
-  cbind(
-    utmd_output_helloworker_data_part_time_monthly,
-    residual_v_on_u_part_time_monthly, 
-    residual_a_on_u_part_time_monthly
-  )
-utmd_output_helloworker_data_part_and_full_time_monthly <-
-  cbind(
-    utmd_output_helloworker_data_part_and_full_time_monthly,
-    residual_v_on_u_part_and_full_time_monthly, 
-    residual_a_on_u_part_and_full_time_monthly
-  )
 # save ----
 
 # saveRDS(
@@ -484,15 +599,48 @@ saveRDS(
   utmd_output_hello_work_data_yearly,
   file = here::here("output/utmd_output_hello_work_data_yearly.rds")
 )
+## monthly data ----
+### country data ----
 saveRDS(
-  utmd_output_helloworker_data_full_time_monthly,
-  file = here::here("output/utmd_output_helloworker_data_full_time_monthly.rds")
+  utmd_output_hello_work_data_full_time_monthly,
+  file = here::here("output/utmd_output_hello_work_data_full_time_monthly.rds")
 )
 saveRDS(
-  utmd_output_helloworker_data_part_time_monthly,
-  file = here::here("output/utmd_output_helloworker_data_part_time_monthly.rds")
+  utmd_output_hello_work_data_part_time_monthly,
+  file = here::here("output/utmd_output_hello_work_data_part_time_monthly.rds")
 )
 saveRDS(
-  utmd_output_helloworker_data_part_and_full_time_monthly,
-  file = here::here("output/utmd_output_helloworker_data_part_and_full_time_monthly.rds")
+  utmd_output_hello_work_data_part_and_full_time_monthly,
+  file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds")
 )
+### prefecture data ----
+saveRDS(
+  hello_work_data_part_time_monthly_prefecture,
+  file = here::here("output/hello_work_data_part_time_monthly_prefecture.rds")
+)
+saveRDS(
+  hello_work_data_full_time_monthly_prefecture,
+  file = here::here("output/hello_work_data_full_time_monthly_prefecture.rds")
+)
+saveRDS(
+  hello_work_data_part_and_full_time_monthly_prefecture,
+  file = here::here("output/hello_work_data_part_and_full_time_monthly_prefecture.rds")
+)
+
+
+
+
+### job category data ----
+saveRDS(
+  hello_work_data_part_time_monthly_job_category,
+  file = here::here("output/hello_work_data_part_time_monthly_job_category.rds")
+)
+saveRDS(
+  hello_work_data_full_time_monthly_job_category,
+  file = here::here("output/hello_work_data_full_time_monthly_job_category.rds")
+)
+saveRDS(
+  hello_work_data_part_and_full_time_monthly_job_category,
+  file = here::here("output/hello_work_data_part_and_full_time_monthly_job_category.rds")
+)
+
