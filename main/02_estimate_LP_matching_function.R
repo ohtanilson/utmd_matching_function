@@ -41,6 +41,9 @@ hello_work_data_monthly_job_category <-
   dplyr::filter(
     job_kinds != "職業計"
   ) %>% 
+  dplyr::filter(
+    job_kinds != "分類不能の職業"
+  ) %>% 
   dplyr::select(
     year,
     month,
@@ -57,7 +60,7 @@ hello_work_data_monthly_job_category <-
     unemployed = unemployed_keep
   ) %>% 
   dplyr::mutate(
-    industry_group_name = "prefecture_level"
+    industry_group_name = "job_category_level"
   )
 ## decompose ----
 colnames(hello_work_data_part_and_full_time_monthly)
@@ -219,7 +222,7 @@ estimate_efficiency <-
         #   probs = 0.50
         # )
         #data$vacancy[1] # initial date
-        as.numeric(data[data$year == "2013" & data$job_category == "東京都","vacancy"][1,]) # 1972 Jan
+        as.numeric(data[data$year == "2013" & data$job_kinds == "事務的職業","vacancy"][1,]) # 1972 Jan
     }else{
       vstar <- 
         # quantile(
@@ -615,16 +618,16 @@ saveRDS(
 )
 ### prefecture data ----
 saveRDS(
-  hello_work_data_part_time_monthly_prefecture,
-  file = here::here("output/hello_work_data_part_time_monthly_prefecture.rds")
+  utmd_output_hello_work_data_part_time_monthly_prefecture,
+  file = here::here("output/utmd_output_hello_work_data_part_time_monthly_prefecture.rds")
 )
 saveRDS(
-  hello_work_data_full_time_monthly_prefecture,
-  file = here::here("output/hello_work_data_full_time_monthly_prefecture.rds")
+  utmd_output_hello_work_data_full_time_monthly_prefecture,
+  file = here::here("output/utmd_output_hello_work_data_full_time_monthly_prefecture.rds")
 )
 saveRDS(
-  hello_work_data_part_and_full_time_monthly_prefecture,
-  file = here::here("output/hello_work_data_part_and_full_time_monthly_prefecture.rds")
+  utmd_output_hello_work_data_part_and_full_time_monthly_prefecture,
+  file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_prefecture.rds")
 )
 
 
@@ -632,15 +635,15 @@ saveRDS(
 
 ### job category data ----
 saveRDS(
-  hello_work_data_part_time_monthly_job_category,
-  file = here::here("output/hello_work_data_part_time_monthly_job_category.rds")
+  utmd_output_hello_work_data_part_time_monthly_job_category,
+  file = here::here("output/utmd_output_hello_work_data_part_time_monthly_job_category.rds")
 )
 saveRDS(
-  hello_work_data_full_time_monthly_job_category,
-  file = here::here("output/hello_work_data_full_time_monthly_job_category.rds")
+  utmd_output_hello_work_data_full_time_monthly_job_category,
+  file = here::here("output/utmd_output_hello_work_data_full_time_monthly_job_category.rds")
 )
 saveRDS(
   hello_work_data_part_and_full_time_monthly_job_category,
-  file = here::here("output/hello_work_data_part_and_full_time_monthly_job_category.rds")
+  file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_job_category.rds")
 )
 

@@ -1,0 +1,501 @@
+---
+title: "03_construct_figuretable"
+author: "Suguru Otani"
+date: "2024-01-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load {.tabset}
+
+```{r, echo=FALSE,results = "asis"}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+library(modelsummary) # for N in datasummary
+
+utmd_output_hello_work_data_part_time_monthly_prefecture <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_time_monthly_prefecture.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count,
+    `hire` = hire_count,
+    `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+  )
+
+# utmd_output_hello_work_data_full_time_monthly_prefecture <-
+#   readRDS(file = here::here("output/utmd_output_hello_work_data_full_time_monthly_prefecture.rds")) %>% 
+#   dplyr::rename(
+#     `unemployed`= candidate_count,
+#     `vacancies` = position_count,
+#     `hire` = hire_count,
+#     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+#     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+#   )
+utmd_output_hello_work_data_part_and_full_time_monthly_prefecture <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_prefecture.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count,
+    `hire` = hire_count,
+    `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+  )
+# utmd_output_hello_work_data_part_and_full_time_monthly <-
+#   readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds")) %>% 
+#   dplyr::rename(
+#     `unemployed`= candidate_count,
+#     `vacancies` = position_count,
+#     `hire` = hire_count,
+#     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+#     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+#   )
+hokkaido <-
+  c("北海道")
+tohoku <-
+  c("青森県","岩手県","宮城県","秋田県","山形県","福島県" )
+kanto <-
+  c("茨城県","栃木県" ,"群馬県",   "埼玉県",   "千葉県",   "東京都","神奈川県")
+chubu <-
+  c("新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県")
+kansai <-
+  c("三重県",   "滋賀県",   "京都府",   "大阪府" ,"兵庫県",   "奈良県",   "和歌山県")
+chugoku <-
+  c("鳥取県" ,  "島根県",   "岡山県",   "広島県",   "山口県")
+sikoku <-
+  c("徳島県" , "香川県",   "愛媛県",   "高知県")
+kyusyu_okinawa <-
+  c("福岡県",   "佐賀県",   "長崎県",   "熊本県",   "大分県",   "宮崎県", "鹿児島県", "沖縄県")
+area_list <-
+  list(
+    hokkaido,
+    tohoku,
+    kanto,
+    chubu,
+    kansai,
+    chugoku,
+    sikoku,
+    kyusyu_okinawa
+    )
+
+generate_efficiency_plot <-
+  function(
+    target
+    ){
+    x <- 
+      ggplot(
+        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+          dplyr::filter(
+            prefecture %in% target
+          ),
+        aes(
+          x = time,
+          y = efficiency_implied,
+          color = prefecture, 
+          group = prefecture
+          )
+        ) +
+      geom_line(
+        alpha = 0.8, 
+        size = 0.3
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      geom_hline(yintercept = 100, linetype = "longdash") +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8))+
+      #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+      xlab("") +
+      ylab("A (normalized to 2013 Jan Tokyo)") +
+      labs(colour = "") +
+      #geom_vline(xintercept = 2002, linetype = "longdash") +
+      # geom_vline(xintercept = 1984, linetype = "longdash") +
+      scale_color_viridis_d()
+    x
+    figure_name <-
+      paste(
+        "../figuretable/matching_efficiency_month_aggregate_",
+        deparse(substitute(target)),
+        ".png",
+        sep = ""
+        )
+    ggsave(filename = figure_name,
+           plot = x,
+           device = "png",
+           width = 4,
+           height = 3)
+    return(x)
+  }
+
+generate_elasticity_plot <-
+  function(
+    target
+    ){
+    # elastiticy w.r.t. vacancy
+    x <- 
+      ggplot(
+        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+          dplyr::filter(
+            prefecture %in% target
+          ),
+        aes(
+          x = time,
+          y = `dlog(M)/ dlog(V)`,
+          color = prefecture, 
+          group = prefecture
+          )
+        ) +
+      geom_line(
+        alpha = 0.8, 
+        size = 0.3
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      #geom_hline(yintercept = 100, linetype = "longdash") +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8))+
+      xlab("") +
+      ylab("log(M) w.r.t. log(V)") +
+      labs(colour = "") +
+      # geom_vline(xintercept = 1980, linetype = "longdash") +
+      # geom_vline(xintercept = 1984, linetype = "longdash") +
+      scale_color_viridis_d()
+    figure_name <-
+      paste(
+        "../figuretable/elasticity_vacancy_month_aggregate_",
+        deparse(substitute(target)),
+        ".png",
+        sep = ""
+        )
+    ggsave(filename = figure_name,
+           plot = x,
+           device = "png",
+           width = 4,
+           height = 3)
+    # elastiticy w.r.t. AU
+    y <- 
+      ggplot(
+        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+          dplyr::filter(
+            prefecture %in% target
+          ),
+        aes(
+          x = time,
+          y = `dlog(M)/ dlog(AU)`,
+          color = prefecture, 
+          group = prefecture
+          )
+        ) +
+      geom_line(
+        alpha = 0.8, 
+        size = 0.3
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      #geom_hline(yintercept = 100, linetype = "longdash") +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8))+
+      xlab("") +
+      ylab("log(M) w.r.t. log(AU)") +
+      labs(colour = "") +
+      # geom_vline(xintercept = 1980, linetype = "longdash") +
+      # geom_vline(xintercept = 1984, linetype = "longdash") +
+      scale_color_viridis_d()
+    figure_name <-
+      paste(
+        "../figuretable/elasticity_unemployed_month_aggregate_",
+        deparse(substitute(target)),
+        ".png",
+        sep = ""
+        )
+    ggsave(filename = figure_name,
+           plot = y,
+           device = "png",
+           width = 4,
+           height = 3)
+    res <-
+      list(
+        elasticity_vacancy = x,
+        elasticity_unemployed = y
+        )
+    return(res)
+  }
+```
+
+
+
+## Figure 6: Month-prefecture-level aggregate results 2012-2024 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### Matching Efficiency A
+
+```{r,echo=FALSE,results = "asis"}
+x <- 
+  generate_efficiency_plot(
+    target = hokkaido
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = tohoku
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = kanto
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = chubu
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = kansai
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = chugoku
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = sikoku
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target = kyusyu_okinawa
+    )
+x
+
+```
+
+### Elasticity dlogM/dlogU,dlogM/dlogV
+
+```{r,echo=FALSE,results = "asis"}
+res <- 
+  generate_elasticity_plot(
+    target = hokkaido
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = tohoku
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = kanto
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = chubu
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = kansai
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = chugoku
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = sikoku
+    )
+res
+res <- 
+  generate_elasticity_plot(
+    target = kyusyu_okinawa
+    )
+res
+
+```
+
+
+## Figure 7: Month-prefecture-level full-time and part-time trends in 2012-2024 {.tabset}
+
+### Matching Efficiency A
+
+```{r,echo=FALSE,results = "asis"}
+# temp <-
+#   utmd_output_hello_work_data_full_time_monthly %>% 
+#   dplyr::select(
+#     time,
+#     efficiency_implied
+#   ) %>% 
+#   dplyr::mutate(
+#     type = "full"
+#   )
+# temp2 <-
+#   utmd_output_hello_work_data_part_time_monthly %>% 
+#   dplyr::select(
+#     time,
+#     efficiency_implied
+#   ) %>% 
+#   dplyr::mutate(
+#     type = "part"
+#   )
+# temp <-
+#   rbind(
+#     temp,
+#     temp2
+#   )
+# 
+# x <- 
+#   ggplot(
+#     temp,
+#     aes(
+#       x = time,
+#       y = efficiency_implied,
+#       color = type, 
+#       group = type
+#       )
+#     ) +
+#   geom_line(
+#     alpha = 0.8, 
+#     size = 0.3
+#     ) + 
+#   # geom_point(
+#   #   aes(
+#   #     shape = industry_group_name,
+#   #     color = industry_group_name
+#   #     )
+#   #   ) +
+#   geom_hline(yintercept = 100, linetype = "longdash") +
+#   theme_classic() + 
+#   #scale_color_viridis_d() +
+#   theme(legend.position = 'top',
+#         legend.text = element_text(size=8))+
+#   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
+#   xlab("") +
+#   ylab("A (normalized to 1972 Jan)") +
+#   labs(colour = "") +
+#   #geom_vline(xintercept = 2002, linetype = "longdash") +
+#   # geom_vline(xintercept = 1984, linetype = "longdash") +
+#   scale_color_viridis_d()
+# x
+# figure_name <-
+#   "../figuretable/matching_efficiency_month_full_time_part_time.png"
+# ggsave(filename = figure_name,
+#        plot = x,
+#        device = "png",
+#        width = 4,
+#        height = 3)
+```
+
+
+
+### Elasticity dlogM/dlogU,dlogM/dlogV
+
+```{r,echo=FALSE,results = "asis"}
+# temp <-
+#   utmd_output_hello_work_data_full_time_monthly %>% 
+#   dplyr::select(
+#     `dlog(M)/ dlog(V)`,
+#     `dlog(M)/ dlog(AU)`,
+#     time
+#   ) %>% 
+#   dplyr::rename(
+#     `dlog(M)/ dlog(V) (full)` = `dlog(M)/ dlog(V)`,
+#     `dlog(M)/ dlog(AU) (full)` = `dlog(M)/ dlog(AU)`
+#   ) %>% 
+#   tidyr::gather(
+#     type,
+#     count,
+#     - time
+#   )
+# temp2 <-
+#   utmd_output_hello_work_data_part_time_monthly %>% 
+#   dplyr::select(
+#     `dlog(M)/ dlog(V)`,
+#     `dlog(M)/ dlog(AU)`,
+#     time
+#   ) %>% 
+#   dplyr::rename(
+#     `dlog(M)/ dlog(V) (part)` = `dlog(M)/ dlog(V)`,
+#     `dlog(M)/ dlog(AU) (part)` = `dlog(M)/ dlog(AU)`
+#   ) %>% 
+#   tidyr::gather(
+#     type,
+#     count,
+#     - time
+#   )
+# temp <-
+#   rbind(
+#     temp,
+#     temp2
+#   )
+# 
+# x <- 
+#   ggplot(
+#     temp,
+#     aes(
+#       x = time,
+#       y = count,
+#       color = type, 
+#       group = type
+#       )
+#     ) +
+#   geom_line(
+#     alpha = 0.8, 
+#     size = 0.3
+#     ) + 
+#   # geom_point(
+#   #   aes(
+#   #     shape = industry_group_name,
+#   #     color = industry_group_name
+#   #     )
+#   #   ) +
+#   #geom_hline(yintercept = 100, linetype = "longdash") +
+#   theme_classic() + 
+#   #scale_color_viridis_d() +
+#   theme(legend.position = 'top',
+#         legend.text = element_text(size=8))+
+#   xlab("") +
+#   ylab("log(M) w.r.t. log(AU) and log(V)") +
+#   labs(colour = "") +
+#   guides(color = guide_legend(nrow = 2)) +
+#   # geom_vline(xintercept = 1980, linetype = "longdash") +
+#   # geom_vline(xintercept = 1984, linetype = "longdash") +
+#   scale_color_viridis_d()
+# x
+# figure_name <-
+#   "../figuretable/elasticity_month_full_time_part_time.png"
+# ggsave(filename = figure_name,
+#        plot = x,
+#        device = "png",
+#        width = 4,
+#        height = 3)
+```
+
