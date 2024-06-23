@@ -17,15 +17,15 @@ library(magrittr)
 library(ggplot2)
 library(modelsummary) # for N in datasummary
 
-utmd_output_hello_work_data_part_time_monthly_prefecture <-
-  readRDS(file = here::here("output/utmd_output_hello_work_data_part_time_monthly_prefecture.rds")) %>% 
-  dplyr::rename(
-    `unemployed`= candidate_count,
-    `vacancies` = position_count,
-    `hire` = hire_count,
-    `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
-    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
-  )
+# utmd_output_hello_work_data_part_time_monthly_prefecture <-
+#   readRDS(file = here::here("output/utmd_output_hello_work_data_part_time_monthly_prefecture.rds")) %>% 
+#   dplyr::rename(
+#     `unemployed`= candidate_count,
+#     `vacancies` = position_count,
+#     `hire` = hire_count,
+#     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+#     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+#   )
 
 # utmd_output_hello_work_data_full_time_monthly_prefecture <-
 #   readRDS(file = here::here("output/utmd_output_hello_work_data_full_time_monthly_prefecture.rds")) %>% 
@@ -36,6 +36,10 @@ utmd_output_hello_work_data_part_time_monthly_prefecture <-
 #     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
 #     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
 #   )
+job_category_library <-
+  readRDS(file = here::here("cleaned/job_category_library.rds"))
+prefecture_library <-
+  readRDS(file = here::here("cleaned/prefecture_library.rds"))
 utmd_output_hello_work_data_part_and_full_time_monthly_prefecture <-
   readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_prefecture.rds")) %>% 
   dplyr::rename(
@@ -44,59 +48,94 @@ utmd_output_hello_work_data_part_and_full_time_monthly_prefecture <-
     `hire` = hire_count,
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+  ) %>% 
+  dplyr::left_join(
+    prefecture_library,
+    by = c("prefecture" = "prefecture")
   )
-# utmd_output_hello_work_data_part_and_full_time_monthly <-
-#   readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds")) %>% 
-#   dplyr::rename(
-#     `unemployed`= candidate_count,
-#     `vacancies` = position_count,
-#     `hire` = hire_count,
-#     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
-#     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
-#   )
-hokkaido <-
-  c("北海道")
-tohoku <-
-  c("青森県","岩手県","宮城県","秋田県","山形県","福島県" )
-kanto <-
-  c("茨城県","栃木県" ,"群馬県",   "埼玉県",   "千葉県",   "東京都","神奈川県")
-chubu <-
-  c("新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県")
-kansai <-
-  c("三重県",   "滋賀県",   "京都府",   "大阪府" ,"兵庫県",   "奈良県",   "和歌山県")
-chugoku <-
-  c("鳥取県" ,  "島根県",   "岡山県",   "広島県",   "山口県")
-sikoku <-
-  c("徳島県" , "香川県",   "愛媛県",   "高知県")
-kyusyu_okinawa <-
-  c("福岡県",   "佐賀県",   "長崎県",   "熊本県",   "大分県",   "宮崎県", "鹿児島県", "沖縄県")
-area_list <-
-  list(
-    hokkaido,
-    tohoku,
-    kanto,
-    chubu,
-    kansai,
-    chugoku,
-    sikoku,
-    kyusyu_okinawa
-    )
+utmd_output_hello_work_data_part_and_full_time_monthly_job_category <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_job_category.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count,
+    `hire` = hire_count,
+    `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+  ) %>% 
+  dplyr::left_join(
+    job_category_library,
+    by = c("job_kinds" = "job_kinds")
+  )
+
+
+hokkaido = c("Hokkaido")
+tohoku = c("Aomori", "Iwate", "Miyagi", "Akita", "Yamagata", "Fukushima")
+kanto = c("Ibaraki", "Tochigi", "Gunma", "Saitama", "Chiba", "Tokyo", "Kanagawa")
+chubu = c("Niigata", "Toyama", "Ishikawa", "Fukui", "Yamanashi", "Nagano", "Gifu", "Shizuoka", "Aichi")
+kansai = c("Mie", "Shiga", "Kyoto", "Osaka", "Hyogo", "Nara", "Wakayama")
+chugoku = c("Tottori", "Shimane", "Okayama", "Hiroshima", "Yamaguchi")
+shikoku = c("Tokushima", "Kagawa", "Ehime", "Kochi")
+kyushu = c("Fukuoka", "Saga", "Nagasaki", "Kumamoto", "Oita", "Miyazaki", "Kagoshima", "Okinawa")
+
+managerial = c("Managerial")
+professional_and_technical = c("Prof. & Tech.", "Dev. Eng.", "Mfg. Eng.", 
+                                 "Arch. & Civil Eng.", "IT & Comm. Eng.", 
+                                 "Other Eng.", "Doctors, etc.", "Nurses", 
+                                 "Med. Tech.", "Other Health", "Soc. Welfare", 
+                                 "Artists, etc.", "Other Prof.")
+clerical = c("Clerical", "Gen. Clerical", "Acct. Clerical", "Prod. Clerical", 
+               "Sales Clerical", "Field Clerical", "Trans. Clerical", "Office Ops")
+sales = c("Sales", "Merch. Sales", "Sales Rel.", "Sales Reps")
+service = c("Service", "Home Support", "Care Service", "Health Service", 
+              "Sanitation", "Food Prep.", "Reception", "Bldg. Mgmt.", "Other Service")
+security = c("Security")
+agriculture_forestry_and_fishing = c("Agri. & Fish.")
+production = c("Production", "Prod. Ctrl (Met.)", "Prod. Ctrl (Non-Met.)", 
+                 "Prod. Ctrl (Mach.)", "Metalwork", "Prod. (Non-Met.)", 
+                 "Mach. Assembly", "Mach. Maint.", "Prod. Insp. (Met.)", 
+                 "Prod. Insp. (Non-Met.)", "Mach. Insp.", "Prod. Rel.")
+transportation_and_machine_operation = c("Trans. Ops", "Railway Ops", "Auto Ops", 
+                                           "Ship & Air Ops", "Other Trans.", 
+                                           "Const. Mach. Ops")
+construction_and_mining = c("Construction", "Frame Const.", "Const. Work", 
+                              "Elec. Const.", "Civil Eng.", "Mining")
+transportation_cleaning_and_packaging = c("Trans. & Clean.", "Transport", 
+                                            "Cleaning", "Packaging", 
+                                            "Other Trans. & Clean.")
+others = c("Care")
+# others = c("介護関係職種（注２）")
 
 generate_efficiency_plot <-
   function(
-    target
+    target_data,
+    target_area,
+    cross_sectional_target
     ){
+    if(cross_sectional_target == "prefecture"){
+      target_data <-
+        target_data %>% 
+        dplyr::rename(
+          target_var = prefecture_english
+        )
+    } else if(cross_sectional_target == "job_category"){
+      target_data <-
+        target_data %>% 
+        dplyr::rename(
+          target_var = job_kinds_english
+        )
+    }
+    
     x <- 
       ggplot(
-        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+        target_data %>% 
           dplyr::filter(
-            prefecture %in% target
+            target_var %in% target_area
           ),
         aes(
           x = time,
           y = efficiency_implied,
-          color = prefecture, 
-          group = prefecture
+          color = target_var, 
+          group = target_var
           )
         ) +
       geom_line(
@@ -113,7 +152,7 @@ generate_efficiency_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=8))+
+            legend.text = element_text(size=4))+
       #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
       xlab("") +
       ylab("A (normalized to 2013 Jan Tokyo)") +
@@ -125,7 +164,7 @@ generate_efficiency_plot <-
     figure_name <-
       paste(
         "../figuretable/matching_efficiency_month_aggregate_",
-        deparse(substitute(target)),
+        deparse(substitute(target_area)),
         ".png",
         sep = ""
         )
@@ -139,20 +178,35 @@ generate_efficiency_plot <-
 
 generate_elasticity_plot <-
   function(
-    target
+    target_data,
+    target_area,
+    cross_sectional_target
     ){
+    if(cross_sectional_target == "prefecture"){
+      target_data <-
+        target_data %>% 
+        dplyr::rename(
+          target_var = prefecture_english
+        )
+    } else if(cross_sectional_target == "job_category"){
+      target_data <-
+        target_data %>% 
+        dplyr::rename(
+          target_var = job_kinds_english
+        )
+    }
     # elastiticy w.r.t. vacancy
     x <- 
       ggplot(
-        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+        target_data %>% 
           dplyr::filter(
-            prefecture %in% target
+            target_var %in% target_area
           ),
         aes(
           x = time,
           y = `dlog(M)/ dlog(V)`,
-          color = prefecture, 
-          group = prefecture
+          color = target_var, 
+          group = target_var
           )
         ) +
       geom_line(
@@ -169,7 +223,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=8))+
+            legend.text = element_text(size=4))+
       xlab("") +
       ylab("log(M) w.r.t. log(V)") +
       labs(colour = "") +
@@ -179,7 +233,7 @@ generate_elasticity_plot <-
     figure_name <-
       paste(
         "../figuretable/elasticity_vacancy_month_aggregate_",
-        deparse(substitute(target)),
+        deparse(substitute(target_area)),
         ".png",
         sep = ""
         )
@@ -191,15 +245,15 @@ generate_elasticity_plot <-
     # elastiticy w.r.t. AU
     y <- 
       ggplot(
-        utmd_output_hello_work_data_part_and_full_time_monthly_prefecture %>% 
+        target_data %>% 
           dplyr::filter(
-            prefecture %in% target
+            target_var %in% target_area
           ),
         aes(
           x = time,
           y = `dlog(M)/ dlog(AU)`,
-          color = prefecture, 
-          group = prefecture
+          color = target_var, 
+          group = target_var
           )
         ) +
       geom_line(
@@ -216,7 +270,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=8))+
+            legend.text = element_text(size=4))+
       xlab("") +
       ylab("log(M) w.r.t. log(AU)") +
       labs(colour = "") +
@@ -226,7 +280,7 @@ generate_elasticity_plot <-
     figure_name <-
       paste(
         "../figuretable/elasticity_unemployed_month_aggregate_",
-        deparse(substitute(target)),
+        deparse(substitute(target_area)),
         ".png",
         sep = ""
         )
@@ -253,44 +307,64 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
+cross_sectional_target <-
+  "prefecture"
+target_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_prefecture
 x <- 
   generate_efficiency_plot(
-    target = hokkaido
+    target_data,
+    target_area = hokkaido,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = tohoku
+    target_data,
+    target_area = tohoku,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = kanto
+    target_data,
+    target_area = kanto,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = chubu
+    target_data,
+    target_area = chubu,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = kansai
+    target_data,
+    target_area = kansai,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = chugoku
+    target_data,
+    target_area = chugoku,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = sikoku
+    target_data,
+    target_area = shikoku,
+    cross_sectional_target
     )
 x
 x <- 
   generate_efficiency_plot(
-    target = kyusyu_okinawa
+    target_data,
+    target_area = kyushu,
+    cross_sectional_target
     )
 x
 
@@ -299,119 +373,152 @@ x
 ### Elasticity dlogM/dlogU,dlogM/dlogV
 
 ```{r,echo=FALSE,results = "asis"}
-res <- 
+cross_sectional_target <-
+  "prefecture"
+target_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_prefecture
+x <- 
   generate_elasticity_plot(
-    target = hokkaido
+    target_data,
+    target_area = hokkaido,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = tohoku
+    target_data,
+    target_area = tohoku,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = kanto
+    target_data,
+    target_area = kanto,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = chubu
+    target_data,
+    target_area = chubu,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = kansai
+    target_data,
+    target_area = kansai,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = chugoku
+    target_data,
+    target_area = chugoku,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = sikoku
+    target_data,
+    target_area = shikoku,
+    cross_sectional_target
     )
-res
-res <- 
+x
+x <- 
   generate_elasticity_plot(
-    target = kyusyu_okinawa
+    target_data,
+    target_area = kyushu,
+    cross_sectional_target
     )
-res
+x
 
 ```
 
 
-## Figure 7: Month-prefecture-level full-time and part-time trends in 2012-2024 {.tabset}
+## Figure 7: Month-job-category-level aggregate trends in 2012-2024 {.tabset}
 
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
-# temp <-
-#   utmd_output_hello_work_data_full_time_monthly %>% 
-#   dplyr::select(
-#     time,
-#     efficiency_implied
-#   ) %>% 
-#   dplyr::mutate(
-#     type = "full"
-#   )
-# temp2 <-
-#   utmd_output_hello_work_data_part_time_monthly %>% 
-#   dplyr::select(
-#     time,
-#     efficiency_implied
-#   ) %>% 
-#   dplyr::mutate(
-#     type = "part"
-#   )
-# temp <-
-#   rbind(
-#     temp,
-#     temp2
-#   )
-# 
-# x <- 
-#   ggplot(
-#     temp,
-#     aes(
-#       x = time,
-#       y = efficiency_implied,
-#       color = type, 
-#       group = type
-#       )
-#     ) +
-#   geom_line(
-#     alpha = 0.8, 
-#     size = 0.3
-#     ) + 
-#   # geom_point(
-#   #   aes(
-#   #     shape = industry_group_name,
-#   #     color = industry_group_name
-#   #     )
-#   #   ) +
-#   geom_hline(yintercept = 100, linetype = "longdash") +
-#   theme_classic() + 
-#   #scale_color_viridis_d() +
-#   theme(legend.position = 'top',
-#         legend.text = element_text(size=8))+
-#   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
-#   xlab("") +
-#   ylab("A (normalized to 1972 Jan)") +
-#   labs(colour = "") +
-#   #geom_vline(xintercept = 2002, linetype = "longdash") +
-#   # geom_vline(xintercept = 1984, linetype = "longdash") +
-#   scale_color_viridis_d()
-# x
-# figure_name <-
-#   "../figuretable/matching_efficiency_month_full_time_part_time.png"
-# ggsave(filename = figure_name,
-#        plot = x,
-#        device = "png",
-#        width = 4,
-#        height = 3)
+cross_sectional_target <-
+  "job_category"
+target_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_job_category
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = managerial,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = professional_and_technical,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = clerical,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = sales,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = service,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = agriculture_forestry_and_fishing,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = production,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = transportation_and_machine_operation,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = construction_and_mining,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = transportation_cleaning_and_packaging,
+    cross_sectional_target
+    )
+x
+
+
+
 ```
 
 
@@ -419,83 +526,80 @@ res
 ### Elasticity dlogM/dlogU,dlogM/dlogV
 
 ```{r,echo=FALSE,results = "asis"}
-# temp <-
-#   utmd_output_hello_work_data_full_time_monthly %>% 
-#   dplyr::select(
-#     `dlog(M)/ dlog(V)`,
-#     `dlog(M)/ dlog(AU)`,
-#     time
-#   ) %>% 
-#   dplyr::rename(
-#     `dlog(M)/ dlog(V) (full)` = `dlog(M)/ dlog(V)`,
-#     `dlog(M)/ dlog(AU) (full)` = `dlog(M)/ dlog(AU)`
-#   ) %>% 
-#   tidyr::gather(
-#     type,
-#     count,
-#     - time
-#   )
-# temp2 <-
-#   utmd_output_hello_work_data_part_time_monthly %>% 
-#   dplyr::select(
-#     `dlog(M)/ dlog(V)`,
-#     `dlog(M)/ dlog(AU)`,
-#     time
-#   ) %>% 
-#   dplyr::rename(
-#     `dlog(M)/ dlog(V) (part)` = `dlog(M)/ dlog(V)`,
-#     `dlog(M)/ dlog(AU) (part)` = `dlog(M)/ dlog(AU)`
-#   ) %>% 
-#   tidyr::gather(
-#     type,
-#     count,
-#     - time
-#   )
-# temp <-
-#   rbind(
-#     temp,
-#     temp2
-#   )
-# 
-# x <- 
-#   ggplot(
-#     temp,
-#     aes(
-#       x = time,
-#       y = count,
-#       color = type, 
-#       group = type
-#       )
-#     ) +
-#   geom_line(
-#     alpha = 0.8, 
-#     size = 0.3
-#     ) + 
-#   # geom_point(
-#   #   aes(
-#   #     shape = industry_group_name,
-#   #     color = industry_group_name
-#   #     )
-#   #   ) +
-#   #geom_hline(yintercept = 100, linetype = "longdash") +
-#   theme_classic() + 
-#   #scale_color_viridis_d() +
-#   theme(legend.position = 'top',
-#         legend.text = element_text(size=8))+
-#   xlab("") +
-#   ylab("log(M) w.r.t. log(AU) and log(V)") +
-#   labs(colour = "") +
-#   guides(color = guide_legend(nrow = 2)) +
-#   # geom_vline(xintercept = 1980, linetype = "longdash") +
-#   # geom_vline(xintercept = 1984, linetype = "longdash") +
-#   scale_color_viridis_d()
-# x
-# figure_name <-
-#   "../figuretable/elasticity_month_full_time_part_time.png"
-# ggsave(filename = figure_name,
-#        plot = x,
-#        device = "png",
-#        width = 4,
-#        height = 3)
+cross_sectional_target <-
+  "job_category"
+target_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_job_category
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = managerial,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = professional_and_technical,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = clerical,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = sales,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = service,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = agriculture_forestry_and_fishing,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = production,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = transportation_and_machine_operation,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = construction_and_mining,
+    cross_sectional_target
+    )
+x
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = transportation_cleaning_and_packaging,
+    cross_sectional_target
+    )
+x
+
 ```
 

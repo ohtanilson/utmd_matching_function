@@ -1012,7 +1012,67 @@ for(i in var_vec){
   )
 }
 
+# 英語化
+# 日本語と英語の職業分類をデータフレームにまとめる
+job_category_library <- 
+  data.frame(
+    job_kinds = c("管理的職業", "専門的・技術的職業", "開発技術者", "製造技術者", 
+                  "建築・土木・測量技術者", "情報処理・通信技術者", "その他の技術者", 
+                  "医師、歯科医師、獣医師、薬剤師", "保健師、助産師、看護師", "医療技術者", 
+                  "その他の保健医療の職業", "社会福祉の専門的職業", "美術家、デザイナー、写真家、映像撮影者", 
+                  "その他の専門的職業", "事務的職業", "一般事務の職業", "会計事務の職業", 
+                  "生産関連事務の職業", "営業・販売関連事務の職業", "外勤事務の職業", 
+                  "運輸・郵便事務の職業", "事務用機器操作の職業", "販売の職業", "商品販売の職業", 
+                  "販売類似の職業", "営業の職業", "サービスの職業", "家庭生活支援サービスの職業", 
+                  "介護サービスの職業", "保健医療サービスの職業", "生活衛生サービスの職業", 
+                  "飲食物調理の職業", "接客・給仕の職業", "居住施設・ビル等の管理の職業", 
+                  "その他のサービスの職業", "保安の職業", "農林漁業の職業", "生産工程の職業", 
+                  "生産設備制御・監視の職業（金属）", "生産設備制御・監視の職業（金属除く）", 
+                  "生産設備制御・監視の職業（機械組立）", "金属材料製造、金属加工、金属溶接・溶断の職業", 
+                  "製品製造・加工処理の職業（金属除く）", "機械組立の職業", "機械整備・修理の職業", 
+                  "製品検査の職業（金属）", "製品検査の職業（金属除く）", "機械検査の職業", 
+                  "生産関連・生産類似の職業", "輸送・機械運転の職業", "鉄道運転の職業", "自動車運転の職業", 
+                  "船舶・航空機運転の職業", "その他の輸送の職業", "定置・建設機械運転の職業", 
+                  "建設・採掘の職業", "建設躯体工事の職業", "建設の職業", "電気工事の職業", 
+                  "土木の職業", "採掘の職業", "運搬・清掃・包装等の職業", "運搬の職業", 
+                  "清掃の職業", "包装の職業", "その他の運搬・清掃・包装等の職業", "介護関係職種（注２）"),
+    job_kinds_english = c("Managerial", "Prof. & Tech.", "Dev. Eng.", "Mfg. Eng.", 
+                          "Arch. & Civil Eng.", "IT & Comm. Eng.", "Other Eng.", 
+                          "Doctors, etc.", "Nurses", "Med. Tech.", 
+                          "Other Health", "Soc. Welfare", "Artists, etc.", 
+                          "Other Prof.", "Clerical", "Gen. Clerical", "Acct. Clerical", "Prod. Clerical", 
+                          "Sales Clerical", "Field Clerical", "Trans. Clerical", "Office Ops", 
+                          "Sales", "Merch. Sales", "Sales Rel.", "Sales Reps", "Service", 
+                          "Home Support", "Care Service", "Health Service", "Sanitation", 
+                          "Food Prep.", "Reception", "Bldg. Mgmt.", "Other Service", "Security", 
+                          "Agri. & Fish.", "Production", "Prod. Ctrl (Met.)", "Prod. Ctrl (Non-Met.)", 
+                          "Prod. Ctrl (Mach.)", "Metalwork", "Prod. (Non-Met.)", "Mach. Assembly", 
+                          "Mach. Maint.", "Prod. Insp. (Met.)", "Prod. Insp. (Non-Met.)", "Mach. Insp.", 
+                          "Prod. Rel.", "Trans. Ops", "Railway Ops", "Auto Ops", "Ship & Air Ops", 
+                          "Other Trans.", "Const. Mach. Ops", "Construction", "Frame Const.", 
+                          "Const. Work", "Elec. Const.", "Civil Eng.", "Mining", 
+                          "Trans. & Clean.", "Transport", "Cleaning", "Packaging", 
+                          "Other Trans. & Clean.", "Care")
+  )
 
+prefecture_library <- data.frame(
+  prefecture = c("北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県",
+                          "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県",
+                          "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県",
+                          "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府",
+                          "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県",
+                          "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県",
+                          "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県",
+                          "宮崎県", "鹿児島県", "沖縄県"),
+  prefecture_english = c("Hokkaido", "Aomori", "Iwate", "Miyagi", "Akita", "Yamagata", "Fukushima",
+                         "Ibaraki", "Tochigi", "Gunma", "Saitama", "Chiba", "Tokyo", "Kanagawa",
+                         "Niigata", "Toyama", "Ishikawa", "Fukui", "Yamanashi", "Nagano",
+                         "Gifu", "Shizuoka", "Aichi", "Mie", "Shiga", "Kyoto",
+                         "Osaka", "Hyogo", "Nara", "Wakayama", "Tottori", "Shimane",
+                         "Okayama", "Hiroshima", "Yamaguchi", "Tokushima", "Kagawa", "Ehime",
+                         "Kochi", "Fukuoka", "Saga", "Nagasaki", "Kumamoto", "Oita",
+                         "Miyazaki", "Kagoshima", "Okinawa")
+)
 
 # save ----
 write_rds(
@@ -1032,6 +1092,15 @@ write_rds(
   prefecture_data,
   file = "cleaned/vacancy_unemployed_hire_prefectrue_non_job_type.rds"
   )
+write_rds(
+  job_category_library,
+  file = "cleaned/job_category_library.rds"
+)
+write_rds(
+  prefecture_library,
+  file = "cleaned/prefecture_library.rds"
+)
+
 
 prefecture_data %>%
   filter(
