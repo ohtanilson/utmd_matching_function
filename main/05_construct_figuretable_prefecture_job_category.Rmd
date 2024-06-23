@@ -88,7 +88,6 @@ clerical = c("Clerical", "Gen. Clerical", "Acct. Clerical", "Prod. Clerical",
 sales = c("Sales", "Merch. Sales", "Sales Rel.", "Sales Reps")
 service = c("Service", "Home Support", "Care Service", "Health Service", 
               "Sanitation", "Food Prep.", "Reception", "Bldg. Mgmt.", "Other Service")
-security = c("Security")
 agriculture_forestry_and_fishing = c("Agri. & Fish.")
 production = c("Production", "Prod. Ctrl (Met.)", "Prod. Ctrl (Non-Met.)", 
                  "Prod. Ctrl (Mach.)", "Metalwork", "Prod. (Non-Met.)", 
@@ -102,7 +101,8 @@ construction_and_mining = c("Construction", "Frame Const.", "Const. Work",
 transportation_cleaning_and_packaging = c("Trans. & Clean.", "Transport", 
                                             "Cleaning", "Packaging", 
                                             "Other Trans. & Clean.")
-others = c("Care")
+security = c("Security")
+# others = c("Care")
 # others = c("介護関係職種（注２）")
 
 generate_efficiency_plot <-
@@ -516,7 +516,13 @@ x <-
     cross_sectional_target
     )
 x
-
+x <- 
+  generate_efficiency_plot(
+    target_data,
+    target_area = security,
+    cross_sectional_target
+    )
+x
 
 
 ```
@@ -600,6 +606,12 @@ x <-
     cross_sectional_target
     )
 x
-
+x <- 
+  generate_elasticity_plot(
+    target_data,
+    target_area = security,
+    cross_sectional_target
+    )
+x
 ```
 
