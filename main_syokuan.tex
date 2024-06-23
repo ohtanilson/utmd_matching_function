@@ -49,6 +49,7 @@ I examine changes in matching efficiency and elasticities in Japan's labor marke
 Using a nonparametric identification approach by \cite{lange2020beyond}, I find a declining trend in matching efficiency, consistent with decreasing job and worker finding rates. 
 The implied match elasticity with respect to unemployment interacted with match efficiency is 0.5-0.9, whereas the implied match elasticity with respect to vacancies is 0.1-0.4.
 Decomposing aggregate data into full-time and part-time ones, I find that the sharp decline of matching efficiency after COVID-19 shown in the aggregate trend is driven by the decline of full-time one.
+\textcolor{blue}{[TBA] Geographical Mismatch results XXX}.
 %\textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
 
 %100 words AER
@@ -64,7 +65,7 @@ Decomposing aggregate data into full-time and part-time ones, I find that the sh
     \item One more contribution. Pre- and Post-COVID.
 \end{itemize}
 
-The main findings of this paper are threefold.
+The main findings of this paper are twofold.
 First, matching efficiency (normalized to 1972) in the labor market via  Hello Work shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
 This might be because matching opportunity out of the government-operated platform has increased. 
 Implied match elasticity with respect to unemployment interacted with match efficiency is 0.5-0.9, which is comparable to previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies.
@@ -112,6 +113,7 @@ Using the three types of data, I can decompose the labor market features into fu
 
 
 \section{Model}
+\subsection{Matching function}
 Our main interest is in matching efficiency and matching elasticity with respect to the number of unemployed workers and vacancies in the labor market via Public Employment Security Offices in Japan.
 A matching function based on search models plays a central role in labor economics.\footnote{See \cite{pissarides2000equilibrium,petrongolo2001looking}, and \cite{rogerson2005search} for reference.} 
 The matching function relies on random search from both sides of the market, that is, individuals seeking jobs represent the supply of labor and recruiters represent the demand for labor.
@@ -127,6 +129,9 @@ I identify the matching function as well as unobserved, time-varying matching ef
 First, I assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
 Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale. 
 Then, by applying nonparametric identification results of \cite{matzkin2003nonparametric}, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point denoted as $A_0$ of the support of $(A, U, V)$.\footnote{\textcolor{blue}{See my companion paper XXX for numerical details} and \cite{brancaccio2020guide} for practical issues. The paper reports finite sample performance and methodological extension with Monte Carlo simulation. Based on simulation results with sample size $T=50$, I believe that the sample size in this paper is enough to recover matching efficiency well. The code is available on the author's Github. Also, the approach is used to estimate a matching function in a trade model \citep{brancaccio2020geography,brancaccio2023search}.}
+
+\subsection{Mismatch}
+\textcolor{blue}{[TBA] Geographical mismatch model.} 
 
 \section{Estimation}
 Following \cite{lange2020beyond}, I begin by estimating $F(A_0|U)$ across the support of $U$. To this end, we utilize the distribution of hires conditional on unemployed, $U$, and observed vacancies, $V$. 
@@ -310,6 +315,32 @@ This confirms that positive correlations between efficiency and market structure
 
 
 \subsection{Occupation category and prefecture level results in 2012-2024}
+
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[Hokkaido]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancy_month_aggregate.png}}
+  \subfloat[Tohoku]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/hire_month_aggregate.png}}\\
+  \subfloat[Kanto]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/unemployed_vacancies_berveridge_month_aggregate.png}}
+  \subfloat[Chubu]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_worker_finding_rate_month_aggregate.png}}
+  \\
+  \subfloat[Kansai]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/matching_efficiency_month_aggregate.png}}
+  \subfloat[Chugoku]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/elasticity_month_aggregate.png}}\\
+  \subfloat[Shikoku]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/efficiency_tightness_plot_month_aggregate.png}}
+  \subfloat[Kyusyu]{\includegraphics[width = 0.37\textwidth]
+  {figuretable/job_finding_rate_efficiency_plot_month_aggregate.png}}
+  \caption{Month-level aggregate results 1972-2024}
+  \label{fg:month_part_and_full_time_matching_efficiency_prefecture_results} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
 
 
 \begin{itemize}
