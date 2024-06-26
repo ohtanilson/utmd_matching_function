@@ -85,7 +85,7 @@ Second, \textcolor{blue}{[TBA] this paper contributes to the literature on Geogr
 
 Third, this paper contributes to the literature on the impact of COVID-19 on the matching efficiency of the worker-vacancy platform operated by the government. 
 Due to the extensive volume of literature relevant to this topic, I will not provide a comprehensive list of all sources to maintain clarity and conciseness. 
-The most closely related paper in this context is \cite{fukai2021describing}, which utilizes the Labor Force Survey, a large-scale government statistic, to estimate the group average treatment effect of COVID-19 on employment status for each month from January to June 2020. 
+The most closely related paper in my context is \cite{fukai2021describing}, which utilizes the Labor Force Survey, a large-scale government statistic, to estimate the group average treatment effect of COVID-19 on employment status for each month from January to June 2020. 
 To the best of my knowledge, this is the first paper to describe changes in matching efficiency before and after COVID-19 using a novel nonparametric approach.
 
 % Third, I point out technical issues about scale normalization of matching efficiency on \cite{lange2020beyond}, which induces difficulty in comparing the estimated elasticities with respect to unemployed interacted with match efficiency across different datasets.
@@ -432,7 +432,8 @@ Figure \ref{fg:month_part_and_full_time_matching_efficiency_job_category_results
   {figuretable/matching_efficiency_month_aggregate_construction_and_mining.png}}\\
   \subfloat[transportation cleaning and packaging]{\includegraphics[width = 0.30\textwidth]
   {figuretable/matching_efficiency_month_aggregate_transportation_cleaning_and_packaging.png}}
-  
+  \subfloat[security]{\includegraphics[width = 0.30\textwidth]
+  {figuretable/matching_efficiency_month_aggregate_security.png}}
   \caption{Month-level aggregate results 2012-2024}
   \label{fg:month_part_and_full_time_matching_efficiency_job_category_results} 
   \end{center}
@@ -463,6 +464,8 @@ Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_jo
   {figuretable/elasticity_unemployed_month_aggregate_construction_and_mining.png}}\\
   \subfloat[transportation cleaning and packaging]{\includegraphics[width = 0.30\textwidth]
   {figuretable/elasticity_unemployed_month_aggregate_transportation_cleaning_and_packaging.png}}
+  \subfloat[security]{\includegraphics[width = 0.30\textwidth]
+  {figuretable/elasticity_unemployed_month_aggregate_security.png}}
   \caption{Month-level aggregate results 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_job_category_results} 
   \end{center}
@@ -493,6 +496,8 @@ Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_c
   {figuretable/elasticity_vacancy_month_aggregate_construction_and_mining.png}}\\
   \subfloat[transportation cleaning and packaging]{\includegraphics[width = 0.30\textwidth]
   {figuretable/elasticity_vacancy_month_aggregate_transportation_cleaning_and_packaging.png}}
+  \subfloat[security]{\includegraphics[width = 0.30\textwidth]
+  {figuretable/elasticity_vacancy_month_aggregate_security.png}}
   \caption{Month-level aggregate results 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_category_results} 
   \end{center}
@@ -513,11 +518,6 @@ Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_c
 
 I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for unemployed workers changed during the period 1972-2024. By applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to monthly data, I find that matching efficiency (normalized to 1972) exhibits a declining trend with notable fluctuations, consistent with the downward trends in job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight that comparing matching elasticity with respect to the number of unemployed workers across different datasets is challenging due to differences in scale normalization.
 
-\begin{itemize}
-    \item \textcolor{blue}{[TBA] Check the previous Japanese studies meticulously again and construct the list of elasticity results. (RA)}
-    %\item \textcolor{blue}{[TBA] Lasso for deriving elasticities like \cite{lange2020beyond}? (RA)}
-    %\item \textcolor{blue}{[TBA] Labor force $L$ data for plotting Beveridge Curve divided by $L$ for comparison of \cite{elsby2015beveridge} (RA)}
-\end{itemize}
 
 % \paragraph{Acknowledgments}
 % I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto, Ryo Kambayashi, Daiji Kawaguchi, Keisuke Kawata for their valuable advice. \textcolor{blue}{This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.[KAKENHI number]}
@@ -561,6 +561,14 @@ I investigate how matching efficiency in the labor market via Public Employment 
 
 Figures \ref{fg:year_results} provide a year-level counterpart to Figure \ref{fg:month_part_and_full_time_results}. 
 The findings in the main text remain valid.
+
+
+\begin{itemize}
+    \item \textcolor{blue}{[TBA] Check the previous Japanese studies meticulously again and construct the list of elasticity results. (RA)}
+    \item Job category list
+    %\item \textcolor{blue}{[TBA] Lasso for deriving elasticities like \cite{lange2020beyond}? (RA)}
+    %\item \textcolor{blue}{[TBA] Labor force $L$ data for plotting Beveridge Curve divided by $L$ for comparison of \cite{elsby2015beveridge} (RA)}
+\end{itemize}
 
 % Figures \ref{fg:year_results} (a)-(d) provide annual data patterns of unemployed individuals, vacancies, labor market tightness (\(V/U\)), hires, the  ($U$,$V$) relationship, and job and worker finding rates (\(M/U\) and \(M/V\)). In summary, the numbers of unemployed individuals and vacancies increase with fluctuations, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards recent years.
 
