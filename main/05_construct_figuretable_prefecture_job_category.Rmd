@@ -615,3 +615,43 @@ x <-
 x
 ```
 
+
+
+# Appendix
+
+## Table A1: Month-job-category-level aggregate trends in 2012-2024 {.tabset}
+
+### Job category list
+
+```{r,echo=FALSE,results = "asis"}
+job_category_library %>%
+  dplyr::select(
+    job_kinds_english,
+    job_kinds
+  ) %>% 
+  dplyr::rename(
+    `English` = job_kinds_english,
+    `Japanese` = job_kinds
+  ) %>% 
+  kableExtra::kbl(
+    format = "latex",
+    booktabs = TRUE,
+    escape = FALSE,
+    linesep = "",
+    align = "ll"
+  ) %>%
+  kableExtra::save_kable(
+    file = here::here("figuretable/job_category_list.tex")
+  )
+job_category_library %>% 
+  dplyr::select(
+    job_kinds_english,
+    job_kinds
+  ) %>% 
+  dplyr::rename(
+    `English` = job_kinds_english,
+    `Japanese` = job_kinds
+  ) %>% 
+  kableExtra::kable() %>% 
+  kableExtra::kable_styling()
+```
