@@ -22,7 +22,7 @@ list_simulation <-
 ## set stationarity parameter ----
 arima_list <-
   list(
-    "AR1" = c(1,0,0),
+    "AR1_I0" = c(1,0,0),
     #"AR1_I1" = c(1,1,0),
     "AR0_I1" = c(0,1,0)
     )
@@ -132,14 +132,15 @@ generate_uvah_data <-
     normalized_efficiency <-
       (
         efficiency/
-          quantile(
-            efficiency, 
-            probs = 0.50 # median value = normalization point
-            ) 
+          efficiency[1]# initial value = 1/10
+          # quantile(
+          #   efficiency, 
+          #   probs = 0.50 
+          #   ) 
       )/10
     data <-
       cbind(
-        time,
+        1:length(unemployed),
         unemployed,
         vacancy,
         efficiency,
@@ -264,42 +265,51 @@ generate_data <-
 ## benchmark data ----
 for(nn in 1:length(list_num_time)){
   for(mm in 1:length(specification_list)){
-    CRS_gamma_parameter <-
-      0.3
-    temp_nn <-
-      list_num_time[nn]
-    matching_function_specification <-
-      specification_list[mm]
-    time <-
-      c(1:temp_nn)
-    data <-
-      generate_data(
-        time,
-        list_simulation,
-        arima_setting_unemployed,
-        arima_setting_vacancy,
-        arima_setting_efficiency,
-        ar1_parameter_unemployed,
-        ar1_parameter_vacancy,
-        ar1_parameter_efficiency,
-        matching_function_specification,
-        CRS_gamma_parameter
-      )
-    filename <-
-      paste(
-        "output/monte_carlo_data_",
-        "num_time_",
-        temp_nn,
-        "_",
-        matching_function_specification,
-        "_",
-        CRS_gamma_parameter,
-        ".rds",
-        sep = ""
-      )
-    cat(filename,"\n")
-    saveRDS(
-      data,
-      file = filename)
+    for(rr in 1:length(arima_list)){
+      target_arima <-
+        arima_list[[rr]]
+      target_arima_name <-
+        names(arima_list)[rr]
+      CRS_gamma_parameter <-
+        0.3
+      temp_nn <-
+        list_num_time[nn]
+      matching_function_specification <-
+        specification_list[mm]
+      time <-
+        c(1:temp_nn)
+      data <-
+        generate_data(
+          time,
+          list_simulation,
+          arima_setting_unemployed = target_arima,
+          arima_setting_vacancy = target_arima,
+          arima_setting_efficiency = target_arima,
+          ar1_parameter_unemployed,
+          ar1_parameter_vacancy,
+          ar1_parameter_efficiency,
+          matching_function_specification,
+          CRS_gamma_parameter
+        )
+      filename <-
+        paste(
+          "output/monte_carlo_data_",
+          "num_time_",
+          temp_nn,
+          "_",
+          matching_function_specification,
+          "_",
+          CRS_gamma_parameter,
+          "_",
+          target_arima_name,
+          ".rds",
+          sep = ""
+        )
+      cat(filename,"\n")
+      saveRDS(
+        data,
+        file = filename)
+    }
+    
   }
 }

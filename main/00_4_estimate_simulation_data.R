@@ -14,9 +14,15 @@ list_num_time <-
     100,
     200
   )
-
+## set stationarity parameter ----
+arima_list <-
+  list(
+    "AR1_I0" = c(1,0,0),
+    #"AR1_I1" = c(1,1,0),
+    "AR0_I1" = c(0,1,0)
+  )
 maxA <-
-  1#1000  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
+  10#1000  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
 minA <-
   0.01   # Minimum matching efficiency in grid (normalized at median vacancies to 100)
 kernel_sd <-
@@ -29,8 +35,8 @@ supportsize_theta <-
 specification_list <-
   c(
     "cobb_douglas",
-    "perfect_substitute",
-    "fixed_proportion"
+    "perfect_substitute"#,
+    #"fixed_proportion"
   )
 CRS_gamma_parameter <-
   0.3#0.001
@@ -59,6 +65,7 @@ estimate_distribution_efficiency_conditional_on_unemployed <-
       for (it in 1:length(supporttheta)) {  # loop over handle theta corresponding to A
         theta <- 
           supporttheta[it]
+
         y <- 
           as.numeric(
             data$hire <= theta * lambda * Hstar
@@ -79,6 +86,7 @@ estimate_distribution_efficiency_conditional_on_unemployed <-
         FAS1[it, il] <- 
           sum(y * kernel_output) / 
           sum(kernel_output)
+
       }
     }
     return(FAS1)
@@ -153,8 +161,8 @@ estimate_efficiency <-
         #   data$vacancy,
         #   probs = 0.50
         # )
-        #data$vacancy[1] # initial date
-        as.numeric(data[data$time == 1,"vacancy"]) # 1972 Jan
+        data$vacancy[1] # initial date
+        #as.numeric(data[data$time == 1,"vacancy"]) # initial date
     }
     
     # Find the index of the closest value to vstar in v
@@ -370,79 +378,89 @@ assign_results <-
 # load, estimate, and save data ----
 for(nn in 1:length(list_num_time)){
   for(mm in 1:length(specification_list)){
-    CRS_gamma_parameter <-
-      0.3
-    temp_nn <-
-      list_num_time[nn]
-    matching_function_specification <-
-      specification_list[mm]
-    temp_nn <-
-      list_num_time[nn]
-    filename <-
-      paste(
-        #"output/monte_carlo_data_",
-        "num_time_",
-        temp_nn,
-        "_",
-        matching_function_specification,
-        "_",
-        CRS_gamma_parameter,
-        sep = ""
-      )
-    cat(filename,"\n")
-    # load 
-    target_data <-
-      readRDS(
-        file = 
-          here::here(
-            paste(
-              "output/",
-              "monte_carlo_data_",
-              filename,
-              ".rds",
-              sep = ""
-            )
-          )
-      )
-    # assign(filename,
-    #        temp_data)
-    # estimate 
-    for(ss in 1:num_simulation){
-      cat(ss,"\n")
-      target_data_ss <-
-        target_data %>% 
-        dplyr::filter(
-          simulation_id == ss
-        )
-      target_result <-
-        assign_results(
-          target_data = target_data_ss,
-          cross_sectional_normalization = FALSE
-        )
-      if(ss == 1){
-        target_data_merged <-
-          target_result
-      }else{
-        target_data_merged <-
-          rbind(
-            target_data_merged,
-            target_result
-          )
-      }
-    }
-    
-    # save 
-    saveRDS(
-      target_data_merged,
-      file = 
+    for(rr in 1:length(arima_list)){
+      target_arima <-
+        arima_list[[rr]]
+      target_arima_name <-
+        names(arima_list)[rr]
+      CRS_gamma_parameter <-
+        0.3
+      temp_nn <-
+        list_num_time[nn]
+      matching_function_specification <-
+        specification_list[mm]
+      temp_nn <-
+        list_num_time[nn]
+      filename <-
         paste(
-          "output/",
-          "implied_efficiency_",
-          filename,
-          ".rds",
+          #"output/monte_carlo_data_",
+          "num_time_",
+          temp_nn,
+          "_",
+          matching_function_specification,
+          "_",
+          CRS_gamma_parameter,
+          "_",
+          target_arima_name,
           sep = ""
         )
-    )
+      cat(filename,"\n")
+      # load 
+      target_data <-
+        readRDS(
+          file = 
+            here::here(
+              paste(
+                "output/",
+                "monte_carlo_data_",
+                filename,
+                ".rds",
+                sep = ""
+              )
+            )
+        )
+      # assign(filename,
+      #        temp_data)
+      # estimate 
+      for(ss in 1:num_simulation){
+        cat(ss,"\n")
+        target_data_ss <-
+          target_data %>% 
+          dplyr::filter(
+            simulation_id == ss
+          )
+        target_result <-
+          assign_results(
+            target_data = target_data_ss,
+            cross_sectional_normalization = FALSE
+          )
+        if(ss == 1){
+          target_data_merged <-
+            target_result
+        }else{
+          target_data_merged <-
+            rbind(
+              target_data_merged,
+              target_result
+            )
+        }
+      }
+      
+      # save 
+      saveRDS(
+        target_data_merged,
+        file = 
+          paste(
+            "output/",
+            "implied_efficiency_",
+            filename,
+            ".rds",
+            sep = ""
+          )
+      )
+    }
+    
+    
   }
 }
 

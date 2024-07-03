@@ -617,6 +617,14 @@ x
 
 ## Mismatch
 
+### Across prefectures
+
+```{r,echo=FALSE,results = "asis"}
+
+```
+
+### Across industries
+
 ```{r,echo=FALSE,results = "asis"}
 
 ```
