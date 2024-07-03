@@ -342,14 +342,32 @@ estimate_efficiency_all_industry <-
             unemployed
         )
       # estimate match elasticity w.r.t. vacancy and unemployed
+      lm_formula <-
+        as.formula(
+          paste(
+            "hire ~", 
+            "vacancy + efficiency_unemployed +",
+            #"I(vacancy*efficiency_unemployed) + I(vacancy^2) + I(efficiency_unemployed^2)"
+            "I(vacancy*efficiency_unemployed)"
+          )
+        )
       res <-
-        lm(hire ~ vacancy + efficiency_unemployed,
+        lm(lm_formula,
            data = target_data)
+      #summary(res)
+      # dlog(H)/dlog(AU) = (AU/H)*(coef(AU) + coef(AU:V)V + 2*coef(AU^2)AU)
       hire_elasticity_efficiency_unemployed <-
-        res$coefficients["efficiency_unemployed"] *
+        (res$coefficients["efficiency_unemployed"] +
+           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$vacancy# +
+           #2 * res$coefficients["I(efficiency_unemployed^2)"] * target_data$efficiency_unemployed
+        ) *
         (target_data$efficiency_unemployed/target_data$hire)
+      # dlog(H)/dlog(V) = (V/H)*(coef(V) + coef(AU:V)AU + 2*coef(V^2)AU)
       hire_elasticity_vacancy <-
-        res$coefficients["vacancy"] *
+        (res$coefficients["vacancy"] +
+           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$efficiency_unemployed# +
+           #2 * res$coefficients["I(vacancy^2)"] * target_data$vacancy
+        ) *
         (target_data$vacancy/target_data$hire)
       target_data <-
         cbind(
