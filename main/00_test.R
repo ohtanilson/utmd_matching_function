@@ -6,7 +6,7 @@ library(magrittr)
 # monte carlo simulation to get nice sample size identifying match effect
 set.seed(1)
 num_time <-
-  50
+  100#50
 ar1_parameter_unemployed <-
   0.2
 ar1_parameter_vacancy <-
@@ -21,7 +21,8 @@ maxA <-
   300  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
 minA <-
   10   # Minimum matching efficiency in grid (normalized at median vacancies to 100)
-
+level_scale <-
+  5
 time <-
   seq(1:num_time)
 unemployed <-
@@ -35,47 +36,55 @@ hire_list <-
 
 # data generation ----
 unemployed <- 
-  exp(
+  (
     arima.sim(
       list(
-        order = c(1,0,0), # ar 1
-        ar = ar1_parameter_unemployed
+        order = c(0,1,0)#, # ar 1
+        #ar = ar1_parameter_unemployed
       ), 
       n = num_time
-    )
+    ) + 
+  level_scale
   ) * scale_parameter
+unemployed <-
+  unemployed + abs(min(unemployed)) + 10
 plot(unemployed)
 
+
 vacancy <- 
-  exp(
+  #exp(
+  (
     arima.sim(
       list(
-        order = c(1,0,0), # ar 1
-        ar = ar1_parameter_vacancy
+        order = c(0,1,0)#, # ar 1
+        #ar = ar1_parameter_vacancy
       ), 
       n = num_time
-    )
+    ) + 
+  level_scale
   ) * scale_parameter
+vacancy <-
+  vacancy + abs(min(vacancy)) + 10
 plot(vacancy)
 
 efficiency <- 
-  exp(
-    arima.sim(
-      list(
-        order = c(1,0,0), # ar 1
-        ar = ar1_parameter_efficiency
-      ), 
-      n = num_time
-    )
+  arima.sim(
+    list(
+      order = c(0,1,0)#, # ar 1
+      #ar = ar1_parameter_efficiency
+    ), 
+    n = num_time
   )
+efficiency <-
+  efficiency + abs(min(efficiency)) + 10
 plot(efficiency)
 normalized_efficiency <-
   (efficiency/
-  efficiency[1]) * 10
+  efficiency[1]) * 100#10
 
 data <-
   cbind(
-    time,
+    1:length(unemployed),
     unemployed,
     vacancy,
     efficiency,
@@ -84,6 +93,9 @@ data <-
   tibble::as_tibble() %>% 
   dplyr::mutate(
     hire =
+      # (normalized_efficiency *
+      # unemployed)^hire_parameter*
+      # vacancy^(1 - hire_parameter)
       hire_parameter * 
       normalized_efficiency *
       unemployed +
