@@ -55,8 +55,11 @@ XXX
 \section{Introduction}
 
 \begin{itemize}
-    \item Multidimensional Unobservables \cite{matzkin2003nonparametric} appendix A
+    \item Multidimensional Unobservables \cite{matzkin2003nonparametric} appendix A if possible
     \item Nonstationarity
+    \item Endogeneity like \cite{borowczyk2013accounting}
+    \item Comparison with Cobb Douglass
+    \item Numerical results are reported as IMSE like \cite{matzkin2003nonparametric}.
 \end{itemize}
 
 \section{Model}
@@ -82,7 +85,7 @@ For time $t=0,\cdots, T$, we generate the observable and unobservable components
         V_t &= \exp(v_t)\kappa,\quad v_t= \rho^{V} v_{t-1} + \varepsilon_{t}^{V} \\
         A_t &= \exp(a_t),\quad a_{t}=\rho^{A} a_{t-1} + \varepsilon_{t}^{A}.
     \end{align*}
-    \item Generate data on $H_t$ from  $m(A_t U_t,V_t)$ satisfying constant return to scale as follows.
+    \item Generate data on $H_t$ from  $m(A_t U_t,V_t)$ satisfying constant return to scale in Table \ref{tb:parameter_setting}.
     \begin{align*}
         H_t&= m(A_t U_t,V_t)\\
         &=\gamma A_t U_t + \gamma V_t .
@@ -99,8 +102,7 @@ For time $t=0,\cdots, T$, we generate the observable and unobservable components
     \begin{tabular}{cr}
             \hline
             $\rho^{U},\rho^{V},\rho^{A}$ & $\{0.1,0.2\}$ \\
-            $\kappa$ & $1000$ \\
-            $\gamma$ & $0.001$ \\
+            $\gamma$ & $0.3$ \\
             \hline
         \end{tabular}
     }
