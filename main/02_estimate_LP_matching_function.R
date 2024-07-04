@@ -18,6 +18,9 @@ hello_work_data_monthly_prefecture <-
   dplyr::filter(
     prefecture != "全国"
   ) %>% 
+  dplyr::filter(
+    contract_type == "both" # or "long
+  ) %>% 
   dplyr::select(
     year,
     month,
@@ -671,10 +674,7 @@ saveRDS(
 
 
 ### job category data ----
-saveRDS(
-  utmd_output_hello_work_data_part_time_monthly_job_category,
-  file = here::here("output/utmd_output_hello_work_data_part_time_monthly_job_category.rds")
-)
+
 saveRDS(
   utmd_output_hello_work_data_full_time_monthly_job_category,
   file = here::here("output/utmd_output_hello_work_data_full_time_monthly_job_category.rds")
@@ -683,4 +683,7 @@ saveRDS(
   utmd_output_hello_work_data_part_and_full_time_monthly_job_category,
   file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_job_category.rds")
 )
-
+saveRDS(
+  utmd_output_hello_work_data_part_time_monthly_job_category,
+  file = here::here("output/utmd_output_hello_work_data_part_time_monthly_job_category.rds")
+)
