@@ -8,10 +8,11 @@ pacman::p_load(
   lubridate, ## 日付を処理するパッケージ
   plotly ## HTMLでggplotグラフをきれいに見るパッケージ
 )
-
+# transform ----
 ## 都道府県別 ----
+### 雇用形態なし ----
 ## 受理地
-sheet_names <- excel_sheets("input/第11表.xlsx")
+sheet_names <- excel_sheets("data_input/第11表.xlsx")
 
 list_zyurichi <- list()
 
@@ -23,7 +24,7 @@ set_diff_vec <- setdiff(1:length(sheet_names), c(5, 6, 11, 12))
 for(i in set_diff_vec){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第11表.xlsx",
+  data_i <- read_xlsx("data_input/第11表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -93,7 +94,7 @@ prefecture_data <- data_long %>%
   )
 
 ## 就業地（求人データは、就業地のほうがその県の現状を反映している）
-sheet_names <- excel_sheets("input/第18表.xlsx")
+sheet_names <- excel_sheets("data_input/第18表.xlsx")
 
 list_syugyochi <- list()
 
@@ -104,7 +105,7 @@ set_diff_vec <- 1:2 ## sheet3移行のデータは、求人倍率と季節調整
 for(i in set_diff_vec){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第18表.xlsx",
+  data_i <- read_xlsx("data_input/第18表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -168,7 +169,7 @@ prefecture_data_syugyochi <- data_long %>%
     names_from = "data_type",
     values_from = "number"
   )
-
+#### 接続 ----
 prefecture_data <- prefecture_data %>%
   left_join(prefecture_data_syugyochi,
             by = c("prefecture", 
@@ -199,10 +200,12 @@ for(i in vec_names){
 prefecture_data_hokkaido <- prefecture_data %>%
   filter(prefecture == "北海道")
 
+
+
 ## 雇用形態別 ----
-# 新規求人
+### 新規求人 ----
 ## 受理地
-sheet_names <- excel_sheets("input/第12表.xlsx")
+sheet_names <- excel_sheets("data_input/第12表.xlsx")
 
 list_vacancy_new <- list()
 
@@ -212,7 +215,7 @@ list_vacancy_new <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第12表.xlsx",
+  data_i <- read_xlsx("data_input/第12表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -298,9 +301,9 @@ data_long <- data_long %>%
 
 vacancy_new <- data_long %>%
   select(-data_type) 
-# 新規求職
+### 新規求職 ----
 ## 受理地
-sheet_names <- excel_sheets("input/第13表.xlsx")
+sheet_names <- excel_sheets("data_input/第13表.xlsx")
 
 list_unemployed_new <- list()
 
@@ -310,7 +313,7 @@ list_unemployed_new <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第13表.xlsx",
+  data_i <- read_xlsx("data_input/第13表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -397,9 +400,9 @@ data_long <- data_long %>%
 unemployed_new <- data_long %>%
   select(-data_type) 
 
-# 有効求人
+### 有効求人 ----
 ## 受理地
-sheet_names <- excel_sheets("input/第14表.xlsx")
+sheet_names <- excel_sheets("data_input/第14表.xlsx")
 
 list_vacancy_keep <- list()
 
@@ -409,7 +412,7 @@ list_vacancy_keep <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第14表.xlsx",
+  data_i <- read_xlsx("data_input/第14表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -496,9 +499,9 @@ data_long <- data_long %>%
 vacancy_keep <- data_long %>%
   select(-data_type) 
 
-# 有効求職者数
+### 有効求職者数 ----
 ## 受理地
-sheet_names <- excel_sheets("input/第15表.xlsx")
+sheet_names <- excel_sheets("data_input/第15表.xlsx")
 
 list_unemployed_keep <- list()
 
@@ -508,7 +511,7 @@ list_unemployed_keep <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第15表.xlsx",
+  data_i <- read_xlsx("data_input/第15表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -595,9 +598,9 @@ data_long <- data_long %>%
 unemployed_keep <- data_long %>%
   select(-data_type) 
 
-# 就職件数
+### 就職件数 ----
 ## 受理地
-sheet_names <- excel_sheets("input/第16表.xlsx")
+sheet_names <- excel_sheets("data_input/第16表.xlsx")
 
 list_hire <- list()
 
@@ -607,7 +610,7 @@ list_hire <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第16表.xlsx",
+  data_i <- read_xlsx("data_input/第16表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -693,29 +696,17 @@ data_long <- data_long %>%
 
 hire <- data_long %>%
   select(-data_type) 
-# merge
+# merge ----
+#雇用形態別のデータと雇用形態なしのデータを接続することは取りやめ、
+# それぞれのデータの形式で保存する。
+# （必要に応じて接続させる。）
+## 雇用形態別データ
 hello_work_data_monthly_prefecture <- vacancy_keep %>%
   left_join(vacancy_new, by = c("prefecture", "year_month", "year", "month", "type", "contract_type")) %>%
   left_join(unemployed_keep, by = c("prefecture", "year_month", "year", "month", "type", "contract_type")) %>%
   left_join(unemployed_new, by = c("prefecture", "year_month", "year", "month", "type", "contract_type")) %>%
   left_join(hire, by = c("prefecture", "year_month", "year", "month", "type", "contract_type"))
 
-## 就業地ごとのvacancyをjoin、その他の値については同値よりjoinしない
-prefecture_data_shugyochi <- prefecture_data %>%
-  select(type, 
-         contract_type,
-         prefecture,
-         year_month, 
-         year, 
-         month,
-         vacancy_new_shugyo,
-         vacancy_keep_shugyo
-  )
-
-hello_work_data_monthly_prefecture <- hello_work_data_monthly_prefecture %>%
-  left_join(prefecture_data_shugyochi, by = c("type", "contract_type", 
-                                              "prefecture", "year_month", 
-                                              "year", "month")) 
 
 ## prefectureと日付以外のすべての変数を数値化
 ## 数値化する変数のベクトル
@@ -744,6 +735,17 @@ for(i in vec_name){
   )
 }
 
+# write_rds(
+#   hello_work_data_monthly_prefecture,
+#   file = "data_output/vacancy_unemployed_hire_prefecture.rds"
+# )
+
+## 雇用形態なしデータの保存
+# prefecture_data %>%
+#   write_rds(
+#     .,
+#     file = "data_output/vacancy_unemployed_hire_prefecture_1963_2024.rds")
+
 
 
 ## hello_work_data_monthly_prefectureの結果を確認
@@ -755,7 +757,7 @@ hello_work_data_monthly_prefecture_hokkaido <- hello_work_data_monthly_prefectur
   )
 
 # 男女別
-sheet_names <- excel_sheets("input/第17表.xlsx")
+sheet_names <- excel_sheets("data_input/第17表.xlsx")
 
 list_gender <- list()
 
@@ -765,7 +767,7 @@ list_gender <- list()
 for(i in 1:length(sheet_names)){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第17表.xlsx",
+  data_i <- read_xlsx("data_input/第17表.xlsx",
                       sheet = i,
                       skip = 1
   ) %>%
@@ -849,10 +851,27 @@ data_long_wide <- data_long %>%
     names_from = "outcome"
   )
 
+## 必要なデータを数値化
+vec_names <- data_long_wide %>%
+  names() %>%
+  setdiff(., c("year_month", "prefecture", "gender_type"))
+
+for(i in vec_names){
+  eval(
+    parse(
+      text = paste0(
+        "data_long_wide <- data_long_wide %>% mutate(",i ," = as.numeric(", i,"))"
+      )
+    )
+  )
+}
+
 
 
 # 職業種類別 ----
-sheet_names <- excel_sheets("input/第21表.xlsx")
+# 一枚のエクセルシートに、複数のデータが入っている。
+# エクセルシートのシート名ごと取り出し、自動でラベリングする。
+sheet_names <- excel_sheets("data_input/第21表.xlsx")
 
 list_job_type <- list()
 
@@ -864,7 +883,7 @@ set_diff_vec <- setdiff(1:length(sheet_names),
 for(i in set_diff_vec){
   print(i)
   ## data reading
-  data_i <- read_xlsx("input/第21表.xlsx",
+  data_i <- read_xlsx("data_input/第21表.xlsx",
                       sheet = i,
                       skip = 1) %>%
     t() %>%
@@ -950,13 +969,13 @@ data_long <- data_long %>%
   select(-和暦)
 
 ## パートを含むか含まないかで分ける
-data_long_panel <- data_long %>%
+hello_work_data_monthly_job_category <- data_long %>%
   pivot_longer(cols = "第２１表ー１　新規求人（パート含む常用）" :"第２１表ー１９　就職件数（常用的パート）" ,
                names_to = "variable_name",
                values_to = "number")
 
 ## 職業形態別変数を作成
-data_long_panel <- data_long_panel %>%
+hello_work_data_monthly_job_category <- hello_work_data_monthly_job_category %>%
   mutate(
     type = case_when(
       str_detect(variable_name, pattern = "パート含む常用") ~ "both",
@@ -965,7 +984,7 @@ data_long_panel <- data_long_panel %>%
     ))
 
 ## 新規求人・有効求人・新規求職・有効求職・就職者件数変数の作成（かつ、wide化）
-data_long_panel <- data_long_panel %>%
+hello_work_data_monthly_job_category <- hello_work_data_monthly_job_category %>%
   mutate(
     variable_type = case_when(
       str_detect(variable_name, pattern = "新規求人") ~ "vacancy_new",
@@ -976,7 +995,7 @@ data_long_panel <- data_long_panel %>%
     ))
 
 ## 不必要な変数を除外し、各vacancy, unemployed, hireの変数を列にする
-hello_work_data_monthly_job_category <- data_long_panel %>%
+hello_work_data_monthly_job_category <- hello_work_data_monthly_job_category %>%
   select(-variable_name) %>%
   pivot_wider(names_from = "variable_type",
               values_from = "number") %>%
@@ -1012,7 +1031,9 @@ for(i in var_vec){
   )
 }
 
-# 英語化
+
+
+# 英語化 ----
 # 日本語と英語の職業分類をデータフレームにまとめる
 job_category_library <- 
   data.frame(
@@ -1075,6 +1096,7 @@ prefecture_library <- data.frame(
 )
 
 # save ----
+
 write_rds(
   hello_work_data_monthly_prefecture,
   file = "cleaned/hello_work_data_monthly_prefecture.rds"
@@ -1087,11 +1109,15 @@ write_rds(
   data_long_wide,
   file = "cleaned/unemployed_gender.rds"
   )
-
+# write_rds(
+#   hello_work_data_monthly_job_category,
+#   file = "data_output/vacancy_unemployed_hire_job_type.rds"
+# )
 write_rds(
   prefecture_data,
-  file = "cleaned/vacancy_unemployed_hire_prefectrue_non_job_type.rds"
+  file = "cleaned/vacancy_unemployed_hire_prefectrue_non_job_type_1963_2024.rds"
   )
+## library data ----
 write_rds(
   job_category_library,
   file = "cleaned/job_category_library.rds"
