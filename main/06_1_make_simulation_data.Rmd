@@ -1,0 +1,466 @@
+---
+title: "06_1_make_simulation_data"
+author: "Suguru Otani"
+date: "2024-01-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load {.tabset}
+
+```{r, echo=FALSE,results = "asis"}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+library(modelsummary) # for N in datasummary
+list_num_time <-
+  c(
+    # 10,
+    # 20,
+    # 30,
+    # 40,
+    50,
+    100,
+    200
+  )
+specification_list <-
+  c(
+    "cobb_douglas",
+    "perfect_substitute",
+    "fixed_proportion"
+  )
+## set stationarity parameter ----
+arima_list <-
+  list(
+    "AR1_I0" = c(1,0,0),
+    #"AR1_I1" = c(1,1,0),
+    "AR0_I1" = c(0,1,0)
+    )
+# load, estimate, and save data ----
+for(nn in 1:length(list_num_time)){
+  for(mm in 1:length(specification_list)){
+    for(rr in 1:length(arima_list)){
+      target_arima <-
+        arima_list[[rr]]
+      target_arima_name <-
+        names(arima_list)[rr]
+      CRS_gamma_parameter <-
+      0.3
+    temp_nn <-
+      list_num_time[nn]
+    matching_function_specification <-
+      specification_list[mm]
+    filename <-
+        paste(
+          #"output/monte_carlo_data_",
+          "num_time_",
+          temp_nn,
+          "_",
+          matching_function_specification,
+          "_",
+          CRS_gamma_parameter,
+          "_",
+          target_arima_name,
+          sep = ""
+        )
+    cat(filename,"\n")
+    # load 
+    target_data <-
+      readRDS(
+        file = 
+          here::here(
+            paste(
+              "output/",
+              "monte_carlo_data_",
+              filename,
+              ".rds",
+              sep = ""
+            )
+          )
+      )
+    assign(filename,
+           target_data)
+    }
+    
+  }
+}
+
+plot_target_data <-
+  function(
+    target_data,
+    target_variable
+    ){
+    target_plot <- 
+      ggplot(
+        target_data %>% 
+          dplyr::filter(simulation_id <= 10),
+        aes(
+          x = time,
+          y = .data[[target_variable]],
+          color = simulation_id, 
+          group = simulation_id
+          )
+        ) +
+      geom_line(
+        alpha = 0.9, 
+        size = 0.5
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8)) +
+      theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+      xlab("")
+    return(target_plot)
+    
+  }
+```
+
+## ARIMA (1,0,0) {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR1_I0  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR1_I0  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR1_I0  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR1_I0  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0,
+  "normalized_efficiency"
+  )
+```
+
+## ARIMA (0,1,0) i.e. nonstationary {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR0_I1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR0_I1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR0_I1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR0_I1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1,
+  "normalized_efficiency"
+  )
+```

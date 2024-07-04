@@ -109,6 +109,45 @@ generate_bias_rmse <-
     return(res)
   }
 
+plot_target_data <-
+  function(
+    target_data,
+    target_variable
+    ){
+    target_plot <- 
+      ggplot(
+        target_data %>% 
+          dplyr::filter(simulation_id <= 10) %>% 
+          dplyr::mutate(
+            error_efficiency = normalized_efficiency - efficiency_implied
+            ),
+        aes(
+          x = time,
+          y = .data[[target_variable]],
+          color = simulation_id, 
+          group = simulation_id
+          )
+        ) +
+      geom_line(
+        alpha = 0.9, 
+        size = 0.5
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8)) +
+      theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+      xlab("")
+    return(target_plot)
+    
+  }
+
 options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```
 
@@ -128,6 +167,12 @@ modelsummary::datasummary_skim(
   target_res %>% 
     dplyr::filter(bias <= quantile(bias, 0.9))
   )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_cobb_douglas_0.3_AR1_I0,
+    target_variable = "error_efficiency"
+    )
+plot_target
 ```
 
 ### num_time_100_cobb_douglas_0.3_AR1_I0

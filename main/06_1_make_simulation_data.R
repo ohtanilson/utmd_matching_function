@@ -132,15 +132,17 @@ generate_uvah_data <-
     normalized_efficiency <-
       (
         efficiency/
-          efficiency[1]# initial value = 1/10
+          efficiency[1]
           # quantile(
           #   efficiency, 
           #   probs = 0.50 
           #   ) 
-      )/10
+      )/10 # initial value = 1/10
+    time <-
+      1:length(unemployed)
     data <-
       cbind(
-        1:length(unemployed),
+        time,
         unemployed,
         vacancy,
         efficiency,
