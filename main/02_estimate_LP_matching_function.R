@@ -375,9 +375,9 @@ estimate_efficiency_all_industry <-
       coef_AU <-
         res$coefficients["efficiency_unemployed"]
       coef_AU_V <-
-        res$coefficientsres["I(vacancy * efficiency_unemployed)"]
+        res$coefficients["I(vacancy * efficiency_unemployed)"]
       coef_AU_AU <-
-        res$coefficientsres["I(efficiency_unemployed^2)"]
+        res$coefficients["I(efficiency_unemployed^2)"]
       coef_V <-
         res$coefficients["vacancy"]
       coef_V_V <-
@@ -615,21 +615,27 @@ assign(
     sep = ""),
   target_result
 )
+if(0 == 1){
+  system.time(
+    target_result <-
+      assign_results(
+        hello_work_data_part_time_monthly_job_category,
+        cross_sectional_normalization = "job category"
+      )
+  )
+  assign(
+    paste(
+      "utmd_output_",
+      deparse(substitute(hello_work_data_part_time_monthly_job_category)),
+      sep = ""),
+    target_result
+  )
+  saveRDS(
+    utmd_output_hello_work_data_part_time_monthly_job_category,
+    file = here::here("output/utmd_output_hello_work_data_part_time_monthly_job_category.rds")
+  )
+}
 
-system.time(
-  target_result <-
-    assign_results(
-      hello_work_data_part_time_monthly_job_category,
-      cross_sectional_normalization = "job category"
-    )
-)
-assign(
-  paste(
-    "utmd_output_",
-    deparse(substitute(hello_work_data_part_time_monthly_job_category)),
-    sep = ""),
-  target_result
-)
 
 
 # save ----
@@ -683,7 +689,4 @@ saveRDS(
   utmd_output_hello_work_data_part_and_full_time_monthly_job_category,
   file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_job_category.rds")
 )
-saveRDS(
-  utmd_output_hello_work_data_part_time_monthly_job_category,
-  file = here::here("output/utmd_output_hello_work_data_part_time_monthly_job_category.rds")
-)
+
