@@ -347,8 +347,8 @@ estimate_efficiency_all_industry <-
           paste(
             "hire ~", 
             "vacancy + efficiency_unemployed +",
-            #"I(vacancy*efficiency_unemployed) + I(vacancy^2) + I(efficiency_unemployed^2)"
-            "I(vacancy*efficiency_unemployed)"
+            "I(vacancy*efficiency_unemployed) + I(vacancy^2) + I(efficiency_unemployed^2)"
+            #"I(vacancy*efficiency_unemployed)"
           )
         )
       res <-
@@ -358,22 +358,39 @@ estimate_efficiency_all_industry <-
       # dlog(H)/dlog(AU) = (AU/H)*(coef(AU) + coef(AU:V)V + 2*coef(AU^2)AU)
       hire_elasticity_efficiency_unemployed <-
         (res$coefficients["efficiency_unemployed"] +
-           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$vacancy# +
-           #2 * res$coefficients["I(efficiency_unemployed^2)"] * target_data$efficiency_unemployed
+           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$vacancy +
+           2 * res$coefficients["I(efficiency_unemployed^2)"] * target_data$efficiency_unemployed
         ) *
         (target_data$efficiency_unemployed/target_data$hire)
       # dlog(H)/dlog(V) = (V/H)*(coef(V) + coef(AU:V)AU + 2*coef(V^2)AU)
       hire_elasticity_vacancy <-
         (res$coefficients["vacancy"] +
-           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$efficiency_unemployed# +
-           #2 * res$coefficients["I(vacancy^2)"] * target_data$vacancy
+           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$efficiency_unemployed +
+           2 * res$coefficients["I(vacancy^2)"] * target_data$vacancy
         ) *
         (target_data$vacancy/target_data$hire)
+      coef_AU <-
+        res$coefficients["efficiency_unemployed"]
+      coef_AU_V <-
+        res$coefficientsres["I(vacancy * efficiency_unemployed)"]
+      coef_AU_AU <-
+        res$coefficientsres["I(efficiency_unemployed^2)"]
+      coef_V <-
+        res$coefficients["vacancy"]
+      coef_V_V <-
+        res$coefficients["I(vacancy^2)"]
       target_data <-
         cbind(
           target_data,
           hire_elasticity_vacancy,
           hire_elasticity_efficiency_unemployed
+        ) %>% 
+        dplyr::mutate(
+          coef_AU,
+          coef_AU_V,
+          coef_AU_AU,
+          coef_V,
+          coef_V_V
         )
       
       if(nn == 1){
@@ -579,20 +596,7 @@ assign(
   target_result
 )
 
-system.time(
-  target_result <-
-    assign_results(
-      hello_work_data_part_time_monthly_job_category,
-      cross_sectional_normalization = "job category"
-    )
-)
-assign(
-  paste(
-    "utmd_output_",
-    deparse(substitute(hello_work_data_part_time_monthly_job_category)),
-    sep = ""),
-  target_result
-)
+
 
 system.time(
   target_result <-
@@ -605,6 +609,21 @@ assign(
   paste(
     "utmd_output_",
     deparse(substitute(hello_work_data_part_and_full_time_monthly_job_category)),
+    sep = ""),
+  target_result
+)
+
+system.time(
+  target_result <-
+    assign_results(
+      hello_work_data_part_time_monthly_job_category,
+      cross_sectional_normalization = "job category"
+    )
+)
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_part_time_monthly_job_category)),
     sep = ""),
   target_result
 )

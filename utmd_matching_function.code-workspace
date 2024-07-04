@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "ship_dynamics",
+			"path": "../../ship/ship_dynamics"
+		},
+		{
+			"name": "utmd_matching_function",
+			"path": "."
+		}
+	]
+}
