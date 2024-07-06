@@ -138,8 +138,13 @@ generate_uvah_data <-
           #   probs = 0.50 
           #   ) 
       )* 100 #/10 # initial value = 1/10
+    # format data length
     time <-
       1:length(unemployed)
+    efficiency <-
+      efficiency[1:length(unemployed)]
+    normalized_efficiency <-
+      normalized_efficiency[1:length(unemployed)]
     data <-
       cbind(
         time,
@@ -270,6 +275,8 @@ for(nn in 1:length(list_num_time)){
     for(rr in 1:length(arima_list)){
       target_arima <-
         arima_list[[rr]]
+      fixed_ar <-
+        arima_list[[1]]
       target_arima_name <-
         names(arima_list)[rr]
       CRS_gamma_parameter <-
@@ -284,8 +291,11 @@ for(nn in 1:length(list_num_time)){
         generate_data(
           time,
           list_simulation,
-          arima_setting_unemployed = target_arima,
-          arima_setting_vacancy = target_arima,
+          # stationarity only on A
+          # arima_setting_unemployed = target_arima,
+          # arima_setting_vacancy = target_arima,
+          arima_setting_unemployed = fixed_ar,
+          arima_setting_vacancy = fixed_ar,
           arima_setting_efficiency = target_arima,
           ar1_parameter_unemployed,
           ar1_parameter_vacancy,

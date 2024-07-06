@@ -232,7 +232,7 @@ ggsave(filename = figure_name,
 temp <-
   num_time_100_cobb_douglas_0.3_AR1_I0 %>% 
   dplyr::filter(
-    simulation_id == 1
+    simulation_id == 2
   ) %>% 
   dplyr::select(
     time, 
@@ -295,7 +295,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  num_time_200_cobb_douglas_0.3_AR0_I1 %>% 
+  num_time_50_cobb_douglas_0.3_AR0_I1 %>% 
   dplyr::filter(
     simulation_id == 1
   ) %>% 
@@ -305,45 +305,114 @@ temp <-
     efficiency_implied
   )
 x <- 
-      ggplot(
-        temp,
-        aes(
-          x = time,
-          y = normalized_efficiency
-          )
-        ) +
-      geom_line(
-        alpha = 0.9, 
-        size = 0.5
-        ) +
+    ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
   geom_line(
     aes(
-          x = time,
-          y = efficiency_implied,
-          color = "red"
-          )
-        ) +
-  xlab("") +
-  ylab("mismatch") +
-  labs(colour = "")
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
 x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
 ```
 
-### num_time_100_cobb_douglas_0.3
+### num_time_100_cobb_douglas_0.3_AR0_I1
 
 ```{r,echo=FALSE,results = "asis"}
-target_res <-
-  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1)
-modelsummary::datasummary_skim(
-  fmt = 3,
-  target_res
+# target_res <-
+#   generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1)
+# modelsummary::datasummary_skim(
+#   fmt = 3,
+#   target_res
+#   )
+# plot_target <-
+#   plot_target_data(
+#     target_data = num_time_100_cobb_douglas_0.3_AR0_I1,
+#     target_variable = "error_efficiency"
+#     )
+# plot_target
+temp <-
+  num_time_100_cobb_douglas_0.3_AR0_I1 %>% 
+  dplyr::filter(
+    simulation_id == 2
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
   )
-plot_target <-
-  plot_target_data(
-    target_data = num_time_100_cobb_douglas_0.3_AR0_I1,
-    target_variable = "error_efficiency"
+x <- 
+    ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
     )
-plot_target
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
 ```
 
 
