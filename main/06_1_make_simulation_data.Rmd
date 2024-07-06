@@ -39,50 +39,66 @@ arima_list <-
     #"AR1_I1" = c(1,1,0),
     "AR0_I1" = c(0,1,0)
     )
+## set independence parameter ----
+dependency_V_of_A_list <-
+  c(
+    0,
+    0.1,
+    0.2
+  )
+
 # load, estimate, and save data ----
 for(nn in 1:length(list_num_time)){
   for(mm in 1:length(specification_list)){
     for(rr in 1:length(arima_list)){
-      target_arima <-
-        arima_list[[rr]]
-      target_arima_name <-
-        names(arima_list)[rr]
-      CRS_gamma_parameter <-
-      0.3
-    temp_nn <-
-      list_num_time[nn]
-    matching_function_specification <-
-      specification_list[mm]
-    filename <-
-        paste(
-          #"output/monte_carlo_data_",
-          "num_time_",
-          temp_nn,
-          "_",
-          matching_function_specification,
-          "_",
-          CRS_gamma_parameter,
-          "_",
-          target_arima_name,
-          sep = ""
-        )
-    cat(filename,"\n")
-    # load 
-    target_data <-
-      readRDS(
-        file = 
-          here::here(
+      for(qq in 1:length(dependency_V_of_A_list)){
+        dependency_V_of_A <-
+          dependency_V_of_A_list[qq]
+        target_arima <-
+          arima_list[[rr]]
+        target_arima_name <-
+          names(arima_list)[rr]
+        CRS_gamma_parameter <-
+        0.3
+        temp_nn <-
+          list_num_time[nn]
+        matching_function_specification <-
+          specification_list[mm]
+        filename <-
             paste(
-              "output/",
-              "monte_carlo_data_",
-              filename,
-              ".rds",
+              #"output/monte_carlo_data_",
+              "num_time_",
+              temp_nn,
+              "_",
+              matching_function_specification,
+              "_",
+              CRS_gamma_parameter,
+              "_",
+              target_arima_name,
+              "_",
+              "va_dependency_",
+              dependency_V_of_A,
               sep = ""
             )
+        cat(filename,"\n")
+        # load 
+        target_data <-
+          readRDS(
+            file = 
+              here::here(
+                paste(
+                  "output/",
+                  "monte_carlo_data_",
+                  filename,
+                  ".rds",
+                  sep = ""
+                )
+              )
           )
-      )
-    assign(filename,
-           target_data)
+        assign(filename,
+               target_data)
+      }
+      
     }
     
   }
@@ -125,11 +141,11 @@ plot_target_data <-
   }
 ```
 
-## ARIMA (1,0,0) {.tabset}
+## ARIMA (1,0,0) va dependency 0 {.tabset}
 
 ### cobb_douglas {.tabset}
 
-#### num_time_50_cobb_douglas_0.3_AR1_I0  {.tabset}
+#### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0  {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -137,7 +153,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR1_I0,
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "unemployed"
   )
 ```
@@ -146,7 +162,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR1_I0,
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "vacancy"
   )
 ```
@@ -156,7 +172,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR1_I0,
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "hire"
   )
 
@@ -166,18 +182,18 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR1_I0,
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
-#### num_time_100_cobb_douglas_0.3_AR1_I0  {.tabset}
+#### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0  {.tabset}
 
 ##### unemployed
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR1_I0,
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "unemployed"
   )
 ```
@@ -186,7 +202,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR1_I0,
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "vacancy"
   )
 ```
@@ -196,7 +212,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR1_I0,
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "hire"
   )
 
@@ -206,14 +222,14 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR1_I0,
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
 ### perfect_substitute {.tabset}
 
-#### num_time_50_perfect_substitute_0.3_AR1_I0  {.tabset}
+#### num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0  {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -221,7 +237,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR1_I0,
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "unemployed"
   )
 ```
@@ -230,7 +246,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR1_I0,
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "vacancy"
   )
 ```
@@ -240,7 +256,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR1_I0,
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "hire"
   )
 
@@ -250,18 +266,18 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR1_I0,
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
-#### num_time_100_perfect_substitute_0.3_AR1_I0  {.tabset}
+#### num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0  {.tabset}
 
 ##### unemployed
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR1_I0,
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "unemployed"
   )
 ```
@@ -270,7 +286,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR1_I0,
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "vacancy"
   )
 ```
@@ -280,7 +296,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR1_I0,
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "hire"
   )
 
@@ -290,7 +306,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR1_I0,
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0,
   "normalized_efficiency"
   )
 ```
@@ -299,7 +315,7 @@ plot_target_data(
 
 ### cobb_douglas {.tabset}
 
-#### num_time_50_cobb_douglas_0.3_AR0_I1  {.tabset}
+#### num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0  {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -307,7 +323,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR0_I1,
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "unemployed"
   )
 ```
@@ -316,7 +332,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR0_I1,
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "vacancy"
   )
 ```
@@ -326,7 +342,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR0_I1,
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "hire"
   )
 
@@ -336,18 +352,18 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_cobb_douglas_0.3_AR0_I1,
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
-#### num_time_100_cobb_douglas_0.3_AR0_I1  {.tabset}
+#### num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0  {.tabset}
 
 ##### unemployed
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR0_I1,
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "unemployed"
   )
 ```
@@ -356,7 +372,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR0_I1,
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "vacancy"
   )
 ```
@@ -366,7 +382,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR0_I1,
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "hire"
   )
 
@@ -376,14 +392,14 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_cobb_douglas_0.3_AR0_I1,
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
 ### perfect_substitute {.tabset}
 
-#### num_time_50_perfect_substitute_0.3_AR0_I1  {.tabset}
+#### num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0  {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
@@ -391,7 +407,7 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR0_I1,
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "unemployed"
   )
 ```
@@ -400,7 +416,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR0_I1,
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "vacancy"
   )
 ```
@@ -410,7 +426,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR0_I1,
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "hire"
   )
 
@@ -420,18 +436,18 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_50_perfect_substitute_0.3_AR0_I1,
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "normalized_efficiency"
   )
 ```
 
-#### num_time_100_perfect_substitute_0.3_AR0_I1  {.tabset}
+#### num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0  {.tabset}
 
 ##### unemployed
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR0_I1,
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "unemployed"
   )
 ```
@@ -440,7 +456,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR0_I1,
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "vacancy"
   )
 ```
@@ -450,7 +466,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR0_I1,
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "hire"
   )
 
@@ -460,7 +476,7 @@ plot_target_data(
 
 ```{r,echo=FALSE,results = "asis"}
 plot_target_data(
-  num_time_100_perfect_substitute_0.3_AR0_I1,
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0,
   "normalized_efficiency"
   )
 ```

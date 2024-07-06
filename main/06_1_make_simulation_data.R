@@ -48,6 +48,12 @@ specification_list <-
 CRS_gamma_parameter <-
   0.3#0.001
 ## set independence parameter ----
+dependency_V_of_A_list <-
+  c(
+    0,
+    0.1,
+    0.2
+  )
 
 
 # generate data ----
@@ -60,6 +66,7 @@ generate_uvah_data <-
     ar1_parameter_unemployed,
     ar1_parameter_vacancy,
     ar1_parameter_efficiency,
+    dependency_V_of_A,
     matching_function_specification,
     CRS_gamma_parameter
   ){
@@ -127,6 +134,9 @@ generate_uvah_data <-
           n = length(time)
         )
     }
+    # include dependency_V_of_A
+    efficiency <-
+      efficiency + dependency_V_of_A * vacancy
     efficiency <-
       efficiency + abs(min(efficiency)) + 10 # avoid negative
     normalized_efficiency <-
@@ -138,6 +148,7 @@ generate_uvah_data <-
           #   probs = 0.50 
           #   ) 
       )* 100 #/10 # initial value = 1/10
+    
     # format data length
     time <-
       1:length(unemployed)
@@ -212,6 +223,7 @@ generate_data <-
     ar1_parameter_unemployed,
     ar1_parameter_vacancy,
     ar1_parameter_efficiency,
+    dependency_V_of_A,
     matching_function_specification,
     CRS_gamma_parameter
   ){
@@ -238,6 +250,7 @@ generate_data <-
           ar1_parameter_unemployed,
           ar1_parameter_vacancy,
           ar1_parameter_efficiency,
+          dependency_V_of_A,
           matching_function_specification,
           CRS_gamma_parameter
         )
@@ -273,54 +286,63 @@ generate_data <-
 for(nn in 1:length(list_num_time)){
   for(mm in 1:length(specification_list)){
     for(rr in 1:length(arima_list)){
-      target_arima <-
-        arima_list[[rr]]
-      fixed_ar <-
-        arima_list[[1]]
-      target_arima_name <-
-        names(arima_list)[rr]
-      CRS_gamma_parameter <-
-        0.3
-      temp_nn <-
-        list_num_time[nn]
-      matching_function_specification <-
-        specification_list[mm]
-      time <-
-        c(1:temp_nn)
-      data <-
-        generate_data(
-          time,
-          list_simulation,
-          # stationarity only on A
-          # arima_setting_unemployed = target_arima,
-          # arima_setting_vacancy = target_arima,
-          arima_setting_unemployed = fixed_ar,
-          arima_setting_vacancy = fixed_ar,
-          arima_setting_efficiency = target_arima,
-          ar1_parameter_unemployed,
-          ar1_parameter_vacancy,
-          ar1_parameter_efficiency,
-          matching_function_specification,
-          CRS_gamma_parameter
-        )
-      filename <-
-        paste(
-          "output/monte_carlo_data_",
-          "num_time_",
-          temp_nn,
-          "_",
-          matching_function_specification,
-          "_",
-          CRS_gamma_parameter,
-          "_",
-          target_arima_name,
-          ".rds",
-          sep = ""
-        )
-      cat(filename,"\n")
-      saveRDS(
-        data,
-        file = filename)
+      for(qq in 1:length(dependency_V_of_A_list)){
+        dependency_V_of_A <-
+          dependency_V_of_A_list[qq]
+        target_arima <-
+          arima_list[[rr]]
+        fixed_ar <-
+          arima_list[[1]]
+        target_arima_name <-
+          names(arima_list)[rr]
+        CRS_gamma_parameter <-
+          0.3
+        temp_nn <-
+          list_num_time[nn]
+        matching_function_specification <-
+          specification_list[mm]
+        time <-
+          c(1:temp_nn)
+        data <-
+          generate_data(
+            time,
+            list_simulation,
+            # nonstationarity only on A
+            # arima_setting_unemployed = target_arima,
+            # arima_setting_vacancy = target_arima,
+            arima_setting_unemployed = fixed_ar,
+            arima_setting_vacancy = fixed_ar,
+            arima_setting_efficiency = target_arima,
+            ar1_parameter_unemployed,
+            ar1_parameter_vacancy,
+            ar1_parameter_efficiency,
+            dependency_V_of_A,
+            matching_function_specification,
+            CRS_gamma_parameter
+          )
+        filename <-
+          paste(
+            "output/monte_carlo_data_",
+            "num_time_",
+            temp_nn,
+            "_",
+            matching_function_specification,
+            "_",
+            CRS_gamma_parameter,
+            "_",
+            target_arima_name,
+            "_",
+            "va_dependency_",
+            dependency_V_of_A,
+            ".rds",
+            sep = ""
+          )
+        cat(filename,"\n")
+        saveRDS(
+          data,
+          file = filename)
+      }
+      
     }
     
   }

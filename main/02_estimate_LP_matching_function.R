@@ -217,7 +217,7 @@ estimate_efficiency <-
         #   probs = 0.50
         # )
         #data$vacancy[1] # initial date
-        as.numeric(data[data$year == "2013"& data$prefecture == "東京都","vacancy"][1,]) # 1972 Jan
+        as.numeric(data[data$year == "2013"& data$prefecture == "東京都","vacancy"][1,]) # 2013 Jan
     }else if(cross_sectional_normalization == "job category"){
       vstar <- 
         # quantile(
@@ -225,7 +225,15 @@ estimate_efficiency <-
         #   probs = 0.50
         # )
         #data$vacancy[1] # initial date
-        as.numeric(data[data$year == "2013" & data$job_kinds == "事務的職業","vacancy"][1,]) # 1972 Jan
+        as.numeric(data[data$year == "2013" & data$job_kinds == "事務的職業","vacancy"][1,]) # 2013 Jan
+    }else if(cross_sectional_normalization == "pooling full time part time"){
+      vstar <- 
+        # quantile(
+        #   data$vacancy, 
+        #   probs = 0.50
+        # )
+        #data$vacancy[1] # initial date
+        as.numeric(data[data$year == "1972" & data$job_type == "full-time","vacancy"][1,]) # 1972 Jan, full-time
     }else{
       vstar <- 
         # quantile(
@@ -520,7 +528,8 @@ if(0 == 1){
       hire_count = hire
     )
 }
-
+## yearly data ----
+#### part_and_full_time ----
 target_result <-
   assign_results(
     target_data = hello_work_data_yearly,
@@ -535,6 +544,7 @@ assign(
 )
 ## monthly data ----
 ### country data ----
+#### full time ----
 target_result <-
   assign_results(
     target_data = hello_work_data_full_time_monthly,
@@ -547,6 +557,7 @@ assign(
     sep = ""),
   target_result
 )
+#### part time ----
 target_result <-
   assign_results(
     target_data = hello_work_data_part_time_monthly,
@@ -559,6 +570,7 @@ assign(
     sep = ""),
   target_result
 )
+#### part_and_full_time ----
 target_result <-
   assign_results(
     target_data = hello_work_data_part_and_full_time_monthly,
@@ -571,7 +583,31 @@ assign(
     sep = ""),
   target_result
 )
+
+#### pooling_part_and_full_time ----
+hello_work_data_pooling_part_and_full_time_monthly <-
+  rbind(
+    hello_work_data_part_time_monthly %>% 
+      dplyr::mutate(job_type = "part-time"),
+    hello_work_data_full_time_monthly %>% 
+      dplyr::mutate(job_type = "full-time")
+  )
+
+target_result <-
+  assign_results(
+    target_data = hello_work_data_pooling_part_and_full_time_monthly,
+    cross_sectional_normalization = "pooling full time part time"
+  )
+assign(
+  paste(
+    "utmd_output_",
+    deparse(substitute(hello_work_data_pooling_part_and_full_time_monthly)),
+    sep = ""),
+  target_result
+)
+
 ### prefecture data ----
+#### full time ----
 system.time(
   target_result <-
     assign_results(
@@ -586,6 +622,7 @@ assign(
     sep = ""),
   target_result
 )
+#### part time ----
 system.time(
   target_result <-
     assign_results(
@@ -600,6 +637,7 @@ assign(
     sep = ""),
   target_result
 )
+#### part_and_full_time ----
 system.time(
   target_result <-
     assign_results(
@@ -619,6 +657,7 @@ assign(
 
  
 ### job category data ----
+#### full_time ----
 system.time(
   target_result <-
     assign_results(
@@ -634,7 +673,7 @@ assign(
   target_result
 )
 
-
+#### part_and_full_time ----
 
 system.time(
   target_result <-
@@ -697,6 +736,11 @@ saveRDS(
   utmd_output_hello_work_data_part_and_full_time_monthly,
   file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly.rds")
 )
+saveRDS(
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly,
+  file = here::here("output/utmd_output_hello_work_data_pooling_part_and_full_time_monthly.rds")
+)
+
 ### prefecture data ----
 saveRDS(
   utmd_output_hello_work_data_part_time_monthly_prefecture,
