@@ -111,7 +111,7 @@
         \begin{itemize}
             \item Cobb Douglass: $m=AU^{\alpha}V^{1-\alpha}$ with vacancy share $\alpha$
         \end{itemize}
-        \item $U\perp A|V$, i.e., \textbf{independence between $U$ and $A$ conditional on $V$}
+        \item $A\perp V|U$, i.e., \textbf{independence between $A$ and $V$ conditional on $U$}
     \end{enumerate}
     
         \item Our goal is to \textbf{recover unobserved $A$ from observed $(H,U,V)$.}
@@ -176,7 +176,7 @@
     \begin{enumerate}
         \item Restricting CRS class including Cobb Douglas
         \item Experiment stationary ARIMA(1,0,0) and nonstationary ARIMA(0,1,0)
-        \item Check robustness to violation of independence of $A$ and $U$ conditional on $V$
+        \item Check robustness to violation of independence of $A$ and $V$ conditional on $U$
     \end{enumerate}
     \item We want to confirm how large enough the sample size is.
     \item We want to quantify the bias of the standard Cobb Douglass specification \textcolor{blue}{[Skipped]}
@@ -189,20 +189,21 @@
     \item Sample size $T=50,100, 200$
     \item CRS class specification of $m$
     \begin{itemize}
-        \item Cobb Douglas
-        \item Perfect substitute
+        \item Cobb Douglas: $(AU)^{\gamma}V^{1-\gamma}$
+        \item Perfect substitute: $\gamma AU+\gamma V$ \textcolor{blue}{[Skipped because of similar results]}
     \end{itemize}
-    \item stationarity of $(A,U,V)$
+    \item Stationarity of $A$: ($U$ and $V$ are stationary now)
     \begin{itemize}
         \item ARIMA(1,0,0)
         \item ARIMA(0,1,0)
     \end{itemize}
-    \item endogeneity of $(A,U,V)$
+    \item Endogeneity of $(A,U,V)$
     \begin{itemize}
-        \item TBA
+        \item Use choresky decomposition of $A$ and $V$ where $q=0$ (independence), $0.1, 0.2$.
     \end{itemize}
     \item Other tuning parameter: kernel choice and bandwidth 
-    \item  \textcolor{blue}{Detailed Monte Carlo simulation is under construction}
+    \item Normalization is implemented to capture actual data
+    \item \textcolor{blue}{Detailed Monte Carlo simulation is under construction}
 \end{itemize}
     
 \end{frame}
@@ -220,43 +221,45 @@
   %Note: 
 \end{figure}
 \begin{itemize}
-     \item Pick one simulation path.
-     \item $T=100$ seems enough.
+     \item Pick one simulation path for illustration.
+     \item $T=100$ seems enough
+     \item Bias and RMSE decreases as $T$ increases. 
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Illustrative fitting plot: With and without stationary}
+\begin{frame}{Illustrative fitting plot: With and without stationary of $A$}
 \begin{figure}[!ht]
   \begin{center}
 
   \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1.png}
   \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Pick one simulation path.
-    \item TBA
+    \item Long nonstationarity gives fluctuate estimates.
+    \item So, bias and RMSE increases as $T$ increases. 
+    \item However, the estimate captures smooth trend reasonably.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Illustrative fitting plot: With and without endogeneity}
-\begin{figure}[!ht]
-  \begin{center}
+% \begin{figure}[!ht]
+%   \begin{center}
 
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
-  \end{center}
-  \footnotesize
-  %Note: 
-\end{figure} 
+%   \includegraphics[width = 0.37\textwidth]
+%   {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
+%   \includegraphics[width = 0.37\textwidth]
+%   {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+%   \end{center}
+%   \footnotesize
+%   %Note: 
+% \end{figure} 
 \begin{itemize}
-    \item Pick one simulation path.
+    \item Pick one simulation path. 
     \item TBA
 \end{itemize}
 \end{frame}
@@ -287,6 +290,7 @@
 \begin{frame}{Data}
   \begin{itemize}
       \item Hello Work data
+      \item \textcolor{blue}{[TBA]}
   \end{itemize}
 \end{frame}
 
