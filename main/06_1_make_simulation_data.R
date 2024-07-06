@@ -84,7 +84,7 @@ generate_uvah_data <-
         )
     }
     unemployed <-
-      unemployed + abs(min(unemployed)) + 10 # avoid negative
+      (unemployed + abs(min(unemployed)) + 10) * 100 # avoid negative
     if(arima_setting_vacancy[2] == 0){
       # stationary
       vacancy <- 
@@ -106,7 +106,7 @@ generate_uvah_data <-
         )
     }
     vacancy <-
-      vacancy + abs(min(vacancy)) + 10 # avoid negative
+      (vacancy + abs(min(vacancy)) + 10) * 100 # avoid negative
     if(arima_setting_efficiency[2] == 0){
       # stationary
       efficiency <- 
@@ -128,7 +128,7 @@ generate_uvah_data <-
         )
     }
     efficiency <-
-      efficiency + abs(min(efficiency)) + 1e-6 # avoid negative
+      efficiency + abs(min(efficiency)) + 10 # avoid negative
     normalized_efficiency <-
       (
         efficiency/
@@ -137,7 +137,7 @@ generate_uvah_data <-
           #   efficiency, 
           #   probs = 0.50 
           #   ) 
-      )/10 # initial value = 1/10
+      )* 100 #/10 # initial value = 1/10
     time <-
       1:length(unemployed)
     data <-
@@ -154,32 +154,32 @@ generate_uvah_data <-
         data %>% 
         dplyr::mutate(
           hire =
-            (normalized_efficiency *unemployed)^CRS_gamma_parameter*
-            vacancy^(1 - CRS_gamma_parameter)
+            ((normalized_efficiency *unemployed)^CRS_gamma_parameter*
+            vacancy^(1 - CRS_gamma_parameter))/10
           )
     }else if(matching_function_specification == "perfect_substitute"){
       data <-
         data %>% 
         dplyr::mutate(
           hire =
-            CRS_gamma_parameter * 
+            (CRS_gamma_parameter * 
             normalized_efficiency *
             #efficiency *
             unemployed +
             CRS_gamma_parameter *
-            vacancy
+            vacancy)/10
         )
     }else if(matching_function_specification == "fixed_proportion"){
       data <-
         data %>% 
         dplyr::mutate(
           hire =
-            min(CRS_gamma_parameter * 
+            (min(CRS_gamma_parameter * 
                   normalized_efficiency *
                   #efficiency *
                   unemployed,
                 CRS_gamma_parameter *
-                  vacancy)
+                  vacancy))/10
         )
     }
     data <-

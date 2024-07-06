@@ -1,0 +1,349 @@
+---
+title: "07_construct_figuretable_simulation"
+author: "Suguru Otani"
+date: "2024-01-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# load {.tabset}
+
+```{r, echo=FALSE,results = "asis"}
+rm(list = ls())
+library(magrittr)
+library(ggplot2)
+# set constant ----
+list_num_time <-
+  c(
+    #10,
+    #20,
+    #30,
+    #40,
+    50,
+    100,
+    200
+  )
+specification_list <-
+  c(
+    "cobb_douglas",
+    "perfect_substitute"#,
+    #"fixed_proportion"
+  )
+CRS_gamma_parameter <-
+  0.3#0.001
+arima_list <-
+  list(
+    "AR1_I0" = c(1,0,0),
+    #"AR1_I1" = c(1,1,0),
+    "AR0_I1" = c(0,1,0)
+  )
+for(nn in 1:length(list_num_time)){
+  for(mm in 1:length(specification_list)){
+    for(rr in 1:length(arima_list)){
+      target_arima <-
+        arima_list[[rr]]
+      target_arima_name <-
+        names(arima_list)[rr]
+      CRS_gamma_parameter <-
+      0.3
+    temp_nn <-
+      list_num_time[nn]
+    matching_function_specification <-
+      specification_list[mm]
+    temp_nn <-
+      list_num_time[nn]
+    filename <-
+      paste(
+        #"output/monte_carlo_data_",
+        "num_time_",
+        temp_nn,
+        "_",
+        matching_function_specification,
+        "_",
+        CRS_gamma_parameter,
+        "_",
+        target_arima_name,
+        sep = ""
+      )
+    cat(filename,"\n")
+    temp_data <-
+      readRDS(
+        file =
+          here::here(
+            paste(
+              "output/",
+              "implied_efficiency_",
+              filename,
+              ".rds",
+              sep = ""
+            )
+            )
+        )
+    assign(
+      filename,
+      temp_data)
+      }
+    
+  }
+}
+generate_bias_rmse <-
+  function(target_data){
+    res <-
+      target_data %>% 
+      dplyr::mutate(
+        error = normalized_efficiency - efficiency_implied
+        ) %>% 
+      dplyr::group_by(
+        simulation_id
+      ) %>% 
+      dplyr::summarise(
+        bias =
+          mean(error),
+        rmse =
+          sqrt(mean((error)^2, na.rm = TRUE))
+      ) %>% 
+      dplyr::ungroup()
+    return(res)
+  }
+
+plot_target_data <-
+  function(
+    target_data,
+    target_variable
+    ){
+    target_plot <- 
+      ggplot(
+        target_data %>% 
+          dplyr::filter(simulation_id <= 10) %>% 
+          dplyr::mutate(
+            error_efficiency = normalized_efficiency - efficiency_implied
+            ),
+        aes(
+          x = time,
+          y = .data[[target_variable]],
+          color = simulation_id, 
+          group = simulation_id
+          )
+        ) +
+      geom_line(
+        alpha = 0.9, 
+        size = 0.5
+        ) + 
+      # geom_point(
+      #   aes(
+      #     shape = industry_group_name,
+      #     color = industry_group_name
+      #     )
+      #   ) +
+      theme_classic() + 
+      #scale_color_viridis_d() +
+      theme(legend.position = 'top',
+            legend.text = element_text(size=8)) +
+      theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=6.0)) +
+      xlab("")
+    return(target_plot)
+    
+  }
+
+options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
+```
+
+
+
+## Appendix. Illustrative plot and num_time_100_cobb_douglas_0.3_AR1_I0 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### num_time_50_cobb_douglas_0.3_AR1_I0
+
+```{r,echo=FALSE,results = "asis"}
+# target_res <-
+#   generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0)
+# modelsummary::datasummary_skim(
+#   fmt = 3,
+#   target_res
+#   )
+# plot_target <-
+#   plot_target_data(
+#     target_data = num_time_50_cobb_douglas_0.3_AR1_I0,
+#     target_variable = "error_efficiency"
+#     )
+# plot_target
+
+temp <-
+  num_time_50_cobb_douglas_0.3_AR1_I0 %>% 
+  dplyr::filter(
+    simulation_id == 1
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+    ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### num_time_100_cobb_douglas_0.3_AR1_I0
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  num_time_100_cobb_douglas_0.3_AR1_I0 %>% 
+  dplyr::filter(
+    simulation_id == 1
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+  ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+x
+```
+
+
+
+
+
+## Appendix. Illustrative plot and num_time_50_cobb_douglas_0.3_AR0_I1 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### num_time_50_cobb_douglas_0.3_AR0_I1
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  num_time_200_cobb_douglas_0.3_AR0_I1 %>% 
+  dplyr::filter(
+    simulation_id == 1
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+      ggplot(
+        temp,
+        aes(
+          x = time,
+          y = normalized_efficiency
+          )
+        ) +
+      geom_line(
+        alpha = 0.9, 
+        size = 0.5
+        ) +
+  geom_line(
+    aes(
+          x = time,
+          y = efficiency_implied,
+          color = "red"
+          )
+        ) +
+  xlab("") +
+  ylab("mismatch") +
+  labs(colour = "")
+x
+```
+
+### num_time_100_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_cobb_douglas_0.3_AR0_I1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+

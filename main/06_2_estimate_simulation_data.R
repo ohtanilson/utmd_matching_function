@@ -22,13 +22,13 @@ arima_list <-
     "AR0_I1" = c(0,1,0)
   )
 maxA <-
-  10#1000  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
+  1000  # Maximum matching efficiency in grid (normalized at median vacancies to 100)
 minA <-
-  0.01   # Minimum matching efficiency in grid (normalized at median vacancies to 100)
+  1   # Minimum matching efficiency in grid (normalized at median vacancies to 100)
 kernel_sd <-
   0.1
 Astar <-
-  1/10#100
+  100
 supportsize_theta <-
   100
 ## set matching function specification ----
