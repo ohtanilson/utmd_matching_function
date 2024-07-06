@@ -54,6 +54,16 @@ utmd_output_hello_work_data_part_and_full_time_monthly <-
     `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
     `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
   )
+utmd_output_hello_work_data_pooling_part_and_full_time_monthly <-
+  readRDS(file = here::here("output/utmd_output_hello_work_data_pooling_part_and_full_time_monthly.rds")) %>% 
+  dplyr::rename(
+    `unemployed`= candidate_count,
+    `vacancies` = position_count,
+    `hire` = hire_count,
+    `dlog(M)/ dlog(V)` = hire_elasticity_vacancy,
+    `dlog(M)/ dlog(AU)` = hire_elasticity_efficiency_unemployed
+  )
+
 ```
 
 ## Figure 1: Residual plot {.tabset}
@@ -98,15 +108,18 @@ ggsave(filename = figure_name,
 ```
 
 
-### Month-level full-time
+
+
+### Month-level pooling full-time and part-time 
 
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_hello_work_data_full_time_monthly,
+    utmd_output_hello_work_data_pooling_part_and_full_time_monthly,
      aes(
        x = residual_v_on_u,
-       y = residual_a_on_u
+       y = residual_a_on_u,
+       color = job_type
        )
      ) +
   #geom_line(size = 0.3) +
@@ -127,44 +140,7 @@ x <-
   scale_color_viridis_d()
 x
 figure_name <-
-  "../figuretable/residual_plot_month_full_time.png"
-ggsave(filename = figure_name,
-       plot = x,
-       device = "png",
-       width = 4,
-       height = 3)
-```
-
-### Month-level part-time
-
-```{r,echo=FALSE,results = "asis"}
-x <-
-  ggplot(
-    utmd_output_hello_work_data_part_time_monthly,
-     aes(
-       x = residual_v_on_u,
-       y = residual_a_on_u
-       )
-     ) +
-  #geom_line(size = 0.3) +
-  geom_point() +
-  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
-  theme_classic() +
-  labs(
-    #title = "Beveridge Curve",
-    x = "Residual of V on U",
-    y = "Residual of A on U"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5),
-    plot.caption = element_text(hjust = 0, size = 8)
-  ) +
-  # geom_vline(xintercept = 1980, linetype = "longdash") +
-  # geom_vline(xintercept = 1984, linetype = "longdash") +
-  scale_color_viridis_d()
-x
-figure_name <-
-  "../figuretable/residual_plot_month_part_time.png"
+  "../figuretable/residual_plot_month_pooling_part_and_full_time.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -688,7 +664,8 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::select(
     `unemployed`,
     `vacancies`,
@@ -704,7 +681,8 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::mutate(
     `V/U` =
       `vacancies`/`unemployed`
@@ -722,7 +700,8 @@ temp2 <-
     - time
   )
 temp3 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::select(
     `unemployed`,
     `vacancies`,
@@ -745,7 +724,8 @@ temp <-
 
 
 temp4 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::mutate(
     `V/U` =
       `vacancies`/`unemployed`
@@ -826,7 +806,8 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::select(
     `hire`,
     time
@@ -840,7 +821,8 @@ temp <-
     - time
   )
 temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::select(
     `hire`,
     time
@@ -903,7 +885,8 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::select(
     month,
     year,
@@ -914,7 +897,8 @@ temp <-
     type = "full"
   )
 temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
     dplyr::select(
     month,
     year,
@@ -981,7 +965,8 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::mutate(
     `M/U (full)` =
       `hire`/`unemployed`,
@@ -1000,7 +985,8 @@ temp <-
   )
 
 temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::mutate(
     `M/U (part)` =
       `hire`/`unemployed`,
@@ -1064,38 +1050,38 @@ ggsave(filename = figure_name,
 ### Matching Efficiency A
 
 ```{r,echo=FALSE,results = "asis"}
-temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
-  dplyr::select(
-    time,
-    efficiency_implied
-  ) %>% 
-  dplyr::mutate(
-    type = "full"
-  )
-temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
-  dplyr::select(
-    time,
-    efficiency_implied
-  ) %>% 
-  dplyr::mutate(
-    type = "part"
-  )
-temp <-
-  rbind(
-    temp,
-    temp2
-  )
+# temp <-
+#   utmd_output_hello_work_data_full_time_monthly %>% 
+#   dplyr::select(
+#     time,
+#     efficiency_implied
+#   ) %>% 
+#   dplyr::mutate(
+#     type = "full"
+#   )
+# temp2 <-
+#   utmd_output_hello_work_data_part_time_monthly %>% 
+#   dplyr::select(
+#     time,
+#     efficiency_implied
+#   ) %>% 
+#   dplyr::mutate(
+#     type = "part"
+#   )
+# temp <-
+#   rbind(
+#     temp,
+#     temp2
+#   )
 
 x <- 
   ggplot(
-    temp,
+    utmd_output_hello_work_data_pooling_part_and_full_time_monthly,
     aes(
       x = time,
       y = efficiency_implied,
-      color = type, 
-      group = type
+      color = job_type, 
+      group = job_type
       )
     ) +
   geom_line(
@@ -1115,7 +1101,7 @@ x <-
         legend.text = element_text(size=8))+
   #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
   xlab("") +
-  ylab("A (normalized to 1972 Jan)") +
+  ylab("A (normalized to 1972 Jan full-time)") +
   labs(colour = "") +
   #geom_vline(xintercept = 2002, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
@@ -1136,7 +1122,8 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
@@ -1147,12 +1134,13 @@ temp <-
     `dlog(M)/ dlog(AU) (full)` = `dlog(M)/ dlog(AU)`
   ) %>% 
   tidyr::gather(
-    type,
+    job_type,
     count,
     - time
   )
 temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::select(
     `dlog(M)/ dlog(V)`,
     `dlog(M)/ dlog(AU)`,
@@ -1163,7 +1151,7 @@ temp2 <-
     `dlog(M)/ dlog(AU) (part)` = `dlog(M)/ dlog(AU)`
   ) %>% 
   tidyr::gather(
-    type,
+    job_type,
     count,
     - time
   )
@@ -1179,8 +1167,8 @@ x <-
     aes(
       x = time,
       y = count,
-      color = type, 
-      group = type
+      color = job_type, 
+      group = job_type
       )
     ) +
   geom_line(
@@ -1221,7 +1209,8 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_hello_work_data_full_time_monthly,
+    utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+      dplyr::filter(job_type == "full-time"),
      aes(
        x = log(vacancies/unemployed),
        y = efficiency_implied
@@ -1266,7 +1255,8 @@ ggsave(filename = figure_name,
 ```{r,echo=FALSE,results = "asis"}
 x <-
   ggplot(
-    utmd_output_hello_work_data_part_time_monthly,
+    utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+      dplyr::filter(job_type == "part-time"),
      aes(
        x = log(vacancies/unemployed),
        y = efficiency_implied
@@ -1307,7 +1297,8 @@ ggsave(filename = figure_name,
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_full_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "full-time") %>% 
   dplyr::mutate(
     `log(M/U)` =
       log(`hire`/`unemployed`),
@@ -1384,7 +1375,8 @@ the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
+  utmd_output_hello_work_data_pooling_part_and_full_time_monthly %>% 
+  dplyr::filter(job_type == "part-time") %>% 
   dplyr::mutate(
     `log(M/U)` =
       log(`hire`/`unemployed`),
@@ -1874,3 +1866,83 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
+
+
+
+# Appendix: Separate estimation of full-time and part-time {.tabset}
+
+## Residual plot  {.tabset}
+
+### Month-level full-time
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_hello_work_data_full_time_monthly,
+     aes(
+       x = residual_v_on_u,
+       y = residual_a_on_u
+       )
+     ) +
+  #geom_line(size = 0.3) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_month_full_time.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### Month-level part-time
+
+```{r,echo=FALSE,results = "asis"}
+x <-
+  ggplot(
+    utmd_output_hello_work_data_part_time_monthly,
+     aes(
+       x = residual_v_on_u,
+       y = residual_a_on_u
+       )
+     ) +
+  #geom_line(size = 0.3) +
+  geom_point() +
+  #geom_text(aes(label = time), hjust = 0.5, vjust = -0.5, size = 3) +
+  theme_classic() +
+  labs(
+    #title = "Beveridge Curve",
+    x = "Residual of V on U",
+    y = "Residual of A on U"
+  ) +
+  theme(
+    plot.title = element_text(hjust = 0.5),
+    plot.caption = element_text(hjust = 0, size = 8)
+  ) +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/residual_plot_month_part_time.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```

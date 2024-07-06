@@ -311,7 +311,7 @@ plot_target_data(
   )
 ```
 
-## ARIMA (0,1,0) i.e. nonstationary {.tabset}
+## ARIMA (0,1,0) va_dependency_0 {.tabset}
 
 ### cobb_douglas {.tabset}
 
@@ -480,3 +480,685 @@ plot_target_data(
   "normalized_efficiency"
   )
 ```
+
+
+## ARIMA (1,0,0) va dependency 0.1 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+## ARIMA (0,1,0) va_dependency_0.1 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+  "normalized_efficiency"
+  )
+```
+
+## ARIMA (1,0,0) va dependency 0.2 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+## ARIMA (0,1,0) va_dependency_0.2 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+### perfect_substitute {.tabset}
+
+#### num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2  {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
+#### num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2  {.tabset}
+
+##### unemployed
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "unemployed"
+  )
+```
+
+##### position_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "vacancy"
+  )
+```
+
+
+##### hire_count
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "hire"
+  )
+
+```
+
+##### normalized_efficiency
+
+```{r,echo=FALSE,results = "asis"}
+plot_target_data(
+  num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+  "normalized_efficiency"
+  )
+```
+
