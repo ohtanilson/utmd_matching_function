@@ -188,7 +188,7 @@ generate_efficiency_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=4))+
+            legend.text = element_text(size=7))+
       #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
       xlab("") +
       ylab("A (normalized to 2013 Jan Tokyo)") +
@@ -259,7 +259,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=4))+
+            legend.text = element_text(size=7))+
       xlab("") +
       ylab("log(M) w.r.t. log(V)") +
       labs(colour = "") +
@@ -306,7 +306,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=4))+
+            legend.text = element_text(size=7))+
       xlab("") +
       ylab("log(M) w.r.t. log(AU)") +
       labs(colour = "") +
