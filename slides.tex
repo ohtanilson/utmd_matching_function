@@ -29,7 +29,9 @@
 \section{Introduction}
 \begin{frame}{Research Question}
 \begin{itemize}
-    \item AA
+    \item How does the nonparametric approach work in estimating matching efficiency and mismatch?
+    \item What is the trend of matching efficiency in Japan in 1973-2024?
+    \item What is the trend of mismatch in 2013-2023?
 \end{itemize}
 \end{frame}
 
@@ -184,7 +186,7 @@
 
 \begin{frame}{Setup: DGP}
 \begin{itemize}
-    \item sample size $T=50,100, 200$
+    \item Sample size $T=50,100, 200$
     \item CRS class specification of $m$
     \begin{itemize}
         \item Cobb Douglas
@@ -196,15 +198,17 @@
         \item ARIMA(0,1,0)
     \end{itemize}
     \item endogeneity of $(A,U,V)$
-    \item Other tuning parameter: kernel choice and bandwidth  \textcolor{blue}{[Now fixed]}
-    \item  \textcolor{blue}{Formal Monte Carlo simulation table is under construction}
+    \begin{itemize}
+        \item TBA
+    \end{itemize}
+    \item Other tuning parameter: kernel choice and bandwidth 
+    \item  \textcolor{blue}{Detailed Monte Carlo simulation is under construction}
 \end{itemize}
     
 \end{frame}
 
 \begin{frame}{Illustrative fitting plot: Sample size}
-\begin{itemize}
-    \begin{figure}[!ht]
+\begin{figure}[!ht]
   \begin{center}
 
   \includegraphics[width = 0.37\textwidth]
@@ -214,16 +218,15 @@
   \end{center}
   \footnotesize
   %Note: 
-\end{figure} 
-\item Pick one simulation path.
-\item $T=100$ seems enough.
+\end{figure}
+\begin{itemize}
+     \item Pick one simulation path.
+     \item $T=100$ seems enough.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Illustrative fitting plot: With and without stationary}
-\begin{itemize}
-    \item TBA
-    \begin{figure}[!ht]
+\begin{figure}[!ht]
   \begin{center}
 
   \includegraphics[width = 0.37\textwidth]
@@ -234,13 +237,14 @@
   \footnotesize
   %Note: 
 \end{figure} 
+\begin{itemize}
+    \item Pick one simulation path.
+    \item TBA
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Illustrative fitting plot: With and without endogeneity}
-\begin{itemize}
-    \item TBA
-    \begin{figure}[!ht]
+\begin{figure}[!ht]
   \begin{center}
 
   \includegraphics[width = 0.37\textwidth]
@@ -251,6 +255,9 @@
   \footnotesize
   %Note: 
 \end{figure} 
+\begin{itemize}
+    \item Pick one simulation path.
+    \item TBA
 \end{itemize}
 \end{frame}
 
@@ -309,7 +316,7 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item Correlation of residuals seems not significant.
 \end{itemize}
 \end{frame}
 
@@ -347,7 +354,9 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item Matching efficiency declines after 2015.
+    \item Matching elasticity with respect to unemployed is 0.5 - 1.1.
+    \item Matching elasticity with respect to vacancies is 0.03 - 0.5.
 \end{itemize}
 \end{frame}
 
@@ -363,7 +372,7 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item Matching efficiency is correlated with tightness, i.e., inducing the endogeneity problem.
 \end{itemize}
 \end{frame}
 
@@ -383,7 +392,8 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item Part-time increases.
+    \item Job finding rates show cyclicality.
 \end{itemize}
 
 \end{frame}
@@ -401,7 +411,7 @@
 \end{figure} 
 
 \begin{itemize}
-    \item A
+    \item Need to check
 \end{itemize}
 \end{frame}
 
@@ -418,7 +428,7 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item Full-time shows more significant correlation.
 \end{itemize}
 \end{frame}
 
@@ -511,17 +521,23 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Mismatch across prefectures}
+\begin{frame}{Mismatch across prefectures and job categories}
 \begin{itemize}
-    \item TBA
+    \begin{figure}[!ht]
+  \begin{center}
+
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/mismatch_part_and_full_time_monthly_prefecture.png}
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/mismatch_part_and_full_time_monthly_job_category.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+\item a
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Mismatch across industries}
-\begin{itemize}
-    \item TBA
-\end{itemize}
-\end{frame}
 
 \begin{frame}{Summary of short time trends}
     \begin{itemize}
@@ -539,7 +555,7 @@
           \item Nonparametric approach and its finite sample performance
           \item Compute nonparametric mismatch index.
           \item Matching efficiency decreases and is driven by full-time one
-          \item Mismatch is large (=0.9)
+          \item Mismatch increases in particular across job categories.
       \end{itemize}
       \item Future work
       \begin{itemize}
