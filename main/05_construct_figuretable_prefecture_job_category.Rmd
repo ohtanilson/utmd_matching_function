@@ -656,6 +656,8 @@ x
 ### Across prefectures
 
 ```{r,echo=FALSE,results = "asis"}
+baseline_mismatch_temp <-
+  0.1
 taget_data <-
   utmd_output_hello_work_data_part_and_full_time_monthly_prefecture  %>% 
   dplyr::left_join(
@@ -673,7 +675,9 @@ taget_data <-
   ) %>% 
   dplyr::ungroup() %>% 
   dplyr::mutate(
-    mismatch = 1 - (total_actual_hire/total_optimal_hire)
+    mismatch =
+      (1 - (total_actual_hire/total_optimal_hire)) 
+    + baseline_mismatch_temp
   )
 
 
@@ -700,7 +704,7 @@ x <-
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
   xlab("") +
-  ylab("mismatch") +
+  ylab("Mismatch across prefectures") +
   labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
@@ -715,7 +719,7 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### Across industries
+### Across job categories
 
 ```{r,echo=FALSE,results = "asis"}
 taget_data <-
@@ -761,7 +765,7 @@ x <-
   theme(legend.position = 'top',
         legend.text = element_text(size=8)) +
   xlab("") +
-  ylab("mismatch") +
+  ylab("Mismatch across job categories") +
   labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +

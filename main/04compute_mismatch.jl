@@ -42,6 +42,8 @@ function compute_optimal_U(
     coef_AU = data.coef_AU[1]
     coef_AU_V = data.coef_AU_V[1]
     coef_AU_AU = data.coef_AU_AU[1]
+    coef_V = data.coef_V[1]
+    coef_V_V = data.coef_V_V[1]
     # set up 
     model = JuMP.Model(optimizer_with_attributes(Ipopt.Optimizer, "max_cpu_time"=>maxtime))
     set_optimizer_attribute(model, "max_iter", max_iter)
@@ -55,9 +57,19 @@ function compute_optimal_U(
         #(coef_AU + coef_AU_V * V[i] + 2 * coef_AU_AU * A[i]*optimal_U[i]) * A[i],
         (dlnM_dlnAU[i] * (H[i]/optimal_U[i]))
         )
+    # @NLexpression(
+    #     model, 
+    #     optimal_H[i= 1:industry_num], 
+    #     #(coef_AU + coef_AU_V * V[i] + 2 * coef_AU_AU * A[i]*optimal_U[i]) * A[i],
+    #     coef_AU * A[i] * optimal_U[i] +
+    #     coef_AU_V * (A[i] * optimal_U[i])* V[i]+
+    #     coef_AU_AU * (A[i] * optimal_U[i])^(2) +
+    #     coef_V * V[i] +
+    #     coef_V_V * (V[i])^(2)
+    #     )
     @NLconstraint(model, sum(optimal_U[i] for i = 1:industry_num) == sum(U[i] for i = 1:industry_num))
     @NLconstraint(model, [i=1:industry_num], dM_dU[i] == common_dM_dU)
-    #@NLconstraint(model, [i=1:industry_num], optimal_U[i] <= V[i])
+    #@NLconstraint(model, [i=1:industry_num],sum(H[i] for i = 1:industry_num) <= sum(optimal_H[i] for i = 1:industry_num))
     JuMP.@NLobjective(model, Max, 0)
     @time JuMP.optimize!(model)
     optimal_U_computed = JuMP.value.(optimal_U)
