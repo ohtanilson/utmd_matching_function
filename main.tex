@@ -182,9 +182,9 @@ m(A_t, U_t) = G^{-1}(F(A_t|U_t)|U_t).
 \]
 
 
-Finally, for calculating matching elasticities, I run a second-order polynomial regression projecting hires on the original and squared numbers of vacancies and unemployed interacted with implied matching efficiency.
+Finally, for calculating matching elasticities, I run a LASSO regression projecting hires on the original and squared numbers of vacancies and unemployed interacted with implied matching efficiency.
 The estimates approximate the derivatives of the matching function with respect to vacancies and unemployed interacted with implied matching efficiency, that is, an estimate of
-the elasticity of the matching function.\footnote{The matching elasticity with respect to unemployed $\frac{d \log m(AU,V)}{d \log U}=\frac{d m(AU,V)}{d AU}\frac{d AU}{dU}\frac{U}{H}=\frac{d m(AU,V)}{d AU}\frac{AU}{H}$ is obtained as the regression coefficient of $H$ on $AU$.}
+the elasticity of the matching function.\footnote{The matching elasticity with respect to unemployed $\frac{d \log m(AU,V)}{d \log U}=\frac{d m(AU,V)}{d U}\frac{U}{H}=\frac{d m(AU,V)}{d AU}\frac{d AU}{dU}\frac{U}{H}=\frac{d m(AU,V)}{d AU}\frac{AU}{H}=\frac{d \log m(AU,V)}{d \log AU}$ is obtained from the regression coefficient of $H$ on $AU$ and multiplying it by $\frac{AU}{H}$. Concretely, we approximate $m$ by the second order polynomial $m=\beta_1 (AU) + \beta_2(AU)V+\beta_3 V + \beta_4 (AU)^2 + \beta_5 V^2$ and get $\frac{d m(AU,V)}{d AU}=\beta_1 + \beta_2V + 2\beta_4 (AU) $ and $\frac{d\log m}{d\log U}=\frac{d\log m}{d\log AU}=(\beta_1 + \beta_2V + 2\beta_4 (AU))\frac{U}{H}$ and $\frac{d\log m}{d\log V}=(\beta_2 (AU) + \beta_3 + 2\beta_5 V)\frac{V}{H}$. For calculating mismatch, we need $\frac{dm}{dU}=\frac{d \log m(AU,V)}{d \log AU}\frac{H}{U}=\beta_1 + \beta_2V + 2\beta_4 (AU)$.}
 
 \subsection{Mismatch}\label{sec:mismatch_computation}
 
