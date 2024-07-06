@@ -67,6 +67,42 @@ utmd_output_hello_work_data_part_and_full_time_monthly_job_category <-
     by = c("job_kinds" = "job_kinds")
   )
 
+utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture <-
+  readr::read_csv(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture.csv"))[-1,]
+colnames(utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture) <-
+  c(
+    "time",
+    "prefecture",
+    "optimal_unemployed",
+    "optimal_hire"
+  )
+utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture %>% 
+  dplyr::mutate(
+    time = as.Date(time),
+    optimal_hire = as.numeric(optimal_hire)
+  )
+utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category <-
+  readr::read_csv(file = here::here("output/utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category.csv"))[-1,]
+colnames(utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category) <-
+  c(
+    "time",
+    "job_kinds",
+    "optimal_unemployed",
+    "optimal_hire"
+  )
+utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category %>% 
+  dplyr::mutate(
+    time = as.Date(time),
+    optimal_hire = as.numeric(optimal_hire)
+  )
+utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category %>% 
+  dplyr::mutate(
+    time = as.Date(time),
+    optimal_hire = as.numeric(optimal_hire)
+  )
 
 hokkaido = c("Hokkaido")
 tohoku = c("Aomori", "Iwate", "Miyagi", "Akita", "Yamagata", "Fukushima")
@@ -615,21 +651,132 @@ x <-
 x
 ```
 
-## Mismatch
+## Figure 8: Mismatch 1-H/H* {.tabset}
 
 ### Across prefectures
 
 ```{r,echo=FALSE,results = "asis"}
+taget_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_prefecture  %>% 
+  dplyr::left_join(
+    utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_prefecture,
+    by = 
+      c("prefecture" = "prefecture",
+        "time" = "time")
+  ) %>% 
+  dplyr::group_by(
+    time
+    ) %>% 
+  dplyr::summarise(
+    total_optimal_hire = sum(optimal_hire),
+    total_actual_hire = sum(hire)
+  ) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(
+    mismatch = 1 - (total_actual_hire/total_optimal_hire)
+  )
 
+
+x <- 
+  ggplot(
+    taget_data,
+    aes(
+      x = time,
+      y = mismatch
+      )
+    ) +
+  geom_line(
+    alpha = 0.8, 
+    size = 0.3
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("") +
+  ylab("mismatch") +
+  labs(colour = "") +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/mismatch_part_and_full_time_monthly_prefecture.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
 ```
 
 ### Across industries
 
 ```{r,echo=FALSE,results = "asis"}
-
+taget_data <-
+  utmd_output_hello_work_data_part_and_full_time_monthly_job_category %>% 
+  dplyr::left_join(
+    utmd_output_hello_work_data_part_and_full_time_monthly_optimal_hire_job_category,
+    by = 
+      c("job_kinds" = "job_kinds",
+        "time" = "time")
+  ) %>% 
+  dplyr::group_by(
+    time
+    ) %>% 
+  dplyr::summarise(
+    total_optimal_hire = sum(optimal_hire),
+    total_actual_hire = sum(hire)
+  ) %>% 
+  dplyr::ungroup() %>% 
+  dplyr::mutate(
+    mismatch = 1 - (total_actual_hire/total_optimal_hire)
+  ) %>% 
+  dplyr::filter(total_optimal_hire >= total_actual_hire)
+x <- 
+  ggplot(
+    taget_data,
+    aes(
+      x = time,
+      y = mismatch
+      )
+    ) +
+  geom_line(
+    alpha = 0.8, 
+    size = 0.3
+    ) + 
+  # geom_point(
+  #   aes(
+  #     shape = industry_group_name,
+  #     color = industry_group_name
+  #     )
+  #   ) +
+  theme_classic() + 
+  #scale_color_viridis_d() +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  xlab("") +
+  ylab("mismatch") +
+  labs(colour = "") +
+  # geom_vline(xintercept = 1980, linetype = "longdash") +
+  # geom_vline(xintercept = 1984, linetype = "longdash") +
+  scale_color_viridis_d()
+x
+figure_name <-
+  "../figuretable/mismatch_part_and_full_time_monthly_job_category.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
 ```
 
-# Appendix
+# Appendix {.tabset}
 
 ## Table A1: Month-job-category-level aggregate trends in 2012-2024 {.tabset}
 

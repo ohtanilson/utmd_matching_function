@@ -354,34 +354,69 @@ estimate_efficiency_all_industry <-
             #"I(vacancy*efficiency_unemployed)"
           )
         )
-      res <-
-        lm(lm_formula,
-           data = target_data)
-      #summary(res)
+      if(0 == 1){
+        # OLS case
+        res <-
+          lm(lm_formula,
+             data = target_data)
+        estimated_coefficients <-
+          res$coefficients
+        # dlog(H)/dlog(AU) = (AU/H)*(coef(AU) + coef(AU:V)V + 2*coef(AU^2)AU)
+        hire_elasticity_efficiency_unemployed <-
+          (estimated_coefficients["efficiency_unemployed"] +
+             estimated_coefficients["I(vacancy * efficiency_unemployed)"] * target_data$vacancy +
+             2 * estimated_coefficients["I(efficiency_unemployed^2)"] * target_data$efficiency_unemployed
+          ) *
+          (target_data$efficiency_unemployed/target_data$hire)
+        # dlog(H)/dlog(V) = (V/H)*(coef(V) + coef(AU:V)AU + 2*coef(V^2)AU)
+        hire_elasticity_vacancy <-
+          (estimated_coefficients["vacancy"] +
+             estimated_coefficients["I(vacancy * efficiency_unemployed)"] * target_data$efficiency_unemployed +
+             2 * estimated_coefficients["I(vacancy^2)"] * target_data$vacancy
+          ) *
+          (target_data$vacancy/target_data$hire)
+      }
+      
+      # LASSO
+      y <- target_data$hire
+      
+      # Create the model matrix for the predictors
+      X <- model.matrix(lm_formula, data = target_data)[,-1]  # Remove the intercept column
+      
+      # Fit the LASSO model using cross-validation to select the best lambda
+      cv_fit <- glmnet::cv.glmnet(X, y, alpha = 1)
+      
+      # Extract the coefficients at the best lambda
+      estimated_coefficients <- coef(cv_fit, s = "lambda.min")
+      # Calculate elasticities
       # dlog(H)/dlog(AU) = (AU/H)*(coef(AU) + coef(AU:V)V + 2*coef(AU^2)AU)
       hire_elasticity_efficiency_unemployed <-
-        (res$coefficients["efficiency_unemployed"] +
-           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$vacancy +
-           2 * res$coefficients["I(efficiency_unemployed^2)"] * target_data$efficiency_unemployed
+        (estimated_coefficients["efficiency_unemployed", 1] +
+           estimated_coefficients["I(vacancy * efficiency_unemployed)", 1] * target_data$vacancy +
+           2 * estimated_coefficients["I(efficiency_unemployed^2)", 1] * target_data$efficiency_unemployed
         ) *
-        (target_data$efficiency_unemployed/target_data$hire)
-      # dlog(H)/dlog(V) = (V/H)*(coef(V) + coef(AU:V)AU + 2*coef(V^2)AU)
+        (target_data$efficiency_unemployed / target_data$hire)
+      
+      # dlog(H)/dlog(V) = (V/H)*(coef(V) + coef(AU:V)AU + 2*coef(V^2)V)
       hire_elasticity_vacancy <-
-        (res$coefficients["vacancy"] +
-           res$coefficients["I(vacancy * efficiency_unemployed)"] * target_data$efficiency_unemployed +
-           2 * res$coefficients["I(vacancy^2)"] * target_data$vacancy
+        (estimated_coefficients["vacancy", 1] +
+           estimated_coefficients["I(vacancy * efficiency_unemployed)", 1] * target_data$efficiency_unemployed +
+           2 * estimated_coefficients["I(vacancy^2)", 1] * target_data$vacancy
         ) *
-        (target_data$vacancy/target_data$hire)
+        (target_data$vacancy / target_data$hire)
+      
+      #summary(res)
+      
       coef_AU <-
-        res$coefficients["efficiency_unemployed"]
+        estimated_coefficients["efficiency_unemployed", 1]
       coef_AU_V <-
-        res$coefficients["I(vacancy * efficiency_unemployed)"]
+        estimated_coefficients["I(vacancy * efficiency_unemployed)", 1]
       coef_AU_AU <-
-        res$coefficients["I(efficiency_unemployed^2)"]
+        estimated_coefficients["I(efficiency_unemployed^2)", 1]
       coef_V <-
-        res$coefficients["vacancy"]
+        estimated_coefficients["vacancy", 1]
       coef_V_V <-
-        res$coefficients["I(vacancy^2)"]
+        estimated_coefficients["I(vacancy^2)", 1]
       target_data <-
         cbind(
           target_data,
