@@ -184,42 +184,95 @@
 
 \begin{frame}{Setup: DGP}
 \begin{itemize}
-    \item sample size $T=10,20,30,40,50,100$
+    \item sample size $T=50,100, 200$
     \item CRS class specification of $m$
+    \begin{itemize}
+        \item Cobb Douglas
+        \item Perfect substitute
+    \end{itemize}
     \item stationarity of $(A,U,V)$
+    \begin{itemize}
+        \item ARIMA(1,0,0)
+        \item ARIMA(0,1,0)
+    \end{itemize}
     \item endogeneity of $(A,U,V)$
     \item Other tuning parameter: kernel choice and bandwidth  \textcolor{blue}{[Now fixed]}
+    \item  \textcolor{blue}{Formal Monte Carlo simulation table is under construction}
 \end{itemize}
     
 \end{frame}
 
-\begin{frame}{Illustrative fitting plot}
+\begin{frame}{Illustrative fitting plot: Sample size}
 \begin{itemize}
-    \item With and without stationary
-    \item With and without endogeneity
+    \begin{figure}[!ht]
+  \begin{center}
+
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+\item Pick one simulation path.
+\item $T=100$ seems enough.
 \end{itemize}
-    
 \end{frame}
 
-\begin{frame}{Monte Carlo simulation results}
+\begin{frame}{Illustrative fitting plot: With and without stationary}
 \begin{itemize}
     \item TBA
-    \item Specification 1: each cell shows IMSE
-    \begin{itemize}
-        \item X axis $T=10,20,30,40,50,100$ 
-        \item Y1 axis stationarity level
-        \item Y2 axis endogeneity level
-    \end{itemize}
-    \item Specification 2: each cell shows IMSE
-    \begin{itemize}
-        \item X axis $T=10,20,30,40,50,100$ 
-        \item Y1 axis stationarity level
-        \item Y2 axis endogeneity level
-    \end{itemize}
-    
+    \begin{figure}[!ht]
+  \begin{center}
+
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
 \end{itemize}
-    
 \end{frame}
+
+\begin{frame}{Illustrative fitting plot: With and without endogeneity}
+\begin{itemize}
+    \item TBA
+    \begin{figure}[!ht]
+  \begin{center}
+
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
+  \includegraphics[width = 0.37\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+\end{itemize}
+\end{frame}
+
+% \begin{frame}{Monte Carlo simulation results}
+% \begin{itemize}
+%     \item TBA
+%     \item Specification 1: each cell shows IMSE
+%     \begin{itemize}
+%         \item X axis $T=10,20,30,40,50,100$ 
+%         \item Y1 axis stationarity level
+%         \item Y2 axis endogeneity level
+%     \end{itemize}
+%     \item Specification 2: each cell shows IMSE
+%     \begin{itemize}
+%         \item X axis $T=10,20,30,40,50,100$ 
+%         \item Y1 axis stationarity level
+%         \item Y2 axis endogeneity level
+%     \end{itemize}
+    
+% \end{itemize}
+    
+% \end{frame}
 
 
 \section{Data}
