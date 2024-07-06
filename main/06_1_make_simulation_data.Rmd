@@ -59,7 +59,7 @@ for(nn in 1:length(list_num_time)){
         target_arima_name <-
           names(arima_list)[rr]
         CRS_gamma_parameter <-
-        0.3
+          0.3
         temp_nn <-
           list_num_time[nn]
         matching_function_specification <-

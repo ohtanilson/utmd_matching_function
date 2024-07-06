@@ -166,13 +166,12 @@ plot_target_data <-
 options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 ```
 
+## ARIMA (1,0,0) va dependency 0 {.tabset}
 
+### cobb_douglas {.tabset}
 
-## Stationary cobb_douglas {.tabset}
+#### num_time_50_cobb_douglas_0.3  {.tabset}
 
-the match elasticity with respect to unemployment is in the range 0.5–0.7.
-
-### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -189,7 +188,7 @@ plot_target <-
 plot_target
 ```
 
-### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0
+#### num_time_100_cobb_douglas_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -207,7 +206,7 @@ plot_target
 ```
 
 
-### num_time_200_cobb_douglas_0.3_AR1_I0_va_dependency_0
+#### num_time_200_cobb_douglas_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -225,11 +224,11 @@ plot_target
 ```
 
 
-## Stationary perfect_substitute {.tabset}
+### perfect_substitute {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0
+#### num_time_50_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -246,7 +245,7 @@ plot_target <-
 plot_target
 ```
 
-### num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0
+#### num_time_100_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -264,7 +263,7 @@ plot_target
 ```
 
 
-### num_time_200_perfect_substitute_0.3_AR1_I0_va_dependency_0
+#### num_time_200_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -281,11 +280,13 @@ plot_target <-
 plot_target
 ```
 
-## Nonstationary cobb_douglas {.tabset}
+## ARIMA (0,1,0) va_dependency_0 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -302,7 +303,7 @@ plot_target <-
 plot_target
 ```
 
-### num_time_100_cobb_douglas_0.3
+#### num_time_100_cobb_douglas_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -320,7 +321,7 @@ plot_target
 ```
 
 
-### num_time_200_cobb_douglas_0.3
+#### num_time_200_cobb_douglas_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -338,11 +339,11 @@ plot_target
 ```
 
 
-## Nonstationary perfect_substitute {.tabset}
+### perfect_substitute {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### num_time_50_perfect_substitute_0.3
+#### num_time_50_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -359,7 +360,7 @@ plot_target <-
 plot_target
 ```
 
-### num_time_100_perfect_substitute_0.3
+#### num_time_100_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -377,7 +378,7 @@ plot_target
 ```
 
 
-### num_time_200_perfect_substitute_0.3
+#### num_time_200_perfect_substitute_0.3
 
 ```{r,echo=FALSE,results = "asis"}
 target_res <-
@@ -389,6 +390,465 @@ modelsummary::datasummary_skim(
 plot_target <-
   plot_target_data(
     target_data = num_time_200_perfect_substitute_0.3_AR0_I1_va_dependency_0,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+## ARIMA (1,0,0) va dependency 0.1 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3  {.tabset}
+
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_cobb_douglas_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+### perfect_substitute {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+#### num_time_50_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_perfect_substitute_0.3_AR1_I0_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_perfect_substitute_0.3_AR1_I0_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+## ARIMA (0,1,0) va_dependency_0.1 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_cobb_douglas_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_cobb_douglas_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+### perfect_substitute {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+#### num_time_50_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_perfect_substitute_0.3_AR0_I1_va_dependency_0.1)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_perfect_substitute_0.3_AR0_I1_va_dependency_0.1,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+## ARIMA (1,0,0) va dependency 0.2 {.tabset}
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3  {.tabset}
+
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_cobb_douglas_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+### perfect_substitute {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+#### num_time_50_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_perfect_substitute_0.3_AR1_I0_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_perfect_substitute_0.3_AR1_I0_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+## ARIMA (0,1,0) va_dependency_0.2 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### cobb_douglas {.tabset}
+
+#### num_time_50_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_cobb_douglas_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_cobb_douglas_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_cobb_douglas_0.3_AR0_I1_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+### perfect_substitute {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+#### num_time_50_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_50_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+#### num_time_100_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_100_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
+    target_variable = "error_efficiency"
+    )
+plot_target
+```
+
+
+#### num_time_200_perfect_substitute_0.3
+
+```{r,echo=FALSE,results = "asis"}
+target_res <-
+  generate_bias_rmse(num_time_200_perfect_substitute_0.3_AR0_I1_va_dependency_0.2)
+modelsummary::datasummary_skim(
+  fmt = 3,
+  target_res
+  )
+plot_target <-
+  plot_target_data(
+    target_data = num_time_200_perfect_substitute_0.3_AR0_I1_va_dependency_0.2,
     target_variable = "error_efficiency"
     )
 plot_target

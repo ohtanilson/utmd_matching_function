@@ -135,6 +135,9 @@ x <-
     plot.title = element_text(hjust = 0.5),
     plot.caption = element_text(hjust = 0, size = 8)
   ) +
+  theme(legend.position = 'top',
+        legend.text = element_text(size=8)) +
+  labs(colour = "") +
   # geom_vline(xintercept = 1980, linetype = "longdash") +
   # geom_vline(xintercept = 1984, linetype = "longdash") +
   scale_color_viridis_d()

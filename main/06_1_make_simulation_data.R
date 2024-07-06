@@ -134,9 +134,28 @@ generate_uvah_data <-
           n = length(time)
         )
     }
-    # include dependency_V_of_A
-    efficiency <-
-      efficiency + dependency_V_of_A * vacancy
+    # include dependency_V_of_A in V
+    if(dependency_V_of_A > 0){
+      std_vacancy <- 
+        (vacancy - mean(vacancy))/sd(vacancy)
+      std_efficiency <- 
+        (efficiency - mean(efficiency))/sd(efficiency)
+      cor_mat <- 
+        matrix(c(1, dependency_V_of_A, dependency_V_of_A, 1), nrow = 2, byrow = T)
+      chol_mat <- 
+        chol(cor_mat)
+      old_random <- 
+        cbind(std_vacancy[1:length(unemployed)], std_efficiency[1:length(unemployed)])
+      new_random <- 
+        old_random %*% chol_mat
+      cor(old_random[1:length(unemployed),])
+      cor(new_random[1:length(unemployed),])
+      recovered_efficiency <-
+        new_random[,2]* sd(efficiency[1:length(unemployed)]) + 
+        mean(efficiency[1:length(unemployed)])
+      efficiency <-
+        recovered_efficiency
+    }
     efficiency <-
       efficiency + abs(min(efficiency)) + 10 # avoid negative
     normalized_efficiency <-
@@ -148,6 +167,7 @@ generate_uvah_data <-
           #   probs = 0.50 
           #   ) 
       )* 100 #/10 # initial value = 1/10
+    #cat(cor(normalized_efficiency,vacancy))
     
     # format data length
     time <-

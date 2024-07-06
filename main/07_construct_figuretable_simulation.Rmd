@@ -40,52 +40,68 @@ arima_list <-
     #"AR1_I1" = c(1,1,0),
     "AR0_I1" = c(0,1,0)
   )
+dependency_V_of_A_list <-
+  c(
+    0,
+    0.1,
+    0.2
+  )
+
+
 for(nn in 1:length(list_num_time)){
   for(mm in 1:length(specification_list)){
     for(rr in 1:length(arima_list)){
-      target_arima <-
-        arima_list[[rr]]
-      target_arima_name <-
-        names(arima_list)[rr]
-      CRS_gamma_parameter <-
-      0.3
-    temp_nn <-
-      list_num_time[nn]
-    matching_function_specification <-
-      specification_list[mm]
-    temp_nn <-
-      list_num_time[nn]
-    filename <-
-      paste(
-        #"output/monte_carlo_data_",
-        "num_time_",
-        temp_nn,
-        "_",
-        matching_function_specification,
-        "_",
-        CRS_gamma_parameter,
-        "_",
-        target_arima_name,
-        sep = ""
-      )
-    cat(filename,"\n")
-    temp_data <-
-      readRDS(
-        file =
-          here::here(
-            paste(
-              "output/",
-              "implied_efficiency_",
-              filename,
-              ".rds",
-              sep = ""
+      for(qq in 1:length(dependency_V_of_A_list)){
+        dependency_V_of_A <-
+          dependency_V_of_A_list[qq]
+        target_arima <-
+          arima_list[[rr]]
+        target_arima_name <-
+          names(arima_list)[rr]
+        CRS_gamma_parameter <-
+          0.3
+        temp_nn <-
+          list_num_time[nn]
+        matching_function_specification <-
+          specification_list[mm]
+        temp_nn <-
+          list_num_time[nn]
+        filename <-
+          paste(
+            #"output/monte_carlo_data_",
+            "num_time_",
+            temp_nn,
+            "_",
+            matching_function_specification,
+            "_",
+            CRS_gamma_parameter,
+            "_",
+            target_arima_name,
+            "_",
+            "va_dependency_",
+            dependency_V_of_A,
+            sep = ""
+          )
+        cat(filename,"\n")
+        temp_data <-
+          readRDS(
+            file =
+              here::here(
+                paste(
+                  "output/",
+                  "implied_efficiency_",
+                  filename,
+                  ".rds",
+                  sep = ""
+                )
+                )
             )
-            )
-        )
-    assign(
-      filename,
-      temp_data)
+        assign(
+          filename,
+          temp_data)
       }
+        
+    }
     
   }
 }
@@ -153,28 +169,28 @@ options(modelsummary_format_numeric_latex = "plain") # for modelsummary output
 
 
 
-## Appendix. Illustrative plot and num_time_100_cobb_douglas_0.3_AR1_I0 {.tabset}
+## Appendix. Illustrative plot and num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### num_time_50_cobb_douglas_0.3_AR1_I0
+### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0
 
 ```{r,echo=FALSE,results = "asis"}
 # target_res <-
-#   generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0)
+#   generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0)
 # modelsummary::datasummary_skim(
 #   fmt = 3,
 #   target_res
 #   )
 # plot_target <-
 #   plot_target_data(
-#     target_data = num_time_50_cobb_douglas_0.3_AR1_I0,
+#     target_data = num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0,
 #     target_variable = "error_efficiency"
 #     )
 # plot_target
 
 temp <-
-  num_time_50_cobb_douglas_0.3_AR1_I0 %>% 
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0 %>% 
   dplyr::filter(
     simulation_id == 1
   ) %>% 
@@ -218,7 +234,7 @@ x <-
 x
 
 figure_name <-
-  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png"
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -226,11 +242,11 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### num_time_100_cobb_douglas_0.3_AR1_I0
+### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  num_time_100_cobb_douglas_0.3_AR1_I0 %>% 
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0 %>% 
   dplyr::filter(
     simulation_id == 2
   ) %>% 
@@ -274,7 +290,7 @@ x <-
 x
 
 figure_name <-
-  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png"
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -287,15 +303,15 @@ x
 
 
 
-## Appendix. Illustrative plot and num_time_50_cobb_douglas_0.3_AR0_I1 {.tabset}
+## Appendix. Illustrative plot and num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0 {.tabset}
 
 the match elasticity with respect to unemployment is in the range 0.5–0.7.
 
-### num_time_50_cobb_douglas_0.3_AR0_I1
+### num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0
 
 ```{r,echo=FALSE,results = "asis"}
 temp <-
-  num_time_50_cobb_douglas_0.3_AR0_I1 %>% 
+  num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0 %>% 
   dplyr::filter(
     simulation_id == 1
   ) %>% 
@@ -339,7 +355,7 @@ x <-
 x
 
 figure_name <-
-  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1.png"
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -347,23 +363,23 @@ ggsave(filename = figure_name,
        height = 3)
 ```
 
-### num_time_100_cobb_douglas_0.3_AR0_I1
+### num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0
 
 ```{r,echo=FALSE,results = "asis"}
 # target_res <-
-#   generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1)
+#   generate_bias_rmse(num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0)
 # modelsummary::datasummary_skim(
 #   fmt = 3,
 #   target_res
 #   )
 # plot_target <-
 #   plot_target_data(
-#     target_data = num_time_100_cobb_douglas_0.3_AR0_I1,
+#     target_data = num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0,
 #     target_variable = "error_efficiency"
 #     )
 # plot_target
 temp <-
-  num_time_100_cobb_douglas_0.3_AR0_I1 %>% 
+  num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0 %>% 
   dplyr::filter(
     simulation_id == 2
   ) %>% 
@@ -407,7 +423,7 @@ x <-
 x
 
 figure_name <-
-  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1.png"
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.png"
 ggsave(filename = figure_name,
        plot = x,
        device = "png",
@@ -416,3 +432,263 @@ ggsave(filename = figure_name,
 ```
 
 
+## Appendix. Illustrative plot and num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1
+
+```{r,echo=FALSE,results = "asis"}
+# target_res <-
+#   generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1)
+# modelsummary::datasummary_skim(
+#   fmt = 3,
+#   target_res
+#   )
+# plot_target <-
+#   plot_target_data(
+#     target_data = num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1,
+#     target_variable = "error_efficiency"
+#     )
+# plot_target
+
+temp <-
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1 %>% 
+  dplyr::filter(
+    simulation_id == 1
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+    ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1 %>% 
+  dplyr::filter(
+    simulation_id == 2
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+  ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+x
+```
+
+
+## Appendix. Illustrative plot and num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2 {.tabset}
+
+the match elasticity with respect to unemployment is in the range 0.5–0.7.
+
+### num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2
+
+```{r,echo=FALSE,results = "asis"}
+# target_res <-
+#   generate_bias_rmse(num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2)
+# modelsummary::datasummary_skim(
+#   fmt = 3,
+#   target_res
+#   )
+# plot_target <-
+#   plot_target_data(
+#     target_data = num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2,
+#     target_variable = "error_efficiency"
+#     )
+# plot_target
+
+temp <-
+  num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2 %>% 
+  dplyr::filter(
+    simulation_id == 1
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+    ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+```
+
+### num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2
+
+```{r,echo=FALSE,results = "asis"}
+temp <-
+  num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2 %>% 
+  dplyr::filter(
+    simulation_id == 2
+  ) %>% 
+  dplyr::select(
+    time, 
+    normalized_efficiency,
+    efficiency_implied
+  )
+x <- 
+  ggplot(
+    temp,
+    aes(
+      x = time,
+      y = normalized_efficiency,
+    color = "Efficiency (True)"
+      )
+    ) +
+  geom_line(
+    alpha = 0.9, 
+    size = 0.5
+    ) +
+  geom_line(
+    aes(
+      x = time,
+      y = efficiency_implied,
+      color = "Efficiency Implied"  # This is the label name
+    )
+  ) +
+  scale_color_manual(
+    name = "",  # Title for the legend
+    values = c("Efficiency Implied" = "red",
+               "Efficiency (True)" = "black")  # Assign the color
+  ) +
+  labs(
+    x = "Time",  # X-axis label
+    y = "Efficiency Implied"  # Y-axis label
+  ) +
+  labs(colour = "") +
+   theme(legend.position = 'top',
+        legend.text = element_text(size=8))
+x
+
+figure_name <-
+  "../figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2.png"
+ggsave(filename = figure_name,
+       plot = x,
+       device = "png",
+       width = 4,
+       height = 3)
+x
+```
