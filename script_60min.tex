@@ -1,0 +1,194 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,setspace,geometry}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage[shortlabels]{enumitem}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor= BrickRed, citecolor = BrickRed, filecolor = BrickRed, urlcolor = BrickRed, hypertexnames = true}
+\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\geometry{left = 1.0in,right = 1.0in,top = 1.0in,bottom = 1.0in}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{pdfpages}
+\usepackage{threeparttable}
+\usepackage{lscape}
+\usepackage{bm}
+\usepackage{xeCJK}
+\setCJKmainfont{IPAexGothic} % 好みの日本語フォントを指定
+%\usepackage[top=15truemm]{geometry}
+%\usepackage[]{natbib} 
+\bibpunct[:]{(}{)}{,}{a}{}{,}
+\setlength{\textwidth}{\paperwidth}     % ひとまず紙面を本文領域に
+\setlength{\oddsidemargin}{-5.4truemm}  % 左の余白を20mm(=1inch-5.4mm)に
+\setlength{\evensidemargin}{-5.4truemm} % 
+\addtolength{\textwidth}{-40truemm}     % 右の余白も20mmに
+\renewcommand{\baselinestretch}{0.45}
+\newtheorem{proposition}{Proposition}
+
+\setcounter{MaxMatrixCols}{20}
+
+\usepackage{setspace}
+\setstretch{1.2}
+\begin{document}
+\title{Script 60 min : Nonparametric Estimation of Matching Efficiency and Mismatch in Labor Markets via Public Employment Security Offices in Japan, 1972-2024}
+\maketitle
+
+
+Hello everyone, thank you for having me here today. I am excited to talk about the nonparametric estimation of matching efficiency and mismatch in labor markets, focusing on the Public Employment Security Offices in Japan from 1972 to 2024. 
+Before starting, I would like to mention that today I would not like to become a structural IO guy. 
+Also, I would not introduce some matching equilibrium concept like a stable matching etc. 
+
+This research is still in its early stages, having begun only since Golden week this year. Therefore, I welcome any comments from microeconomists, macroeconomists, and labor economists. 
+I look forward to your feedback and insights.
+\begin{enumerate}
+\section{Introduction 0-15min}
+    \item Market Tightness \& Hires -> Research Question
+    \begin{itemize}
+        \item All of us here are economists and know some news about labor market tightness from a daily newspaper or SNS. In the left paner, we observe trends in the number of unemployed workers and job vacancies, along with market tightness. As a economist, you might say that there are noticeable seasonal fluctuations and significant declines after major recessions, such as in 2007 and the impact of COVID-19 in 2020. The right panel shows the number of hires, capturing both seasonal and general trends.
+        \item My main research question is: How can we infer non-parametric matching efficiency and mismatch from observed aggregate data in these figures? I apply a non-parametric approach to capture these trends over a long time coutry-level data, as well as short-term and prefecture-level data.
+    \end{itemize}
+    \item Main Graphical Takeaway: Estimated Efficiency and Mismatch
+    \begin{itemize}
+        \item The main takeaway from my paper can be summarized in these two figures. First, matching efficiency has declined significantly since 2015, driven by both full-time and part-time employment. The normalized efficiency shows a notable drop from previous levels.
+        \item Second, there is a large mismatch across job categories and prefectures. Job category mismatch has increased more significantly.
+    \end{itemize}
+    \item Main contributions and findings
+    \begin{itemize}
+        \item This paper contributes to the two literature:
+        First, I examine the versatility and robustness of matching functions using non-parametric methods.
+        \item I develop a non-parametric mismatch index, combining original methodologies with MPEC to provide a more flexible measure of labor market mismatch.
+        \item I employ two types of Japanese labor market data: long-term data from 1966 to 2023 and monthly data from January 2002 to April 2024. This data, primarily sourced from the Ministry of Health, Labour, and Welfare (MHLW), covers job openings, job seekers, and successful job placements.
+        \item Long-Term Trends: The matching efficiency has shown a sharp decline after 2015, with a reduction of about 50\% relative to 1966 levels. This decline is driven by both full-time and part-time employment.
+        \item Matching efficiency is higher in rural areas and sectors such as agriculture and fishery compared to urban areas like Tokyo and clerical industries.
+    \end{itemize}
+    \item Related literature
+    \begin{itemize}
+        \item Skipped.
+    \end{itemize}
+    \item Table of contents
+\section{Model 16-30min}
+    \item Background theory (Rogerson, Shimer, and Wright (2005, JEL))
+    \item Aggregate matching function
+    \item A social planner problem
+    \item Optimal unemployed (Sahin et al (2014))
+    \item Mismatch
+    \item Why nonparametric is better than Cobb Douglass with fixed effects?
+    
+\section{Identification, Estimation, and Computation 31-40min}
+    \item Intuition
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Nonparametric identification
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Nonparametric estimation [For reference]
+    \item Computation mismatch
+    \begin{itemize}
+        \item 
+    \end{itemize}
+\section{Monte Carlo simulation results 41-45min}
+    \item Motivation for finite sample performance
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Setup: DGP
+    \item Illustrative fitting plot: Sample size
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Illustrative fitting plot: Without endogeneity, 0.1 (left) and 0.2 (right)
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Summary of Monte Carlo simulation results
+    \section{Empirical Results: 1966-2023 (46-60min)}
+    \item Data
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Overview of the first empirical exercise
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Residual plot to check endogeneity [For reference]
+    \item Fact: U, V, H and Tightness V/U
+    \begin{itemize}
+        \item As I showed earlier, the numbers of unemployed, vacancies, and hires show cyclicality.
+    \end{itemize}
+    \item Matching Efficiency and Elasticities
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Correlation of Efficiency and Tightness
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Fact: U, V,H and Tightness V/U (Full-time and Part-time)
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Matching Efficiency and Elasticities (Full-time and Part-time)
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Correlation of Efficiency and Tightness (Full-time and Part-time)
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Summary of long time trends
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \section{Empirical Results: 2012-2023 (61-70 min)}
+    \item Overview of the second empirical exercise
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Matching Efficiency: Tohoku and Kanto
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Matching Elasticities: Tohoku and Kanto
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Matching Efficiency: Clerical and Agriculture \& Fishery
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Mismatch across prefectures and job categories
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Summary of short time trends
+    \begin{itemize}
+        \item 
+    \end{itemize}
+    \item Conclusion and Future work
+    \begin{itemize}
+        \item 
+    \end{itemize}
+\end{enumerate}
+
+\end{document}
+
+
+
+
+
+
+
+
+

@@ -27,11 +27,38 @@
 \maketitle
 
 \section{Introduction}
-\begin{frame}{Research Question}
-\begin{itemize}
+\begin{frame}{Market Tightness \& Hires -> Research Question}
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/unemployed_vacancy_month_aggregate.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/hire_month_aggregate.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+\begin{itemize}\pause
     \item How does the nonparametric approach work in estimating matching efficiency and mismatch?
-    \item What is the trend of matching efficiency in Japan in 1973-2024?
-    \item What is the trend of mismatch in 2013-2023?
+    \item What is the trend of \textbf{nonparametric matching efficiency} in Japan in 1973-2024?
+    \item What is the trend of \textbf{nonparametric mismatch} in 2013-2023?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Main Graphical Takeaway: Estimated Efficiency and Mismatch}
+\begin{figure}[!ht]
+  \begin{center}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/matching_efficiency_month_full_time_part_time.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/mismatch_part_and_full_time_monthly_job_category.png}
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+\begin{itemize}
+    \item Matching efficiency declines after 2015, driven by both full-time and part-time
+    \item Mismatch across job categories increases to 0.3-0.4.
 \end{itemize}
 \end{frame}
 
@@ -40,18 +67,19 @@
     \item Methodological contribution
     \begin{enumerate}
         \item Examine \textbf{versatility} and \textbf{robustness} of Lange and Papageougeu (2020) and check finite sample performance
-        \item Develop \textbf{nonparametric mismatch index,} combining Sahin et al (2014)
-    \end{enumerate}
+        \item Develop \textbf{nonparametric mismatch index,} combining Sahin et al (2014) and MPEC (Su and Judd (2012))
+    \end{enumerate}\pause
     \item Empirical findings
     \begin{enumerate}
         \item Japanese labor market via Hello Work in 1966-2024
         \begin{enumerate}
-            \item Matching Efficiency \textbf{decreases}.
-            \item Elasticities with respect to unemployed and vacancies are \textcolor{blue}{[TBA]}
+            \item Matching Efficiency \textbf{decreases} driven by both full-time and part-time.
+            \item Matching elasticity with respect to unemployed is \textbf{0.5 - 1.1.}
+            \item Matching elasticity with respect to vacancies is \textbf{0.03 - 0.5.}
         \end{enumerate}
         \item Japanese prefecture-level and industry-level labor market via Hello Work in 2012-2024
         \begin{enumerate}
-            \item Matching Efficiency is\textbf{ lower in urban area (Tokyo)} and \textcolor{blue}{[TBA]}
+            \item Matching Efficiency is\textbf{ higher in rural area (Tohoku) and Agriculture\&Fishery.} 
             \item Elasticities are very heterogeneous.
             \item Mismatch is \textbf{more severe across job categories}.
         \end{enumerate}
@@ -64,19 +92,19 @@
     \begin{enumerate}
         \item Nonparametric aggregate matching function: Lange\&Papageorgiou (2020, LP)
         \begin{itemize}
-            \item Cob Douglass:
+            \item Cob Douglass: \textcolor{gray}{Petrongolo and Pissarides (2001), etc}
             \item -> I examine \textbf{versatility} and \textbf{robustness} of LP via simulation
         \end{itemize}
         \item Mismatch: Şahin, Song, Topa, \& Violante (2014, SSTV)
         \begin{itemize}
-            \item Cob Douglass: 
+            \item Cob Douglass: \textcolor{gray}{Patterson et al (2016)}
             \item -> I develop \textbf{a nonparametric mismatch index} combining LP with SSTV.
         \end{itemize}
         \item Japanese Labor market
         \begin{itemize}
-            \item Cobb Douglass Matching function:
-            \item Mismatch:
-            \item -> I apply the above method to illustrate long-time and short-time trends of matching efficiency, elasticities, and mismatch.
+            \item Cobb Douglass Matching function: \textcolor{gray}{Kano and Ohta (2005), Kambayashi and Ueno (2006), Sasaki (2008), Higashi (2018,2020,2021)}
+            \item Mismatch: \textcolor{gray}{Kawata (2019), Shibata(2020), Higashi and Sasaki (2023)}
+            \item -> I apply the above nonparametric method to illustrate \textbf{long-time and short-time trends} of matching efficiency, elasticities, and mismatch.
         \end{itemize}
     \end{enumerate}
 \end{frame}
@@ -90,12 +118,18 @@
 
 \section{Model}
 
-\begin{frame}{Background search model}
-\begin{itemize}
-    \item Background search model
-    \item $(U,V,A)$
-\end{itemize}
-    
+\begin{frame}{Background theory (Rogerson, Shimer, and Wright (2005, JEL))}
+    \begin{itemize}
+        \item Suppose that at some point in time there are 
+        \begin{itemize}
+            \item $V$ vacancies posted by firms looking for workers,
+            \item $U$ unemployed workers looking for jobs. 
+        \end{itemize}
+        \item Assume all workers are the same and all firms are homogeneous.
+        \item Assume the flow of matches between firms and workers, $H$, is given by a random matching technology $m(\cdot)$.        
+        \item The arrival rates for unemployed workers and employers with vacancies are then given by $\frac{H}{U}$ and $\frac{H}{V}$.
+        \item Following empirical literature, we treat $m(\cdot)$ as reduced-form exogenous matching function.
+    \end{itemize}
 \end{frame}
 
 
@@ -109,7 +143,7 @@
     \begin{enumerate}
         \item \textbf{Constant returns to scale (CRS)}
         \begin{itemize}
-            \item Cobb Douglass: $m=AU^{\alpha}V^{1-\alpha}$ with vacancy share $\alpha$
+            \item Cobb Douglass: $m=AU^{1-\gamma}V^{\gamma}$ with vacancy share $\gamma$
         \end{itemize}
         \item $A\perp V|U$, i.e., \textbf{independence between $A$ and $V$ conditional on $U$}
     \end{enumerate}
@@ -119,23 +153,70 @@
     
 \end{frame}
 
-\begin{frame}{Mismatch}
+\begin{frame}{A social planner problem}
     \begin{itemize}
-    \item [TBA]
+    \item Suppose there are $G$ isolated markets in time $t$. 
+    \item The number of hires $H_{g t}$ in market $g$ in time $t$ is determined by a matching function $$m\left(A_{g t} U_{g t}, V_{g t}\right)$$
+    \item A social planner maximizes the total hires in the economy \textbf{by distributing a given number of unemployed workers to each labor market.}
+    \item Assume homogenous productivity and job separation rate across labor markets.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimal unemployed (Sahin et al (2014))}
+    \begin{itemize}
+    \item Define mismatch as \textbf{the deviation of the hires in the data from the efficient allocation chosen by the social planner}. 
+    
+    \item The optimal allocation of unemployed workers $U^*$ satisfies:
+    $$
+    \frac{\partial m}{\partial U}\left(A_{1 t} U_{1 t}^*, V_{1 t}\right)=\cdots=\frac{\partial m}{\partial U}\left(A_{G t} U_{G t}^*, V_{G t}\right)
+    $$
+    where * denotes the planner's allocation.
+    \begin{itemize}
+        \item Keeping total unemployed workers $U_t=\sum_{g=1}^G U_{g t}$, the planner allocates more unemployed workers to more effective labor markets%, that is, with more vacancies and higher matching efficiency until their marginal contribution to the hires is equalized across markets. 
+    \end{itemize}
+    \item The main difference from Sahin et al. (2014) is that equilibrium condition \textbf{does not have an analytical formula} like Cobb Douglas specification:
+    \begin{align*}
+        A_{m}A_{t}\left(\frac{V_{m t}}{U_{m t}^{\star}}\right)^\gamma (1-\gamma)=A_{m'}A_{t}\left(\frac{V_{m' t}}{U_{m' t}^{\star}}\right)^\gamma (1-\gamma)
+    \end{align*}
 \end{itemize}
 \end{frame}
 
 
+\begin{frame}{Mismatch}
+    \begin{itemize}
+    \item Using optimal allocation of unemployed workers $U_{g t}^*$, the aggregate actual and optimal number of new hires can be expressed as
+$$
+\begin{aligned}
+H_t & =\sum_{g=1}^G m\left(A_{g t} U_{g t}, V_{g t}\right) \\
+H_t^* & =\sum_{g=1}^G m\left(A_{g t} U_{g t}^*, V_{g t}\right)
+\end{aligned}
+$$
+\item I define mismatch index as the fraction of hires lost because of misallocation:
+$$
+\mathcal{M}_t=1-\frac{H_t}{H_t^*}
+$$
+
+\item This index accounts for \textbf{the heterogeneity of matching efficiencies across labor markets.}
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Why nonparametric is better than Cobb Douglass with fixed effects?}
 \begin{itemize}
     \item Suppose that we observe $M$ markets in $T$ years.
-    \item Cobb Douglass specification estimates $T+M+1$ parameters.
-    \begin{itemize}
+    \begin{enumerate}
+        \item Cobb Douglass specification estimates $T+M+1$ parameters.
+        \begin{itemize}
         \item $T$ year fixed effects.
         \item $M$ market fixed effects.
-        \item constant vacancy share parameter $\alpha$.
-    \end{itemize}
-    \item Nonparametric approach estimates $T\times M$ efficiencies corresponding time-varying elasticities.
+        \item constant vacancy share parameter $\gamma$.
+        \item Nonparametric approach estimates $T\times M$ efficiencies corresponding time-varying elasticities.
+        \end{itemize}
+        \item Cobb Douglass mismatch cancels out time variations of $A_{t}$ and elasticity:
+        \begin{align*}
+        A_{m}\textcolor{red}{A_{t}}\left(\frac{V_{m t}}{U_{m t}^{\star}}\right)^\gamma \textcolor{red}{(1-\gamma)}=A_{m'}\textcolor{red}{A_{t}}\left(\frac{V_{m' t}}{U_{m' t}^{\star}}\right)^\gamma\textcolor{red}{ (1-\gamma)}
+    \end{align*}
+    \end{enumerate}
+    
     \item Trade-off: \textbf{``Much more" flexibility vs sample size}
     \begin{itemize}
         \item We want to check finite sample performance.
@@ -146,23 +227,72 @@
 
 
 
-\section{Identification and Estimation}
+\section{Identification, Estimation, and Computation}
 
 \begin{frame}{Intuition}
     \begin{itemize}
-    \item Two urns example.
+    \item Three markets example.
+    \end{itemize}
+    \begin{enumerate}
+        \item If $(U,V,A)=(100,100,A_0)$ at $t=0$, $m(AU,V)=15$. (normalization point)\pause
+        \item If $(U,V,A)=(100,100,?)$ at $t=1$, $m(AU,V)=10$.\pause
+        \begin{itemize}
+            \item $?$ must be smaller than $A_0$\pause
+        \end{itemize}
+        \item If $(U,V,A)=(90,100,?)$ at $t=2$, $m(AU,V)=15$.\pause
+        \begin{itemize}
+            \item $?$ must be larger than $A_0$\pause
+        \end{itemize}
+    \end{enumerate}
+    \begin{itemize}
+        \item Pooling all $T$ markets, we check this at each $t$ repeatedly.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Nonparametric identification}
     \begin{itemize}
-    \item Applying Matzkin (2003), LP shows that XX
+    \item Denote by $F(A, U)$ the joint distribution of $A$ and $U$. 
+    \item Denote by $G(H, U, V)$ the joint distribution of $(H,U,V)$.
+    \item Applying Matzkin (2003), LP shows that \textbf{$G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V)$ up to a normalization of $A$ at one point of the support of $(H, U, V)$.}\pause
+    \item Key transformation:
+    \begin{align*}
+        F(\underbrace{A}_{\text{unobserved}} \mid \underbrace{U}_{\text{observed}})&=\quad F(A \mid U, V) \quad \text { by independence of } A \perp V \mid U \\
+        & =\operatorname{Pr}(h \leq m(A U, V) \mid U, V) \text { by monotonicity } \\ 
+        & =\operatorname{Pr}(h \leq H \mid U, V) \\ 
+        & =\quad G_{H \mid U, V}\underbrace{(H \mid U, V)}_{\text{observed}}
+    \end{align*}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Nonparametric estimation}
+\begin{frame}{Nonparametric estimation \textcolor{red}{[For reference]}}
     \begin{itemize}
-    \item [TBA]
+    \item First estimate a constructive estimator $\hat{F}(A_t|U_t)=G\left(H_t \mid U_t, V_t\right)$ 
+    \begin{itemize}
+        \item using bivariate kernels.
+    \end{itemize}
+    \item Second, recover $\hat{A}_t=\hat{F}^{-1}\left(G\left(H_t \mid U_t, V_t\right) \mid U_t\right)$.
+    \item Third, recover $m\left(\hat{A}_t U_t, V_t\right)=G^{-1}\left(\hat{F}\left(\hat{A}_t \mid U_t\right) \mid U_t, V_t\right)$.
+    \begin{itemize}
+        \item To approximate $\frac{d m}{d AU}$ and $\frac{d m}{d V}$, I run LASSO regression of $H_{t}$ on second order polynomial of $\hat{A_{t}}U_{t}$ and $V_{t}$.
+    \end{itemize}
+    
+    
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Computation mismatch}
+    \begin{itemize}
+    \item The planner allocates unemployed workers satisfying the equilibrium conditions:
+    $$
+    \frac{\partial m}{\partial U}\left(A_{1 t} U_{1 t}^*, V_{1 t}\right)=\cdots=\frac{\partial m}{\partial U}\left(A_{G t} U_{G t}^*, V_{G t}\right)
+    $$
+    keeping total unemployed workers $U_t=\sum_{g=1}^G U_{g t}$
+    \item This can be represented as a \textbf{nonlinear system of equations with linear equilibrium constraints}.
+    \item Can be solved by \textbf{MPEC} (Mathematical Programming with Equilibrium Constraint) proposed by Su and Judd (2012) and Dube, Fox, and Su (2012).
+    \begin{itemize}
+        \item Allow incorporating richer elements
+    \end{itemize}
+    \item After getting $U^*$, we calculate mismatch $\mathcal{M}_t$.
     \end{itemize}
 \end{frame}
 
@@ -172,10 +302,11 @@
 
 \begin{frame}{Motivation for finite sample performance}
 \begin{itemize}
-    \item We want to check \textbf{robustness} to specification, stationarity, and endogeneity.
+    %\item We want to check \textbf{robustness} to specification, stationarity, and endogeneity.
+    \item We want to check \textbf{robustness} to specification and endogeneity.
     \begin{enumerate}
         \item Restricting CRS class including Cobb Douglas
-        \item Experiment stationary ARIMA(1,0,0) and nonstationary ARIMA(0,1,0)
+        %\item Experiment stationary ARIMA(1,0,0) and nonstationary ARIMA(0,1,0)
         \item Check robustness to violation of independence of $A$ and $V$ conditional on $U$
     \end{enumerate}
     \item We want to confirm how large enough the sample size is.
@@ -186,24 +317,26 @@
 
 \begin{frame}{Setup: DGP}
 \begin{itemize}
-    \item Sample size $T=50,100, 200$
+    \item Sample size $T=50,100$
+    \item $(U,V,A)$ is generated in AR(1) with auto correlation $0.2$.
     \item CRS class specification of $m$
     \begin{itemize}
-        \item Cobb Douglas: $(AU)^{\gamma}V^{1-\gamma}$
+        \item Cobb Douglas: $(AU)^{\gamma}V^{1-\gamma}$ with $\gamma=0.7$
         \item Perfect substitute: $\gamma AU+\gamma V$ \textcolor{blue}{[Skipped because of similar results]}
     \end{itemize}
-    \item Stationarity of $A$: ($U$ and $V$ are stationary now)
-    \begin{itemize}
-        \item ARIMA(1,0,0)
-        \item ARIMA(0,1,0)
-    \end{itemize}
+    % \item Stationarity of $A$: ($U$ and $V$ are stationary now)
+    % \begin{itemize}
+    %     \item ARIMA(1,0,0)
+    %     \item ARIMA(0,1,0)
+    % \end{itemize}
     \item Endogeneity of $(A,U,V)$
     \begin{itemize}
         \item Use choresky decomposition of $A$ and $V$ where $q=0$ (independence), $0.1, 0.2$.
     \end{itemize}
     \item Other tuning parameter: kernel choice and bandwidth 
-    \item Normalization is implemented to capture actual data
+    \item Level and scale normalization is implemented to avoid negative values
     \item \textcolor{blue}{Detailed Monte Carlo simulation is under construction}
+    \item Pick one simulation path for illustration.
 \end{itemize}
     
 \end{frame}
@@ -212,96 +345,103 @@
 \begin{figure}[!ht]
   \begin{center}
 
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.png}
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure}
 \begin{itemize}
-     \item Pick one simulation path for illustration.
-     \item $T=100$ seems enough
+     \item $T=100$ seems enough.
      \item Bias and RMSE decreases as $T$ increases. 
+     \item Some outlier estimates are observed but easily detected.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Illustrative fitting plot: With and without stationary of $A$}
+% \begin{frame}{Illustrative fitting plot: Without stationary of $A$}
+% \begin{figure}[!ht]
+%   \begin{center}
+
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1_va_dependency_0.png}
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1_va_dependency_0.png}
+%   \end{center}
+%   \footnotesize
+%   %Note: 
+% \end{figure} 
+% \begin{itemize}
+%     \item Long nonstationarity gives fluctuate estimates.
+%     \item So, bias and RMSE increases as $T$ increases. 
+%     %\item However, the estimate captures the smooth trend reasonably.
+% \end{itemize}
+% \end{frame}
+
+\begin{frame}{Illustrative fitting plot: Without endogeneity, 0.1 (left) and 0.2 (right)}
 \begin{figure}[!ht]
   \begin{center}
+  \includegraphics[width = 0.30\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.1.png}
+  \includegraphics[width = 0.30\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0_va_dependency_0.2.png}\\
 
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR0_I1.png}
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR0_I1.png}
+  \includegraphics[width = 0.30\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.1.png}
+  \includegraphics[width = 0.30\textwidth]
+  {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0_va_dependency_0.2.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Long nonstationarity gives fluctuate estimates.
-    \item So, bias and RMSE increases as $T$ increases. 
-    \item However, the estimate captures the smooth trend reasonably.
+    \item Small endogeneity seems not so harmful (bias<$1\%$) in $T=100$.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Illustrative fitting plot: With and without endogeneity}
-% \begin{figure}[!ht]
-%   \begin{center}
-
-%   \includegraphics[width = 0.37\textwidth]
-%   {figuretable/illustrative_plot_implied_efficiency_num_time_50_cobb_douglas_0.3_AR1_I0.png}
-%   \includegraphics[width = 0.37\textwidth]
-%   {figuretable/illustrative_plot_implied_efficiency_num_time_100_cobb_douglas_0.3_AR1_I0.png}
-%   \end{center}
-%   \footnotesize
-%   %Note: 
-% \end{figure} 
+\begin{frame}{Summary of Monte Carlo simulation results}
 \begin{itemize}
-    \item Pick one simulation path. 
-    \item TBA
+    \item Sample size $t=100$ seems enough
+    \item Robust to specification of $m$
+    \item Seemingly robust to endogeneity of $A$ and $V$
+    %\item But, \textbf{sensitive} to stationary assumption on efficiency $A$
 \end{itemize}
+    
 \end{frame}
 
-% \begin{frame}{Monte Carlo simulation results}
-% \begin{itemize}
-%     \item TBA
-%     \item Specification 1: each cell shows IMSE
-%     \begin{itemize}
-%         \item X axis $T=10,20,30,40,50,100$ 
-%         \item Y1 axis stationarity level
-%         \item Y2 axis endogeneity level
-%     \end{itemize}
-%     \item Specification 2: each cell shows IMSE
-%     \begin{itemize}
-%         \item X axis $T=10,20,30,40,50,100$ 
-%         \item Y1 axis stationarity level
-%         \item Y2 axis endogeneity level
-%     \end{itemize}
-    
-% \end{itemize}
-    
-% \end{frame}
 
 
-\section{Data}
-
-\begin{frame}{Data}
-  \begin{itemize}
-      \item Hello Work data
-      \item \textcolor{blue}{[TBA]}
-  \end{itemize}
-\end{frame}
 
 
 
 \section{Empirical Results: 1966-2023}
 
+\begin{frame}{Data}
+  \begin{itemize}
+      \item Hello Work data via Public Employment Office in Japan
+      \begin{itemize}
+          \item About 80\% of unemployed and 20\% of hires are covered in Japan.
+          \item Observe part-time, full-time, its aggregate
+      \end{itemize}
+      \item Observed variables in each market
+      \begin{itemize}
+          \item Unemployed
+          \item Vacancy
+          \item Hire
+      \end{itemize}
+      \item Target period
+      \begin{itemize}
+          \item Long time trend study: Country-month-level in 1973-2024
+          \item Short time trend study: Industry(large job category)-month-level in 2012-2024 and prefecture-month-level in 2013-2024
+      \end{itemize}
+      
+  \end{itemize}
+\end{frame}
 
 \begin{frame}{Overview of the first empirical exercise}
     \begin{itemize}
-        \item Data: Country-year-level data in 1966-2023.
+        \item Data: Country-year-level data in 1973-2023.
         \item Estimate matching efficiency for each dataset
         \begin{enumerate}
             \item All (=Full-time + Part-time)
@@ -310,7 +450,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Residual plot}
+\begin{frame}{Residual plot to check endogeneity \textcolor{red}{[For reference]}}
     \begin{figure}[!ht]
   \begin{center}
   \includegraphics[width = 0.50\textwidth]
@@ -320,38 +460,37 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Correlation of residuals seems not significant.
+    \item Correlation of residuals (=0.04) seems not significant.
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{$U,V,H$ and Tightness $V/U$}
+\begin{frame}{Fact: $U,V,H$ and Tightness $V/U$}
     \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.3\textwidth]
   {figuretable/unemployed_vacancy_month_aggregate.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.3\textwidth]
   {figuretable/hire_month_aggregate.png}
-  \includegraphics[width = 0.37\textwidth]
-  {figuretable/unemployed_vacancies_berveridge_month_aggregate.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.3\textwidth]
   {figuretable/job_finding_rate_worker_finding_rate_month_aggregate.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item A
+    \item $U,V,H$ shows cyclicality
+    \item Job-finding rate and Worker-finding rate decrease gradually.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Matching Efficiency and Elasticities}
     \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/matching_efficiency_month_aggregate.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/elasticity_month_aggregate.png}
   \end{center}
   \footnotesize
@@ -367,22 +506,22 @@
 \begin{frame}{Correlation of Efficiency and Tightness}
     \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/efficiency_tightness_plot_month_aggregate.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/job_finding_rate_efficiency_plot_month_aggregate.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Matching efficiency is correlated with tightness, i.e., inducing the endogeneity problem.
+    \item Matching efficiency is correlated with tightness, i.e., inducing the endogeneity.
 \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{$U,V,H$ and Tightness $V/U$ (Full-time and Part-time)}
+\begin{frame}{Fact: $U,V,H$ and Tightness $V/U$ (Full-time and Part-time)}
     \begin{figure}[!ht]
   \begin{center}
   \includegraphics[width = 0.3\textwidth]
@@ -396,7 +535,7 @@
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Part-time increases.
+    \item Part-time hire increases steadily.
     \item Job finding rates show cyclicality.
 \end{itemize}
 
@@ -405,9 +544,9 @@
 \begin{frame}{Matching Efficiency and Elasticities (Full-time and Part-time)}
     \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/matching_efficiency_month_full_time_part_time.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/elasticity_month_full_time_part_time.png}
   \end{center}
   \footnotesize
@@ -415,7 +554,8 @@
 \end{figure} 
 
 \begin{itemize}
-    \item \textcolor{blue}{Zero elasticity?}
+    \item Both efficiencies decrease after 2015.
+    \item Matching elasticity with respect to vacancies is about 0.1 for full-time.
 \end{itemize}
 \end{frame}
 
@@ -423,9 +563,9 @@
     
 \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/efficiency_tightness_plot_month_full_time.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/efficiency_tightness_plot_month_part_time.png}
   \end{center}
   \footnotesize
@@ -438,9 +578,9 @@
 
 \begin{frame}{Summary of long time trends}
     \begin{itemize}
-        \item Matching efficiency sharply declines after 2015 by 50 \% relative to 1966.
+        \item Matching efficiency sharply declines after 2015 by 50 \% relative to 1973.
         \begin{itemize}
-            \item Seemingly driven by full-time's efficiency decline.
+            \item Driven by both full-time and part-time's efficiency declines.
         \end{itemize}
         
         \item Matching efficiency and Tightness are positively correlated.
@@ -473,20 +613,20 @@
 \begin{figure}[!ht]
   \begin{center}
 
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/matching_efficiency_month_aggregate_tohoku.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/matching_efficiency_month_aggregate_kanto.png}
-  % \subfloat[Chubu]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Chubu]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/matching_efficiency_month_aggregate_chubu.png}}
   % \\
-  % \subfloat[Kansai]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Kansai]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/matching_efficiency_month_aggregate_kansai.png}}
-  % \subfloat[Chugoku]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Chugoku]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/matching_efficiency_month_aggregate_chugoku.png}}\\
-  % \subfloat[Shikoku]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Shikoku]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/matching_efficiency_month_aggregate_shikoku.png}}
-  % \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/matching_efficiency_month_aggregate_kyushu.png}}
   % \caption{Month-level aggregate results 2012-2024}
   % \label{fg:month_part_and_full_time_matching_efficiency_prefecture_results} 
@@ -502,20 +642,20 @@
 \begin{frame}{Matching Elasticities: Tohoku and Kanto}
 \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/elasticity_unemployed_month_aggregate_tohoku.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/elasticity_unemployed_month_aggregate_kanto.png}
-  % \subfloat[Chubu]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Chubu]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/elasticity_unemployed_month_aggregate_chubu.png}}
   % \\
-  % \subfloat[Kansai]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Kansai]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/elasticity_unemployed_month_aggregate_kansai.png}}
-  % \subfloat[Chugoku]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Chugoku]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/elasticity_unemployed_month_aggregate_chugoku.png}}\\
-  % \subfloat[Shikoku]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Shikoku]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/elasticity_unemployed_month_aggregate_shikoku.png}}
-  % \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.37\textwidth]
+  % \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.45\textwidth]
   % {figuretable/elasticity_unemployed_month_aggregate_kyushu.png}}
   % \caption{Month-level aggregate results 2012-2024}
   % \label{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_prefecture_results} 
@@ -528,56 +668,53 @@
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Matching Efficiency: Sales, Agriculture, Construction}
+\begin{frame}{Matching Efficiency: Clerical and Agriculture\&Fishery}
 \begin{figure}[!ht]
   \begin{center}
-  \includegraphics[width = 0.30\textwidth]
-  {figuretable/matching_efficiency_month_aggregate_sales.png}
-  \includegraphics[width = 0.30\textwidth]
+  \includegraphics[width = 0.45\textwidth]
+  {figuretable/matching_efficiency_month_aggregate_clerical.png}
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/matching_efficiency_month_aggregate_agriculture_forestry_and_fishing.png}
-  \includegraphics[width = 0.30\textwidth]
-  {figuretable/matching_efficiency_month_aggregate_construction_and_mining.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
     \begin{itemize}
-        \item Clerical [TBA]
+        \item Clerical jobs are heterogeneous within the industries
+        \item Agriculture and Fishery industries show higher efficiency than clerical.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Matching Elasticity: Sales, Agriculture, Construction}
-    \begin{figure}[!ht]
-  \begin{center}
-  \includegraphics[width = 0.30\textwidth]
-  {figuretable/elasticity_unemployed_month_aggregate_sales.png}
-  \includegraphics[width = 0.30\textwidth]
-  {figuretable/elasticity_unemployed_month_aggregate_agriculture_forestry_and_fishing.png}
-  \includegraphics[width = 0.30\textwidth]
-  {figuretable/elasticity_unemployed_month_aggregate_construction_and_mining.png}
-  \end{center}
-  \footnotesize
-  %Note: 
-\end{figure} 
-    \begin{itemize}
-        \item Clerical [TBA]
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Matching Elasticity: Clerical and Agriculture\&Fishery}
+%     \begin{figure}[!ht]
+%   \begin{center}
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/elasticity_unemployed_month_aggregate_clerical.png}
+%   \includegraphics[width = 0.45\textwidth]
+%   {figuretable/elasticity_unemployed_month_aggregate_agriculture_forestry_and_fishing.png}
+%   \end{center}
+%   \footnotesize
+%   %Note: 
+% \end{figure} 
+%     \begin{itemize}
+%         \item Clerical [TBA]
+%     \end{itemize}
+% \end{frame}
 
 \begin{frame}{Mismatch across prefectures and job categories}
 \begin{figure}[!ht]
   \begin{center}
 
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/mismatch_part_and_full_time_monthly_prefecture.png}
-  \includegraphics[width = 0.37\textwidth]
+  \includegraphics[width = 0.45\textwidth]
   {figuretable/mismatch_part_and_full_time_monthly_job_category.png}
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 \begin{itemize}
-    \item Mismatch across prefectures is around 0.1.
+    \item Mismatch across prefectures increases to around 0.1.
     \item Mismatch across job categories increases to 0.3.
 \end{itemize}
 
@@ -586,10 +723,12 @@
 
 \begin{frame}{Summary of short time trends}
     \begin{itemize}
-        \item Matching efficiency
-        \item Matching elasticities
-        \item Mismatch across prefectures
-        \item Mismatch across industries
+        \item Matching efficiency \textbf{decreases}.
+        \item Mismatch across prefectures increases to 0.1.
+        \item Mismatch across industries increases to 0.3.
+        \begin{itemize}
+            \item Previous studies (0.2) are underestimated.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -597,15 +736,16 @@
     \begin{itemize}
       \item Contributions and Findings
       \begin{itemize}
-          \item Nonparametric approach and its finite sample performance
+          \item Examine nonparametric approach and its finite sample performance.
           \item Compute nonparametric mismatch index.
-          \item Matching efficiency decreases and is driven by full-time one
+          \item Matching efficiency decreases and is driven by both full-time and part-time.
           \item Mismatch increases in particular across job categories.
       \end{itemize}
       \item Future work
       \begin{itemize}
-          \item Interesting counterfactual
-          \item Endogeneity care formally (Imbens and Newey (2009))
+          \item Examine bias of the Cobb Douglas results
+          \item Interesting counterfactual for a social planner
+          \item Endogeneity issues (Imbens and Newey (2009))
       \end{itemize}
     \end{itemize}
 \end{frame}
