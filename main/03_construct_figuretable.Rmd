@@ -386,29 +386,6 @@ temp <-
     count,
     - time
   )
-temp2 <-
-  utmd_output_hello_work_data_part_time_monthly %>% 
-  dplyr::mutate(
-    `M/U (part)` =
-      `hire`/`unemployed`,
-    `M/V (part)` =
-      `hire`/`vacancies`
-  ) %>% 
-  dplyr::select(
-    `M/U (part)`,
-    `M/V (part)`,
-    time
-  ) %>% 
-  tidyr::gather(
-    type,
-    count,
-    - time
-  )
-temp <-
-  rbind(
-    temp,
-    temp2
-  )
 
 x <- 
   ggplot(
