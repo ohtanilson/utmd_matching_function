@@ -51,17 +51,19 @@
 I examine changes in matching efficiency and elasticities in Japan's labor market via Hello Work for unemployed workers from January 1972 to April 2024. 
 Using a nonparametric identification approach by \cite{lange2020beyond}, I find a declining trend in matching efficiency, consistent with decreasing job and worker finding rates. 
 The implied match elasticity with respect to unemployment is 0.5-0.9, whereas the implied match elasticity with respect to vacancies is 0.1-0.4.
-Decomposing aggregate data into full-time and part-time ones, I find that the sharp decline of matching efficiency after COVID-19 shown in the aggregate trend is driven by the decline of full-time one.
-\textcolor{blue}{Then, I extend geographical mismatch index to nonparametric version and find that XXX}.
-\textcolor{blue}{Finally, I examine finite sample performance of esimation via detailed Monte Carlo simulation and find that nonstationarity and independence can be relaxed.}
-%\textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight the challenges in comparing matching elasticity across different datasets due to scale normalization differences.
+Decomposing aggregate data into full-time and part-time ones, I find that the sharp decline of matching efficiency after 2015 shown in the aggregate trend is driven by the decline of both full-time and part-time ones.
+Second, I extend the mismatch index proposed by \cite{csahin2014mismatch} to the nonparametric version and develop the computational methodology. 
+I find that the mismatch across job categories is more severe than across prefectures and the original Cobb Douglass mismatch index is underestimated.
+
 
 %100 words AER
-\textbf{Keywords}: XXX \\
-\textbf{JEL code}: XXX
+\textbf{Keywords}: matching efficiency, mismatch \\
+\textbf{JEL code}: E24, J61, J62, J64
 \end{abstract}
 
 \section{Introduction}
+
+\textcolor{blue}{[TBA] Introduction}
 
 \begin{itemize}
     \item Research question: 
@@ -69,12 +71,11 @@ Decomposing aggregate data into full-time and part-time ones, I find that the sh
         \item Finite sample performance of nonparametric efficiency?
         \item Nonparametric mismatch
         \item How has the matching efficiency in the labor market for the unemployed workers changed in Japan in 1972-2024?
-        \item \cite{patterson2016working}
     \end{enumerate}
     %\item One more contribution. Pre- and Post-COVID.
 \end{itemize}
 
-The methodological contribution of this paper is that \textcolor{blue}{[TBA] }.
+The methodological contribution of this paper is that \textcolor{blue}{[TBA] (1) points out the bias of traditional Cobb-Douglas, (2) finite sample performance, and (3) nonparametric mismatch index}.
 
 The main empirical findings of this paper are twofold.
 First, matching efficiency (normalized to 1972) in the labor market via  Hello Work shows a declining trend with notable fluctuations, which is consistent with downward trends of job and worker finding rates.
@@ -82,22 +83,56 @@ This might be because matching opportunity out of the government-operated platfo
 Implied match elasticity with respect to unemployment is 0.5-0.9, which is comparable to previous worldwide findings such as \cite{petrongolo2001looking} (the range in 0.5-0.7) and Japanese studies.
 On the other hand, implied match elasticity with respect to vacancies is 0.1-0.4, which is comparable to \cite{lange2020beyond} (0.15-0.3) and Japanese studies.
 
-Second, \textcolor{blue}{[TBA] Geographical Mismatch results XXX}.
+Second, substantial mismatch are observed in both prefecture-level and industry-level and the trend is upward with fluctuations.
+In particular, the mismatch across industries is about 0.3 which is larger than previous studies such as \cite{shibata2020labor} and \cite{higashi2023did}.
+The nonparametric mismatch index highlights the downward bias of the original Cobb-Douglas mismatch index through Monte Carlo simulation and empirical application.
 
 
 \subsection{Related Literature}
 This paper contributes to the three strands of literature.
-First, I examine the trend of matching efficiency in Japanese labor markets via Hello Work nonparametrically using a novel approach \citep{lange2020beyond}, which show how to nonparametrically identify the matching function and estimate the matching function allowing for unobserved matching efficacy, without imposing the usual independence assumption between matching efficiency and search on either side of the labor market, allowing for multiple types of jobseekers.
-\cite{lange2020beyond} highlight positive correlations between efficiency and market structure such as tightness and so on, which induces a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in the traditional Cobb Douglas matching function with constant elasticity parameters.\footnote{\cite{brancaccio2020geography,brancaccio2023search} apply the method to estimate matching function in exporter-ship transactions in the global bulk shipping market. \cite{brancaccio2020guide} summarize practical issues.} 
-Implementing their approach, I add updated results from the more flexible approach to the existing findings reported in \cite{kano2005estimating}, \cite{kambayashi2006vacancy}, \cite{sasaki2008matching}, and \cite{higashi2018spatial} using the traditional Cobb Douglas matching function with geographical and occupational category fixed effects to capture geographical and occupational heterogeneity.
+First, I examine the trend of matching efficiency in Japanese labor markets via Hello Work nonparametrically using a novel approach \citep{lange2020beyond}, which shows how to nonparametrically identify the matching function and estimate the matching function allowing for unobserved matching efficacy, without imposing the usual independence assumption between matching efficiency and search on either side of the labor market, allowing for multiple types of jobseekers.
+\cite{lange2020beyond} highlight positive correlations between efficiency and market structure such as tightness and so on, which induces a positive bias in the estimates of the vacancy elasticity whenever unobserved matching efficacy is not controlled for, as is the case in the traditional Cobb-Douglas matching function with constant elasticity parameters.\footnote{\cite{brancaccio2020geography,brancaccio2023search} apply the method to estimate matching function in exporter-ship transactions in the global bulk shipping market. \cite{brancaccio2020guide} summarize practical issues.} 
+Implementing their approach, I add updated results from the more flexible approach to the existing findings reported in \cite{kano2005estimating}, \cite{kambayashi2006vacancy}, \cite{sasaki2008matching}, and \cite{higashi2018spatial} using the traditional Cobb-Douglas matching function with geographical and occupational category fixed effects to capture geographical and occupational heterogeneity.
+Table \ref{tb:previous_literature} summarizes the previous findings.
 My findings are also useful for comparison with other countries' results reported in \cite{bernstein2022matching} and \cite{petrongolo2001looking}.
 
-Second, this paper contributes to the literature on mismatch \cite{csahin2014mismatch}. In the context of Japanese labor markets, several papers estimate mismatch at geographical- and industry-level using Cobb Douglass specification \citep{shibata2013labor,shibata2020labor,kawata2016multi,higashi2018spatial,kawata2019,higashi2020effects,higashi2021agglomeration,higashi2023did}. 
+\begin{table}[!htbp]
+  \begin{center}
+      \caption{Estimation results of the aggregate matching function in Japan}
+      \begin{tabular}{|lcccccc|} \hline
+   Paper &  CRS & FE & Estimation & Sample & $\frac{d \log M}{d log U}$ & $\frac{d \log M}{d log V}$\\ 
+   \hline
+   \cite{kano2005estimating} &  yes & yes & OLS & 1973--1999 & 0.56-0.59& 0.29-0.3\\ 
+\cite{kambayashi2006vacancy} &  no & yes & OLS & 1996--2001 & 0.81& 0.30\\ 
+\cite{sasaki2008matching} &  yes & no & OLS & 1982--2016 & & 0.38-0.45\\ 
+\cite{shibata2013labor} &  yes & no & GMM & 2000--2013 & & 0.4\\ 
+   \cite{shibata2020labor} &  yes & no & GMM & 2000--2019 & & 0.34-0.4\\ 
+\cite{kawata2016multi} &  yes & yes & IV & 2000--2009 & & 0.51-0.6\\ 
+\cite{kawata2019} &  yes & yes & OLS & 2012--2016 & & 0.52\\ 
+\cite{higashi2018spatial} &  yes & no & OLS & 2008--2016 & 0.37-0.46& 0.17-0.24\\ 
+\cite{higashi2020effects} &  yes & no & OLS & 2006--2016 & 0.48& 0.17\\ 
+\cite{higashi2021agglomeration} &  yes & no & OLS, 2SLS & 2008--2018 & 0.22-0.46& 0.15-0.31\\ 
+\cite{higashi2023did} &  yes & yes & OLS & 2016--2021& Calibrate & Calibrate \\ 
+   \hline
+ \end{tabular}
+ \label{tb:previous_literature} 
+  \end{center}
+  \footnotesize
+  Note: All models use a Cobb–Douglas matching function. Constant-returns-to-scale (CRS) imposes restriction on matching elasticity parameters in estimation. Fixed effect (FE) captures geographical-level and time-level heterogeneity. Estimation Instrument Variable (IV), Two-Stage-Least-Square (2SLS), and Generalized Method of Moments (GMM) based on \cite{borowczyk2013accounting} use instruments in the specific context. Blank cells mean no reported results.
+\end{table} 
+
+
+Second, this paper contributes to the literature on mismatch \cite{csahin2014mismatch}. 
+The approach is widely used in a variety of contexts, for example, United Kingdom in \cite{patterson2016working}.
+In the context of Japanese labor markets, several papers estimate mismatch at geographical- and industry-level using Cobb-Douglas specification \citep{shibata2013labor,shibata2020labor,kawata2016multi,higashi2018spatial,kawata2019,higashi2020effects,higashi2021agglomeration,higashi2023did}. 
+This paper points out that Cobb-Douglas specification cancels out time variations of matching efficiency which induce bias of the mismatch index. Then, this paper proposes the nonparametric version of the mismatch index, and applies a novel computational method known as Mathematical Programming with Equilibrium Constraint (MPEC) proposed by \cite{su2012constrained,dube2012improving} to calculate the geographical- and industry-level mismatch index.
 
 
 Third, this paper contributes to the literature on the impact of COVID-19 on the matching efficiency of the worker-vacancy platform operated by the government. 
 Due to the extensive volume of literature relevant to this topic, I will not provide a comprehensive list of all sources to maintain clarity and conciseness. 
-The most closely related paper in my context is \cite{fukai2021describing}, which utilizes the Labor Force Survey, a large-scale government statistic, to estimate the group average treatment effect of COVID-19 on employment status for each month from January to June 2020. 
+The most closely related papers in my context are \cite{higashi2023did} and \cite{fukai2021describing}. 
+\cite{higashi2023did} estimate mismatch indices for local labor markets clustered in by occupations vulnerable and not vulnerable to COVID-19 by assuming Cobb-Douglas matching function with calibrated matching elasticity parameters.
+\cite{fukai2021describing} utilize the Labor Force Survey, a large-scale government statistic, to estimate the group average treatment effect of COVID-19 on employment status for each month from January to June 2020. 
 To the best of my knowledge, this is the first paper to describe changes in matching efficiency before and after COVID-19 using a novel nonparametric approach.
 
 % Third, I point out technical issues about scale normalization of matching efficiency on \cite{lange2020beyond}, which induces difficulty in comparing the estimated elasticities with respect to unemployed interacted with match efficiency across different datasets.
@@ -119,11 +154,11 @@ Also, denote by $F(A, U)$ the joint distribution of $A$ and $U$.
 
 I identify the matching function as well as unobserved, time-varying matching efficiency, $A .$ 
 First, I assume that $V$ and $A$ are independent conditional on $U$, that is, $A \perp V \mid U$. 
-Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale (CRS). 
+Second, I assume that the matching function $m(AU,V):\mathbb{R}_{+}^2 \rightarrow \mathbb{R}$ has constant returns to scale (CRS).\footnote{To follow the original model of \cite{matzkin2003nonparametric}, we can rewrite $H=m(AU,V)$ into $H/U=m(A,V/U)$ under CRS. Here, $H/U$ and $V/U$ are known as a job-finding rate and market tightness.} 
 Then, by applying nonparametric identification results of \cite{matzkin2003nonparametric}, Proposition 1 of \cite{lange2020beyond} proves that $G(H, U, V)$ identifies $F(A, U)$ and $m(A U, V): \mathbb{R}_{+}^2 \rightarrow \mathbb{R}_{+}$ up to a normalization of $A$ at one point denoted as $A_0$ of the support of $(A, U, V)$.\footnote{In Section \ref{sec:monte_carlo}, I report finite sample performance and methodological extension with Monte Carlo simulation. Based on simulation results with sample size $T=50$, the sample size in this paper is enough to recover matching efficiency well. The code is available on the author's Github. Also, see \cite{brancaccio2020guide} for practical issues. The approach is used to estimate a matching function in a trade model \citep{brancaccio2020geography,brancaccio2023search}.}
 
-\subsection{Mismatch}
-I construct a mismatch index which is a measure of the fraction of hires foregone due to mismatch. 
+\subsection{Nonparametric mismatch}
+I construct a nonparametric version of a mismatch index which is a measure of the fraction of hires foregone due to mismatch. 
 Suppose there are $G$ local markets in time $t$ with a given number of vacancies, unemployed workers, and aggregate matching efficiencies in the economy.
 The number of hires $H_{gt}$ in market $g$ in time $t$ is determined by a matching function $ m(A_{gt}U_{gt},V_{gt})$. 
 Note that, unlike \cite{csahin2014mismatch}, I allow any specification of $m$ satisfying CRS and independence of $A_{gt}$ and $U_{gt}$ conditional on $V_{gt}$.
@@ -137,7 +172,7 @@ Under the assumptions of homogenous productivity and job separation rate across 
 \end{align}
 where $*$ denotes the planner's allocation.
 The equilibrium condition means that keeping total unemployed workers $U_{t}=\sum_{g=1}^{G}U_{gt}$, the planner allocates more unemployed workers to more effective labor markets, that is, with more vacancies and higher matching efficiency until their marginal contribution to the hires is equalized across markets.
-The main difference from \cite{csahin2014mismatch} is that equilibrium condition \eqref{eq:equilibrium_condition} does not have an analytical formula like Cobb Douglas specification.
+The main difference from \cite{csahin2014mismatch} is that equilibrium condition \eqref{eq:equilibrium_condition} does not have an analytical formula like Cobb-Douglas specification.
 In Section \ref{sec:mismatch_computation}, I explain how to compute the optimal allocation of unemployed workers numerically.
 
 Using optimal allocation of unemployed workers $U_{gt}^{*}$, the aggregate actual and optimal number of new hires can be expressed as
@@ -189,64 +224,27 @@ the elasticity of the matching function.\footnote{The matching elasticity with r
 
 \subsection{Mismatch}\label{sec:mismatch_computation}
 
-Unlike Cobb Douglas specification of \cite{csahin2014mismatch}, equilibrium condition \eqref{eq:equilibrium_condition} does not have an analytical formula. [TBA]
+Unlike the original Cobb-Douglas specification of \cite{csahin2014mismatch}, equilibrium condition \eqref{eq:equilibrium_condition} does not have an analytical formula. 
+Instead, I employ the Mathematical Programming with Equilibrium Constraint (MPEC) approach proposed by \cite{su2012constrained} and \cite{dube2012improving}.
+The constrained optimization problem in time $t$ is defined as follows.
+\begin{align}
+    \max_{U_{1t},\cdots,U_{Gt}} & \sum_{g=1}^{G}m_{gt}\left(A_{gt}U_{gt},V_{gt}\right),\\
+    \text{subject to }\frac{\partial m}{\partial U}\left(A_{1t}U_{1t}^{*},V_{1t}\right)&=\cdots=\frac{\partial m}{\partial U}\left(A_{Gt}U_{Gt}^{*},V_{Gt}\right) ,\nonumber\\
+    U_{t}&=\sum_{g=1}^{G}U_{gt}.\nonumber
+\end{align}
+Maximizing the objective function is equivalent to solving equilibrium conditions \eqref{eq:equilibrium_condition} so that the central planner's problem represents a nonlinear system of equations with linear equilibrium constraints.
+I solve the model by using \texttt{Ipopt.jl} and \texttt{JuMP.jl} which is often used for the MPEC approach.
+Note that the formulation allows us to incorporate a rich set of additional equilibrium constraints and elements such as the government's costs of moving unemployed workers from some markets to other markets for calibration studies, which is out of the scope of this paper.
 
 
-\section{Simulation results}\label{sec:monte_carlo}
-
-\begin{itemize}
-    \item We want to check robustness to specification, stationarity, and endogeneity.
-    \begin{itemize}
-        \item Restricting CRS class
-        \item robustness to violation of independence of $A$ and $U$ conditional on $V$
-    \end{itemize}
-    \item We want to confirm how large enough the sample size is.
-    \item We want to quantify the bias of the standard Cobb Douglass specification 
-\end{itemize}
-\begin{frame}{Setup}
-    \begin{itemize}
-    \item sample size $T=10,20,30,40,50,100$
-    \item CRS class specification of $m$
-    \item stationarity of $(A,U,V)$
-    \item endogeneity of $(A,U,V)$
-    \item Other tuning parameter: kernel choice and bandwidth  \textcolor{blue}{[Now fixed]}
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Illustrative fitting plot}
-\begin{itemize}
-    \item With and without stationary
-    \item With and without endogeneity
-\end{itemize}
-    
-\end{frame}
-
-\begin{frame}{Monte Carlo simulation results}
-\begin{itemize}
-    \item Specification 1: each cell shows IMSE
-    \begin{itemize}
-        \item X axis $T=10,20,30,40,50,100$ 
-        \item Y1 axis stationarity level
-        \item Y2 axis endogeneity level
-    \end{itemize}
-    \item Specification 2: each cell shows IMSE
-    \begin{itemize}
-        \item X axis $T=10,20,30,40,50,100$ 
-        \item Y1 axis stationarity level
-        \item Y2 axis endogeneity level
-    \end{itemize}
-    
-\end{itemize}
-    
-\end{frame}
 
 
 \section{Data}
 
-I use the Report on Employment Service (\textit{Shokugyo Antei Gyomu Tokei}) for the month-level aggregate data from January 1972 to April 2024. 
+First, I use the Report on Employment Service (\textit{Shokugyo Antei Gyomu Tokei}) for the month-level aggregate data from January 1972 to April 2024. 
 These datasets include the number of job openings, job seekers, and successful job placements, primarily sourced from the Ministry of Health, Labour and Welfare (MHLW) of Japan, which publishes monthly reports and statistical data on the Public Employment Security Office, commonly known as Hello Work. 
 Hello Work is a government-operated institution in Japan that provides job seekers with employment counseling, job placement services, and vocational training, playing a critical role in Japan's labor market. 
-The data is often used as in \cite{kano2005estimating}, \cite{kambayashi2006vacancy}, \cite{sasaki2008matching}, and \cite{higashi2018spatial} estimating the traditional Cobb Douglas matching function.
+The data is often used as in \cite{kano2005estimating}, \cite{kambayashi2006vacancy}, \cite{sasaki2008matching}, and \cite{higashi2018spatial} estimating the traditional Cobb-Douglas matching function.
 Using up-to-date Hello Work data, \cite{kawata2021first} construct a simple framework to quantitatively measure the impacts of an economic shock of COVID-19 on unemployed workers’ welfare in their companion project.\footnote{\url{https://www.crepe.e.u-tokyo.ac.jp/material/crepecl12.html}: Accessed 2024 June 6.} 
 The period for my dataset is selected to ensure the longest consistent timeframe available at the time of writing this paper.
 In Appendix \ref{sec:year_data}, we provide additional analysis using the year-level aggregate data in more extended periods, available from January 1963 to April 2024, instead of month-level one.
@@ -258,9 +256,9 @@ The third is the number for part-time workers and jobs.
 The first is the sum of the second and third.
 Using the three types of data, I can decompose the labor market features into full-time and part-time ones.
 
-\textcolor{blue}{[TBA] Second, note that \cite{kawata2019} and \cite{higashi2018spatial} focus on worker-job mismatch across regions and occupation categories after 2012, but I do not consider these submarkets because of the revision of job classifications before and after 2012, which makes it difficult to accurately connect the data.}
-
-
+Second, for estimating nonparametrically worker-job mismatch across regions and occupation categories, I use these submarket data in 2012-2024. 
+The period limitation shared with \cite{kawata2019} and \cite{higashi2018spatial} is due to the revision of job classifications before and after 2012, which makes it difficult to accurately connect the data. 
+Finally, I use all 47 prefectures and 67 job categories in each month as submarkets.
 
 
 
@@ -413,7 +411,7 @@ This confirms that positive correlations between efficiency and market structure
 
 \subsection{Prefecture-level aggregate results in 2012-2024}
 
-Figure \ref{fg:month_part_and_full_time_matching_efficiency_prefecture_results}
+Figure \ref{fg:month_part_and_full_time_matching_efficiency_prefecture_results} displays the month-prefecture level matching efficiency, normalized to 2013 January Tokyo, across different regions of Japan from 2012 to 2024. Each panel shows the efficiency trends within a specific region, highlighting notable regional variations. For instance, the Tohoku region (panel b) and Chubu region (panel d), which are rural areas, exhibit relatively high volatility and generally higher efficiency values compared to other regions, suggesting greater variability in matching efficiency. In contrast, regions such as Kanto (panel c) and Kansai (panel e) show more stable and lower efficiency levels. The Tohoku area is about twice as efficient as the Tokyo area. These patterns suggest that regional economic factors and labor market conditions significantly influence matching efficiency across Japan.
 
 
 
@@ -436,14 +434,17 @@ Figure \ref{fg:month_part_and_full_time_matching_efficiency_prefecture_results}
   {figuretable/matching_efficiency_month_aggregate_shikoku.png}}
   \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.37\textwidth]
   {figuretable/matching_efficiency_month_aggregate_kyushu.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-prefecture level matching efficiency 2012-2024}
   \label{fg:month_part_and_full_time_matching_efficiency_prefecture_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 
-Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_prefecture_results}
+Figures \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_prefecture_results} and \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_prefecture_results} illustrate matching elasticities with respect to unemployed and vacancies in 2012-2024. 
+There is significant regional heterogeneity within the specific region.
+The matching elasticities with respect to unemployed and vacancies are 0.6-0.8 and 0.05-0.3 on average.
+
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[Hokkaido]{\includegraphics[width = 0.37\textwidth]
@@ -463,14 +464,15 @@ Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_pr
   {figuretable/elasticity_unemployed_month_aggregate_shikoku.png}}
   \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.37\textwidth]
   {figuretable/elasticity_unemployed_month_aggregate_kyushu.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-prefecture level matching elasticity with respect to unemployed 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_prefecture_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 
-Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_prefecture_results}
+
+        
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[Hokkaido]{\includegraphics[width = 0.37\textwidth]
@@ -490,22 +492,20 @@ Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_prefe
   {figuretable/elasticity_vacancy_month_aggregate_shikoku.png}}
   \subfloat[Kyusyu, Okinawa]{\includegraphics[width = 0.37\textwidth]
   {figuretable/elasticity_vacancy_month_aggregate_kyushu.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-prefecture level matching elasticity with respect to vacancies 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_prefecture_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 
-\begin{itemize}
-    \item Full-time and part-time results (Appendix) 6 figures.
-    \item \textcolor{blue}{Geographical Mismatch}
-\end{itemize}
-
 \subsection{Job category level results in 2012-2024}
 
-Figure \ref{fg:month_part_and_full_time_matching_efficiency_job_category_results}
+Figure \ref{fg:month_part_and_full_time_matching_efficiency_job_category_results} illustrates significant disparities in matching efficiency across job categories, normalized to 2013 January for clerical jobs. Categories like "Agriculture, Forestry, and Fishing" (panel f) and "Construction and Mining" (panel i) in primary and secondary industries exhibit high volatility and generally higher efficiency levels. In contrast, job categories such as "Security" (panel k) and "Service" (panel e) display more stable and lower efficiency values. These variations highlight the diverse nature of labor market dynamics across different sectors, influenced by factors such as skill specialization, economic cycles, and industry-specific demand fluctuations.
 
+%Clerical jobs are heterogeneous within the industries.
+
+Primary industries show higher efficiency than tertiary industries.
 
 \begin{figure}[!ht]
   \begin{center}
@@ -531,7 +531,7 @@ Figure \ref{fg:month_part_and_full_time_matching_efficiency_job_category_results
   {figuretable/matching_efficiency_month_aggregate_transportation_cleaning_and_packaging.png}}
   \subfloat[security]{\includegraphics[width = 0.30\textwidth]
   {figuretable/matching_efficiency_month_aggregate_security.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-job category level matching efficiency results 2012-2024}
   \label{fg:month_part_and_full_time_matching_efficiency_job_category_results} 
   \end{center}
   \footnotesize
@@ -539,6 +539,8 @@ Figure \ref{fg:month_part_and_full_time_matching_efficiency_job_category_results
 \end{figure} 
 
 Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_job_category_results}
+
+
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[managerial]{\includegraphics[width = 0.30\textwidth]
@@ -563,7 +565,7 @@ Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_jo
   {figuretable/elasticity_unemployed_month_aggregate_transportation_cleaning_and_packaging.png}}
   \subfloat[security]{\includegraphics[width = 0.30\textwidth]
   {figuretable/elasticity_unemployed_month_aggregate_security.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-job category level matching elasticity with respect to unemployed 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_job_category_results} 
   \end{center}
   \footnotesize
@@ -571,6 +573,8 @@ Figure \ref{fg:month_part_and_full_time_elasticity_unemployed_month_aggregate_jo
 \end{figure} 
 
 Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_category_results}
+
+
 \begin{figure}[!ht]
   \begin{center}
   \subfloat[managerial]{\includegraphics[width = 0.30\textwidth]
@@ -595,30 +599,50 @@ Figure \ref{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_c
   {figuretable/elasticity_vacancy_month_aggregate_transportation_cleaning_and_packaging.png}}
   \subfloat[security]{\includegraphics[width = 0.30\textwidth]
   {figuretable/elasticity_vacancy_month_aggregate_security.png}}
-  \caption{Month-level aggregate results 2012-2024}
+  \caption{Month-job category level matching elasticity with respect to vacancy 2012-2024}
   \label{fg:month_part_and_full_time_elasticity_vacancy_month_aggregate_job_category_results} 
   \end{center}
   \footnotesize
   %Note: 
 \end{figure} 
 
-\begin{itemize}
-    \item Full-time and part-time results (Appendix) 6 figures.
-    \item \textcolor{blue}{Occupational Category Mismatch}
-\end{itemize}
 
+\subsection{Mismatch in 2012-2024}
 
+Finally, I compute the estimated nonparametric mismatch index in 2012-2024.
+Panel (a) of Figure \ref{fg:mismatch_part_and_full_time_monthly_prefecture} illustrates the estimated nonparametric mismatch index across 47 prefectures from 2014 to 2024. The index, representing the deviation of the actual number of hires from a social planner's optimal one, demonstrates significant seasonal fluctuations throughout the period.
+Mismatch across prefectures increases to around 0.1.
+Notably, there is a discernible upward trend in the index, especially post-2020. This rising trend suggests that the alignment of available jobs and job seekers across different prefectures has become less efficient over time, possibly due to structural changes in the economy, varying impacts of economic policies, or differential recovery rates from economic downturns, such as the COVID-19 pandemic.
+The mismatch level is consistent with \cite{shibata2020labor} and \cite{higashi2023did}. \textcolor{blue}{[TBA]}
 
+Panel (b) of Figure \ref{fg:mismatch_part_and_full_time_monthly_prefecture} shows the mismatch index across different job categories over a similar period. Unlike the prefecture-based mismatch, this index exhibits a more consistent upward trajectory, with less pronounced seasonal variations. 
+The mismatch index across job categories increases to 0.3, which is significantly larger than \cite{shibata2020labor} and \cite{higashi2023did}, which indicates that the standard Cobb-Douglas specification underestimates the mismatch index due to the absence of time-varying matching efficiency and elasticity.
+The steady increase in the mismatch index across job categories points to a growing dissonance between the skills offered by job seekers and the skills demanded by employers. This trend may reflect evolving industry demands, technological advancements, and the lag in the workforce's adaptation to new skills. The sharper rise in the mismatch index post-2020 further suggests that the pandemic may have exacerbated skill mismatches, possibly due to shifts in industry dynamics, such as the acceleration of digital transformation and the differing impacts on various sectors.
 
+\begin{figure}[!ht]
+  \begin{center}
+  \subfloat[Across prefectures]{\includegraphics[width = 0.45\textwidth]
+  {figuretable/mismatch_part_and_full_time_monthly_prefecture.png}}
+  \subfloat[Across job categories]{\includegraphics[width = 0.45\textwidth]
+  {figuretable/mismatch_part_and_full_time_monthly_job_category.png}}
+  \caption{Estimated nonparametric mismatch index}
+  \label{fg:mismatch_part_and_full_time_monthly_prefecture} 
+  \end{center}
+  \footnotesize
+  %Note: 
+\end{figure} 
+
+  
 
 \section{Conclusion}
 
-I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for unemployed workers changed during the period 1972-2024. By applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to monthly data, I find that matching efficiency (normalized to 1972) exhibits a declining trend with notable fluctuations, consistent with the downward trends in job and worker finding rates. \textcolor{blue}{[TBA] Geographical mismatch results.} Finally, I highlight that comparing matching elasticity with respect to the number of unemployed workers across different datasets is challenging due to differences in scale normalization.
+I investigate how matching efficiency in the labor market via Public Employment Security Offices in Japan for unemployed workers changed during the period 1972-2024. By applying a novel nonparametric identification approach proposed by \cite{lange2020beyond} to monthly data, I find that matching efficiency (normalized to 1972) exhibits a declining trend with notable fluctuations, consistent with the downward trends in job and worker finding rates. 
+Finally, I extend the mismatch index proposed by \cite{csahin2014mismatch} to the nonparametric version and find that the mismatch across job categories is more severe than across prefectures and the original Cobb Douglass mismatch index is biased.
 
 
 \paragraph{Acknowledgments}
-I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto, Ryo Kambayashi, Daiji Kawaguchi, Keisuke Kawata, Higashi Yudai for their valuable advice. This work was supported by JST ERATO Grant Number JPMJER2301, Japan.
-
+I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto, Ryo Kambayashi, Higashi Yudai for their valuable advice. This work was supported by JST ERATO Grant Number JPMJER2301, Japan.
+%Daiji Kawaguchi, Keisuke Kawata
 
 
 \bibliographystyle{ecca}
@@ -627,7 +651,57 @@ I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto, Ryo K
 \newpage
 
 \appendix
-\section{Additional figures and tables}\label{sec:year_data}
+\section{Appendix}\label{sec:year_data}
+
+% \section{Simulation results}\label{sec:monte_carlo}
+
+% \begin{itemize}
+%     \item We want to check robustness to specification, stationarity, and endogeneity.
+%     \begin{itemize}
+%         \item Restricting CRS class
+%         \item robustness to violation of independence of $A$ and $U$ conditional on $V$
+%     \end{itemize}
+%     \item We want to confirm how large enough the sample size is.
+%     \item We want to quantify the bias of the standard Cobb-Douglas specification 
+% \end{itemize}
+% \begin{frame}{Setup}
+%     \begin{itemize}
+%     \item sample size $T=10,20,30,40,50,100$
+%     \item CRS class specification of $m$
+%     \item stationarity of $(A,U,V)$
+%     \item endogeneity of $(A,U,V)$
+%     \item Other tuning parameter: kernel choice and bandwidth  \textcolor{blue}{[Now fixed]}
+% \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Illustrative fitting plot}
+% \begin{itemize}
+%     \item With and without stationary
+%     \item With and without endogeneity
+% \end{itemize}
+    
+% \end{frame}
+
+% \begin{frame}{Monte Carlo simulation results}
+% \begin{itemize}
+%     \item Specification 1: each cell shows IMSE
+%     \begin{itemize}
+%         \item X axis $T=10,20,30,40,50,100$ 
+%         \item Y1 axis stationarity level
+%         \item Y2 axis endogeneity level
+%     \end{itemize}
+%     \item Specification 2: each cell shows IMSE
+%     \begin{itemize}
+%         \item X axis $T=10,20,30,40,50,100$ 
+%         \item Y1 axis stationarity level
+%         \item Y2 axis endogeneity level
+%     \end{itemize}
+    
+% \end{itemize}
+    
+%\end{frame}
+
+
 \subsection{Year-level trends in 1966-2023}
 
 \begin{figure}[!ht]
@@ -659,14 +733,17 @@ I thank Fuhito Kojima, Kosuke Uetake, Akira Matsushita, Kazuhiro Teramoto, Ryo K
 Figures \ref{fg:year_results} provide a year-level counterpart to Figure \ref{fg:month_part_and_full_time_results}. 
 The findings in the main text remain valid.
 
+\subsection{Additional figures and tables}
+
 Table \ref{tb:job_category_list} provides job category list.
 
 \begin{itemize}
-    \item \textcolor{blue}{[TBA] Check the previous Japanese studies meticulously again and construct the list of elasticity results. (RA)}
-    \item Add \cite{kawata2021first}?
+    \item \textcolor{blue}{Extend nonparametric version of \cite{kawata2021first}?}
     %\item \textcolor{blue}{[TBA] Lasso for deriving elasticities like \cite{lange2020beyond}? (RA)}
     %\item \textcolor{blue}{[TBA] Labor force $L$ data for plotting Beveridge Curve divided by $L$ for comparison of \cite{elsby2015beveridge} (RA)}
 \end{itemize}
+
+
 
 % Figures \ref{fg:year_results} (a)-(d) provide annual data patterns of unemployed individuals, vacancies, labor market tightness (\(V/U\)), hires, the  ($U$,$V$) relationship, and job and worker finding rates (\(M/U\) and \(M/V\)). In summary, the numbers of unemployed individuals and vacancies increase with fluctuations, corresponding with market tightness, while the number of hires shows a noticeable decline until around the mid-1980s, peaks and troughs from the mid-1980s to the late 1990s, and a sharp decline towards recent years.
 
