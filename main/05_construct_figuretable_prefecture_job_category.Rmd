@@ -164,7 +164,13 @@ generate_efficiency_plot <-
       target_y_label <-
         "A (normalized to 2013 Jan Clerical)"
     }
-    
+    if(cross_sectional_target == "prefecture"){
+      y_upper_bound <-
+        600
+    }else{
+      y_upper_bound <-
+        1000
+    }
     x <- 
       ggplot(
         target_data %>% 
@@ -192,9 +198,10 @@ generate_efficiency_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=7))+
+            legend.text = element_text(size=6))+
       #theme(axis.text.x = element_text(angle=60, vjust=1, hjust=1, size=3.0)) +
       xlab("") +
+      ylim(0, y_upper_bound) +
       ylab(target_y_label) +
       labs(colour = "") +
       #geom_vline(xintercept = 2002, linetype = "longdash") +
@@ -263,7 +270,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=7))+
+            legend.text = element_text(size=6))+
       xlab("") +
       ylab("log(M) w.r.t. log(V)") +
       labs(colour = "") +
@@ -310,7 +317,7 @@ generate_elasticity_plot <-
       theme_classic() + 
       #scale_color_viridis_d() +
       theme(legend.position = 'top',
-            legend.text = element_text(size=7))+
+            legend.text = element_text(size=6))+
       xlab("") +
       ylab("log(M) w.r.t. log(AU)") +
       labs(colour = "") +
