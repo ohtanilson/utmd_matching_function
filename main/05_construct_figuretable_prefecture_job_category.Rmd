@@ -155,6 +155,8 @@ generate_efficiency_plot <-
         )
       target_y_label <-
         "A (normalized to 2013 Jan Tokyo)"
+      y_upper_bound <-
+        600
     } else if(cross_sectional_target == "job_category"){
       target_data <-
         target_data %>% 
@@ -163,11 +165,6 @@ generate_efficiency_plot <-
         )
       target_y_label <-
         "A (normalized to 2013 Jan Clerical)"
-    }
-    if(cross_sectional_target == "prefecture"){
-      y_upper_bound <-
-        600
-    }else{
       y_upper_bound <-
         1000
     }
@@ -235,12 +232,20 @@ generate_elasticity_plot <-
         dplyr::rename(
           target_var = prefecture_english
         )
+      y_upper_bound_elasticity_unemployed <-
+        1.4
+      y_upper_bound_elasticity_vacancy <-
+        0.8
     } else if(cross_sectional_target == "job_category"){
       target_data <-
         target_data %>% 
         dplyr::rename(
           target_var = job_kinds_english
         )
+      y_upper_bound_elasticity_unemployed <-
+        1.8
+      y_upper_bound_elasticity_vacancy <-
+        6.0
     }
     # elastiticy w.r.t. vacancy
     x <- 
@@ -273,6 +278,7 @@ generate_elasticity_plot <-
             legend.text = element_text(size=6))+
       xlab("") +
       ylab("log(M) w.r.t. log(V)") +
+      ylim(0, y_upper_bound_elasticity_vacancy) +
       labs(colour = "") +
       # geom_vline(xintercept = 1980, linetype = "longdash") +
       # geom_vline(xintercept = 1984, linetype = "longdash") +
@@ -321,6 +327,7 @@ generate_elasticity_plot <-
       xlab("") +
       ylab("log(M) w.r.t. log(AU)") +
       labs(colour = "") +
+      ylim(0, y_upper_bound_elasticity_unemployed) +
       # geom_vline(xintercept = 1980, linetype = "longdash") +
       # geom_vline(xintercept = 1984, linetype = "longdash") +
       scale_color_viridis_d()
